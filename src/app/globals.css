@@ -28,8 +28,8 @@
   /* Custom brand tokens */
   --brand-accent: #2563eb;
   --brand-accent-dark: #1d4ed8;
-  --brand-cta: #f97316;
-  --brand-cta-dark: #ea580c;
+  --brand-cta: #2563eb;
+  --brand-cta-dark: #1d4ed8;
   --brand-surface: #f8fafc;
 }
 

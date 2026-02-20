@@ -44,7 +44,7 @@ export default function Process() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((item, i) => (
             <FadeIn key={item.step} delay={i * 100}>
-              <div className="relative p-6">
+              <div className="relative p-6 rounded-xl border border-border">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg bg-brand-accent/5 flex items-center justify-center">
                     <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />

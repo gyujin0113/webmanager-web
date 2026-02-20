@@ -37,7 +37,7 @@ This is a **static landing page** for "Generalist Lab," a Korean web agency. It 
 - **Client vs Server**: Most components are server components. Only `FadeIn`, `TextReveal`, `DotNav`, and `FAQ` use `"use client"` (for Intersection Observer or useState).
 - **Design tokens**: `globals.css` uses shadcn/ui CSS variable system (`:root` → `@theme inline`). Two layers of color tokens:
   - **shadcn system colors**: `primary`, `secondary`, `muted`, `accent`, `destructive` — used by shadcn components.
-  - **Brand colors**: `brand-accent` (blue, `#2563eb`), `cta` (orange, `#f97316`), `surface` (light bg) — use `text-brand-accent`, `bg-brand-accent`, `text-cta` etc.
+  - **Brand colors**: `brand-accent` (blue, `#2563eb`), `cta` (blue, `#2563eb`), `surface` (light bg) — use `text-brand-accent`, `bg-brand-accent`, `text-cta` etc. 전체적으로 블루톤 통일.
 - **Static export**: `images.unoptimized: true` in next.config.ts. No API routes, no server features.
 
 ### Path Alias
@@ -51,5 +51,5 @@ This is a **static landing page** for "Generalist Lab," a Korean web agency. It 
 - **세련되되 과하지 않게**: Exaggerated Minimalism 기조. 큰 타이포그래피, 넓은 여백, black/white 기반에 단일 accent 컬러. 화려한 효과보다 정돈된 느낌이 우선.
 - **최신 트렌드 반영**: scroll snap, per-character text reveal, Intersection Observer 기반 스크롤 애니메이션 등 모던 웹 기법을 적극 활용. 새로운 기능 추가 시에도 최신 CSS/JS 패턴을 우선 검토할 것.
 - **이모지 금지, SVG 아이콘 사용**: 모든 아이콘은 lucide-react SVG로 통일. 이모지는 비전문적으로 보인다.
-- **CTA는 warm color(orange)**: 정보성 요소(accent blue)와 행동 유도 요소(CTA orange)를 컬러로 명확히 분리.
+- **CTA도 블루톤으로 통일**: 정보성 요소와 행동 유도 요소 모두 brand blue(`#2563eb`)로 통일하여 일관된 톤 유지.
 - **타겟 고객은 IT 비전문 사업자**: 기술 용어를 최소화하고, 문장은 쉽고 직관적으로. "Core Web Vitals"보다 "속도 2배 빠르게" 식으로.

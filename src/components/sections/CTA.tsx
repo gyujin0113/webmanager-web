@@ -7,18 +7,19 @@ export default function CTA() {
       <div className="flex-1 flex items-center">
         <Container>
           <FadeIn>
-            <div className="rounded-3xl bg-foreground text-white py-16 px-8 text-center">
+            <div className="rounded-3xl border border-border py-16 px-8 text-center">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
                 지금 바로 시작하세요
               </h2>
-              <p className="mt-4 text-white/60 max-w-lg mx-auto">
-                무료 상담을 통해 현재 사이트의 개선 포인트와 예상 비용을
-                안내받으세요. 부담 없이 문의해 주세요.
+              <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
+                무료 상담을 통해 현재 사이트의 개선 포인트와 예상 비용을 안내받으세요.
+                <br />
+                부담 없이 문의해 주세요.
               </p>
               <div className="mt-8">
                 <a
                   href="https://open.kakao.com/"
-                  className="inline-flex items-center justify-center rounded-lg px-8 py-3.5 text-sm font-medium border border-white/20 hover:border-white text-cta cursor-pointer transition-all duration-200"
+                  className="inline-flex items-center justify-center rounded-lg px-8 py-3.5 text-sm font-medium border border-border hover:border-foreground text-cta cursor-pointer transition-all duration-200"
                 >
                   무료 상담 신청하기
                 </a>
