@@ -58,7 +58,7 @@ export default function TextReveal({
                   visible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-3"
-                } ${seg.highlight ? "text-accent" : ""}`}
+                } ${seg.highlight ? "text-brand-accent" : ""}`}
                 style={{
                   transitionDelay: visible ? `${idx * charDelay}ms` : "0ms",
                 }}

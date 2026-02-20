@@ -38,7 +38,7 @@ export default function Solution() {
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               Generalist Lab이 해결합니다
             </h2>
-            <p className="mt-4 text-muted">
+            <p className="mt-4 text-muted-foreground">
               더 나은 방식으로, 더 합리적인 가격에.
             </p>
           </div>
@@ -46,12 +46,12 @@ export default function Solution() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {solutions.map((item, i) => (
             <FadeIn key={item.title} delay={i * 100}>
-              <div className="rounded-2xl p-6 border border-border hover:border-accent/20 transition-colors duration-300 h-full">
-                <div className="w-10 h-10 rounded-lg bg-accent/5 flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-accent" strokeWidth={1.5} />
+              <div className="rounded-2xl p-6 border border-border hover:border-brand-accent/20 transition-colors duration-300 h-full">
+                <div className="w-10 h-10 rounded-lg bg-brand-accent/5 flex items-center justify-center">
+                  <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />
                 </div>
                 <h3 className="mt-4 text-base font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed">
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {item.description}
                 </p>
               </div>

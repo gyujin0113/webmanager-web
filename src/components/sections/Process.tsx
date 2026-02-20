@@ -36,7 +36,7 @@ export default function Process() {
         <FadeIn>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">진행 과정</h2>
-            <p className="mt-4 text-muted">
+            <p className="mt-4 text-muted-foreground">
               상담부터 운영까지, 4단계로 심플하게.
             </p>
           </div>
@@ -46,15 +46,15 @@ export default function Process() {
             <FadeIn key={item.step} delay={i * 100}>
               <div className="relative p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-accent/5 flex items-center justify-center">
-                    <item.icon className="w-5 h-5 text-accent" strokeWidth={1.5} />
+                  <div className="w-10 h-10 rounded-lg bg-brand-accent/5 flex items-center justify-center">
+                    <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />
                   </div>
-                  <span className="text-xs font-bold text-muted tracking-widest">
+                  <span className="text-xs font-bold text-muted-foreground tracking-widest">
                     STEP {item.step}
                   </span>
                 </div>
                 <h3 className="text-lg font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted leading-relaxed">
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {item.description}
                 </p>
                 {i < steps.length - 1 && (

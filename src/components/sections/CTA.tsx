@@ -27,7 +27,7 @@ export default function CTA() {
           </FadeIn>
         </Container>
       </div>
-      <footer className="border-t border-border py-6 text-sm text-muted">
+      <footer className="border-t border-border py-6 text-sm text-muted-foreground">
         <Container className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>&copy; 2025 Generalist Lab. All rights reserved.</p>
           <a href="mailto:hello@generalistlab.com" className="hover:text-foreground transition-colors cursor-pointer">

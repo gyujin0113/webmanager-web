@@ -2,7 +2,7 @@ import Container from "@/components/ui/Container";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border py-8 text-sm text-muted">
+    <footer className="border-t border-border py-8 text-sm text-muted-foreground">
       <Container className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <p>&copy; 2025 Generalist Lab. All rights reserved.</p>
         <div className="flex gap-6">

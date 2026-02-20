@@ -16,6 +16,10 @@ This is a **static landing page** for "Generalist Lab," a Korean web agency. It 
 
 - Next.js 16 (App Router) + TypeScript
 - Tailwind CSS v4 via `@tailwindcss/postcss` (CSS-based config, no `tailwind.config`)
+- **shadcn/ui** (new-york style) — `components.json` configured, CLI-ready (`npx shadcn@latest add <component>`)
+- `class-variance-authority` (CVA) for component variants
+- `clsx` + `tailwind-merge` via `cn()` utility (`src/lib/utils.ts`)
+- `tw-animate-css` for shadcn/ui animation primitives
 - lucide-react for SVG icons
 - Noto Sans KR (Korean font via `next/font/google`)
 
@@ -23,14 +27,17 @@ This is a **static landing page** for "Generalist Lab," a Korean web agency. It 
 
 - **`src/app/page.tsx`** — Single page composing all sections. No routing.
 - **`src/components/sections/`** — 7 full-viewport sections (Hero → Problem → Solution → Pricing → Process → FAQ → CTA+Footer). Each section is `h-dvh snap-start`.
-- **`src/components/ui/`** — Shared primitives: `Button`, `Container`, `FadeIn` (Intersection Observer), `TextReveal` (per-char animation), `DotNav`, `ScrollDown`.
+- **`src/components/ui/`** — Shared primitives + shadcn/ui components. Custom: `Button` (CVA-based), `Container`, `FadeIn` (Intersection Observer), `TextReveal` (per-char animation), `DotNav`, `ScrollDown`. New shadcn components go here via CLI.
+- **`src/lib/utils.ts`** — `cn()` utility (clsx + tailwind-merge).
 - **`src/components/layout/`** — `Header` (fixed top) and `Footer` (embedded in CTA section).
 
 ### Key Patterns
 
 - **Scroll snap**: `scroll-snap-type: y mandatory` on `html` (in `@layer base` in globals.css — must use `@layer base` or Tailwind v4 preflight drops it). Each section is a snap point.
 - **Client vs Server**: Most components are server components. Only `FadeIn`, `TextReveal`, `DotNav`, and `FAQ` use `"use client"` (for Intersection Observer or useState).
-- **Design tokens**: All custom colors/fonts defined in `globals.css` via `@theme inline` block (Tailwind v4 pattern). Colors: `accent` (blue) for branding, `cta` (orange) for action buttons.
+- **Design tokens**: `globals.css` uses shadcn/ui CSS variable system (`:root` → `@theme inline`). Two layers of color tokens:
+  - **shadcn system colors**: `primary`, `secondary`, `muted`, `accent`, `destructive` — used by shadcn components.
+  - **Brand colors**: `brand-accent` (blue, `#2563eb`), `cta` (orange, `#f97316`), `surface` (light bg) — use `text-brand-accent`, `bg-brand-accent`, `text-cta` etc.
 - **Static export**: `images.unoptimized: true` in next.config.ts. No API routes, no server features.
 
 ### Path Alias

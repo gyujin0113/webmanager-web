@@ -50,7 +50,7 @@ function AccordionItem({
       >
         <span className="font-medium pr-4 text-sm sm:text-base">{question}</span>
         <span
-          className={`shrink-0 text-muted transition-transform duration-200 ${
+          className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
             isOpen ? "rotate-45" : ""
           }`}
         >
@@ -62,7 +62,7 @@ function AccordionItem({
           isOpen ? "max-h-40 pb-4" : "max-h-0"
         }`}
       >
-        <p className="text-sm text-muted leading-relaxed">{answer}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">{answer}</p>
       </div>
     </div>
   );

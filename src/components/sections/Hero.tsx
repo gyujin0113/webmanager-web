@@ -15,7 +15,7 @@ export default function Hero() {
     <section id="hero" className="h-dvh snap-start flex items-center relative">
       <Container className="text-center">
         <FadeIn>
-          <p className="text-sm font-medium text-muted tracking-wide mb-6">
+          <p className="text-sm font-medium text-muted-foreground tracking-wide mb-6">
             골치 아픈 홈페이지 관리, 이제 그만 신경 쓰세요
           </p>
         </FadeIn>
@@ -25,7 +25,7 @@ export default function Hero() {
           style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
         />
         <FadeIn delay={800}>
-          <p className="mt-8 text-base sm:text-lg text-muted max-w-xl mx-auto leading-relaxed">
+          <p className="mt-8 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             &ldquo;텍스트 하나 바꾸는데 며칠 걸리고 돈 드나요?&rdquo;
             <br className="hidden sm:block" />
             새로 만들지 않고 엔진만 최신으로 교체해 드립니다.

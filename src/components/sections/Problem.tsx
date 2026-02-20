@@ -32,7 +32,7 @@ export default function Problem() {
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               이런 고민, 하고 계시지 않나요?
             </h2>
-            <p className="mt-4 text-muted">
+            <p className="mt-4 text-muted-foreground">
               많은 사업자분들이 겪고 있는 웹사이트 문제들입니다.
             </p>
           </div>
@@ -40,12 +40,12 @@ export default function Problem() {
         <div className="grid md:grid-cols-3 gap-6">
           {problems.map((item, i) => (
             <FadeIn key={item.title} delay={i * 120}>
-              <div className="bg-white rounded-2xl p-8 border border-border hover:border-accent/20 transition-colors duration-300 h-full">
-                <div className="w-10 h-10 rounded-lg bg-accent/5 flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-accent" strokeWidth={1.5} />
+              <div className="bg-white rounded-2xl p-8 border border-border hover:border-brand-accent/20 transition-colors duration-300 h-full">
+                <div className="w-10 h-10 rounded-lg bg-brand-accent/5 flex items-center justify-center">
+                  <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />
                 </div>
                 <h3 className="mt-5 text-lg font-bold">{item.title}</h3>
-                <p className="mt-3 text-sm text-muted leading-relaxed">
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                   {item.description}
                 </p>
               </div>

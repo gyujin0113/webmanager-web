@@ -47,13 +47,13 @@ export default function DotNav() {
           aria-label={label}
           className="group flex items-center justify-end gap-2"
         >
-          <span className="text-xs text-muted opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          <span className="text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             {label}
           </span>
           <span
             className={`block rounded-full transition-all duration-300 ${
               active === id
-                ? "w-3 h-3 bg-accent"
+                ? "w-3 h-3 bg-brand-accent"
                 : "w-2 h-2 bg-border hover:bg-muted"
             }`}
           />

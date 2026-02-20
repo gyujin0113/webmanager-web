@@ -44,7 +44,7 @@ export default function Pricing() {
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               투명한 가격 정책
             </h2>
-            <p className="mt-4 text-muted">
+            <p className="mt-4 text-muted-foreground">
               숨겨진 비용 없이, 명확한 가격으로 안내드립니다.
             </p>
           </div>
@@ -67,16 +67,16 @@ export default function Pricing() {
                 <h3 className="text-lg font-bold">{plan.name}</h3>
                 <div className="mt-3 flex items-baseline gap-1">
                   <span className="text-3xl sm:text-4xl font-black">{plan.price}</span>
-                  <span className="text-muted text-sm">{plan.period}</span>
+                  <span className="text-muted-foreground text-sm">{plan.period}</span>
                 </div>
-                <p className="mt-2 text-sm text-muted">{plan.description}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
                 <ul className="mt-4 space-y-2.5 flex-1">
                   {plan.features.map((f) => (
                     <li
                       key={f}
                       className="flex items-start gap-2.5 text-sm"
                     >
-                      <Check className="w-4 h-4 text-accent mt-0.5 shrink-0" strokeWidth={2} />
+                      <Check className="w-4 h-4 text-brand-accent mt-0.5 shrink-0" strokeWidth={2} />
                       {f}
                     </li>
                   ))}
