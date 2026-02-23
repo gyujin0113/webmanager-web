@@ -55,7 +55,7 @@ export default function DotNav() {
             className={`block rounded-full transition-all duration-300 ${
               active === id
                 ? "w-3 h-3 bg-brand-accent"
-                : "w-2 h-2 bg-border hover:bg-muted"
+                : "w-2 h-2 bg-white/20 hover:bg-white/40"
             }`}
           />
         </a>
