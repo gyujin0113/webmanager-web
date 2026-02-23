@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-const allSections = ["hero", "problem", "solution", "pricing", "process", "faq", "contact"];
+const allSections = ["hero", "problem", "solution", "pricing", "process", "portfolio", "faq", "contact"];
 
 const dotSections = [
   { id: "problem", label: "Problem" },
   { id: "solution", label: "Solution" },
   { id: "pricing", label: "Pricing" },
   { id: "process", label: "Process" },
+  { id: "portfolio", label: "Portfolio" },
   { id: "faq", label: "FAQ" },
 ];
 

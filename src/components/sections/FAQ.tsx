@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Container from "@/components/ui/Container";
-import FadeIn from "@/components/ui/FadeIn";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import ScrollDown from "@/components/ui/ScrollDown";
 
 const faqs = [
@@ -43,12 +43,14 @@ function AccordionItem({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-border">
+    <div className="border-b border-white/[0.06]">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex w-full items-center justify-between py-4 text-left"
       >
-        <span className="font-medium pr-4 text-sm sm:text-base">{question}</span>
+        <span className="font-medium pr-4 text-sm sm:text-base">
+          {question}
+        </span>
         <span
           className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
             isOpen ? "rotate-45" : ""
@@ -62,7 +64,9 @@ function AccordionItem({
           isOpen ? "max-h-40 pb-4" : "max-h-0"
         }`}
       >
-        <p className="text-sm text-muted-foreground leading-relaxed">{answer}</p>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {answer}
+        </p>
       </div>
     </div>
   );
@@ -70,22 +74,23 @@ function AccordionItem({
 
 export default function FAQ() {
   return (
-    <section id="faq" className="h-dvh snap-start flex items-center bg-surface relative">
+    <section
+      id="faq"
+      className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0 relative"
+    >
       <Container className="max-w-3xl">
-        <FadeIn>
+        <ScrollReveal>
           <div className="text-center mb-8">
-            <h2 className="text-3xl sm:text-4xl font-bold">
-              자주 묻는 질문
-            </h2>
+            <h2 className="text-3xl sm:text-4xl font-bold">자주 묻는 질문</h2>
           </div>
-        </FadeIn>
-        <FadeIn>
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
           <div>
             {faqs.map((faq) => (
               <AccordionItem key={faq.question} {...faq} />
             ))}
           </div>
-        </FadeIn>
+        </ScrollReveal>
       </Container>
       <ScrollDown href="#contact" />
     </section>
