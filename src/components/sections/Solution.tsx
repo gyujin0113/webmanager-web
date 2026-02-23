@@ -1,6 +1,6 @@
 import { Zap, Infinity, Target, Rocket } from "lucide-react";
 import Container from "@/components/ui/Container";
-import FadeIn from "@/components/ui/FadeIn";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const solutions = [
   {
@@ -31,9 +31,9 @@ const solutions = [
 
 export default function Solution() {
   return (
-    <section id="solution" className="h-dvh snap-start flex items-center">
+    <section id="solution" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0">
       <Container>
-        <FadeIn>
+        <ScrollReveal>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               Generalist Lab이 해결합니다
@@ -42,12 +42,12 @@ export default function Solution() {
               더 나은 방식으로, 더 합리적인 가격에.
             </p>
           </div>
-        </FadeIn>
+        </ScrollReveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {solutions.map((item, i) => (
-            <FadeIn key={item.title} delay={i * 100}>
-              <div className="rounded-2xl p-6 border border-border hover:border-brand-accent/20 transition-colors duration-300 h-full">
-                <div className="w-10 h-10 rounded-lg bg-brand-accent/5 flex items-center justify-center">
+            <ScrollReveal key={item.title} delay={i * 0.08}>
+              <div className="rounded-2xl p-6 border border-white/[0.06] hover:border-brand-accent/20 transition-colors duration-300 h-full bg-white/[0.02]">
+                <div className="w-10 h-10 rounded-lg bg-brand-accent/10 flex items-center justify-center">
                   <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />
                 </div>
                 <h3 className="mt-4 text-base font-bold">{item.title}</h3>
@@ -55,7 +55,7 @@ export default function Solution() {
                   {item.description}
                 </p>
               </div>
-            </FadeIn>
+            </ScrollReveal>
           ))}
         </div>
       </Container>

@@ -1,6 +1,6 @@
 import { MessageSquare, Code2, Globe, Settings } from "lucide-react";
 import Container from "@/components/ui/Container";
-import FadeIn from "@/components/ui/FadeIn";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const steps = [
   {
@@ -31,25 +31,25 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" className="h-dvh snap-start flex items-center">
+    <section id="process" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0">
       <Container>
-        <FadeIn>
+        <ScrollReveal>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">진행 과정</h2>
             <p className="mt-4 text-muted-foreground">
               상담부터 운영까지, 4단계로 심플하게.
             </p>
           </div>
-        </FadeIn>
+        </ScrollReveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((item, i) => (
-            <FadeIn key={item.step} delay={i * 100}>
-              <div className="relative p-6 rounded-xl border border-border">
+            <ScrollReveal key={item.step} delay={i * 0.1}>
+              <div className="relative p-6 rounded-xl border border-white/[0.06] bg-white/[0.02]">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-brand-accent/5 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-lg bg-brand-accent/10 flex items-center justify-center">
                     <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />
                   </div>
-                  <span className="text-xs font-bold text-muted-foreground tracking-widest">
+                  <span className="text-xs font-bold text-brand-accent tracking-widest">
                     STEP {item.step}
                   </span>
                 </div>
@@ -58,14 +58,14 @@ export default function Process() {
                   {item.description}
                 </p>
                 {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-11 right-0 translate-x-1/2 text-border">
+                  <div className="hidden lg:block absolute top-11 right-0 translate-x-1/2 text-white/10">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                       <path d="M9 18l6-6-6-6" />
                     </svg>
                   </div>
                 )}
               </div>
-            </FadeIn>
+            </ScrollReveal>
           ))}
         </div>
       </Container>

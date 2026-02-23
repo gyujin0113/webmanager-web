@@ -1,6 +1,6 @@
 import { Banknote, Clock, Gauge } from "lucide-react";
 import Container from "@/components/ui/Container";
-import FadeIn from "@/components/ui/FadeIn";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const problems = [
   {
@@ -25,9 +25,9 @@ const problems = [
 
 export default function Problem() {
   return (
-    <section id="problem" className="h-dvh snap-start flex items-center bg-surface">
+    <section id="problem" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0 bg-surface">
       <Container>
-        <FadeIn>
+        <ScrollReveal>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               이런 고민, 하고 계시지 않나요?
@@ -36,12 +36,12 @@ export default function Problem() {
               많은 사업자분들이 겪고 있는 웹사이트 문제들입니다.
             </p>
           </div>
-        </FadeIn>
+        </ScrollReveal>
         <div className="grid md:grid-cols-3 gap-6">
           {problems.map((item, i) => (
-            <FadeIn key={item.title} delay={i * 120}>
-              <div className="bg-white rounded-2xl p-8 border border-border hover:border-brand-accent/20 transition-colors duration-300 h-full">
-                <div className="w-10 h-10 rounded-lg bg-brand-accent/5 flex items-center justify-center">
+            <ScrollReveal key={item.title} delay={i * 0.1}>
+              <div className="bg-white/[0.04] rounded-2xl p-6 sm:p-8 border border-white/[0.06] hover:border-brand-accent/20 transition-colors duration-300 h-full">
+                <div className="w-10 h-10 rounded-lg bg-brand-accent/10 flex items-center justify-center">
                   <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />
                 </div>
                 <h3 className="mt-5 text-lg font-bold">{item.title}</h3>
@@ -49,7 +49,7 @@ export default function Problem() {
                   {item.description}
                 </p>
               </div>
-            </FadeIn>
+            </ScrollReveal>
           ))}
         </div>
       </Container>

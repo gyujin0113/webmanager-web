@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
-import FadeIn from "@/components/ui/FadeIn";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const plans = [
   {
@@ -16,7 +16,7 @@ const plans = [
       "SEO 기본 설정",
       "Cloudflare 배포",
     ],
-    variant: "outline" as const,
+    popular: false,
   },
   {
     name: "월 유지비",
@@ -30,16 +30,15 @@ const plans = [
       "성능 모니터링 & 리포트",
       "48시간 내 대응",
     ],
-    variant: "primary" as const,
     popular: true,
   },
 ];
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="h-dvh snap-start flex items-center bg-surface">
+    <section id="pricing" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0 bg-surface">
       <Container>
-        <FadeIn>
+        <ScrollReveal>
           <div className="text-center mb-8">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
               투명한 가격 정책
@@ -48,48 +47,54 @@ export default function Pricing() {
               숨겨진 비용 없이, 명확한 가격으로 안내드립니다.
             </p>
           </div>
-        </FadeIn>
+        </ScrollReveal>
         <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
           {plans.map((plan, i) => (
-            <FadeIn key={plan.name} delay={i * 150}>
-              <div
-                className={`rounded-2xl p-6 sm:p-8 border h-full flex flex-col ${
-                  plan.popular
-                    ? "border-foreground bg-white shadow-lg shadow-foreground/5 relative"
-                    : "border-border bg-white"
-                }`}
-              >
+            <ScrollReveal key={plan.name} delay={i * 0.15}>
+              <div className="relative h-full">
                 {plan.popular && (
-                  <span className="absolute -top-3 left-6 bg-foreground text-white text-xs font-medium px-3 py-1 rounded-full">
-                    추천
-                  </span>
+                  <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-brand-accent via-purple-500 to-brand-accent bg-[length:200%_100%] animate-gradient-x" />
                 )}
-                <h3 className="text-lg font-bold">{plan.name}</h3>
-                <div className="mt-3 flex items-baseline gap-1">
-                  <span className="text-3xl sm:text-4xl font-black">{plan.price}</span>
-                  <span className="text-muted-foreground text-sm">{plan.period}</span>
-                </div>
-                <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
-                <ul className="mt-4 space-y-2.5 flex-1">
-                  {plan.features.map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-start gap-2.5 text-sm"
-                    >
-                      <Check className="w-4 h-4 text-brand-accent mt-0.5 shrink-0" strokeWidth={2} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  href="#contact"
-                  variant={plan.variant}
-                  className="mt-6 w-full"
+                <div
+                  className={`relative rounded-2xl p-6 sm:p-8 h-full flex flex-col ${
+                    plan.popular
+                      ? "bg-[#0f0f0f]"
+                      : "bg-white/[0.04] border border-white/[0.06]"
+                  }`}
                 >
-                  상담 신청
-                </Button>
+                  {plan.popular && (
+                    <span className="absolute -top-3 left-6 bg-brand-accent text-white text-xs font-medium px-3 py-1 rounded-full">
+                      추천
+                    </span>
+                  )}
+                  <h3 className="text-lg font-bold">{plan.name}</h3>
+                  <div className="mt-3 flex items-baseline gap-1">
+                    <span className="text-3xl sm:text-4xl font-black">{plan.price}</span>
+                    <span className="text-muted-foreground text-sm">{plan.period}</span>
+                  </div>
+                  <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
+                  <ul className="mt-4 space-y-2.5 flex-1">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2.5 text-sm">
+                        <Check className="w-4 h-4 text-brand-accent mt-0.5 shrink-0" strokeWidth={2} />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    href="#contact"
+                    variant="primary"
+                    className={`mt-6 w-full ${
+                      plan.popular
+                        ? "bg-brand-accent text-white border-brand-accent hover:bg-brand-accent-dark"
+                        : ""
+                    }`}
+                  >
+                    상담 신청
+                  </Button>
+                </div>
               </div>
-            </FadeIn>
+            </ScrollReveal>
           ))}
         </div>
       </Container>
