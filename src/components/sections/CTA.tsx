@@ -8,12 +8,12 @@ export default function CTA() {
       className="min-h-dvh md:h-dvh md:snap-start flex flex-col"
     >
       <div className="flex-1 flex items-center relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-accent/[0.06] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-brand-accent/[0.06] rounded-full blur-3xl pointer-events-none" />
 
         <Container className="relative z-10">
           <ScrollReveal>
-            <div className="rounded-3xl border border-white/[0.06] py-10 px-6 sm:py-16 sm:px-8 text-center bg-white/[0.02]">
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+            <div className="rounded-2xl sm:rounded-3xl border border-white/[0.06] py-10 px-6 sm:py-16 sm:px-8 text-center bg-white/[0.02]">
+              <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
                 지금 바로 시작하세요
               </h2>
               <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
@@ -39,7 +39,7 @@ export default function CTA() {
           <p>&copy; 2025 WebManager. All rights reserved.</p>
           <a
             href="mailto:contact@webmanager.co.kr"
-            className="hover:text-foreground transition-colors cursor-pointer"
+            className="hover:text-foreground transition-colors cursor-pointer py-2"
           >
             이메일 문의
           </a>

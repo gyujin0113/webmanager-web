@@ -27,10 +27,17 @@ export default function ScrollReveal({
   useGSAP(() => {
     if (!ref.current) return;
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const isMobile = window.innerWidth < 640;
+    const mobileDuration = isMobile ? Math.min(duration, 0.5) : duration;
+    const mobileY = isMobile ? Math.min(y, 24) : y;
+
     gsap.from(ref.current, {
-      y,
+      y: mobileY,
       opacity: 0,
-      duration,
+      duration: mobileDuration,
       delay,
       ease: "power3.out",
       scrollTrigger: {

@@ -24,13 +24,20 @@ export default function HeroTitle({ segments, className = "", style }: HeroTitle
   useGSAP(() => {
     if (!ref.current) return;
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      gsap.set(ref.current.querySelectorAll(".hero-char"), { opacity: 1, y: 0 });
+      return;
+    }
+
     const chars = ref.current.querySelectorAll(".hero-char");
+    const isMobile = window.innerWidth < 640;
 
     gsap.from(chars, {
-      y: 60,
+      y: isMobile ? 30 : 60,
       opacity: 0,
-      duration: 0.6,
-      stagger: 0.03,
+      duration: isMobile ? 0.4 : 0.6,
+      stagger: isMobile ? 0.02 : 0.03,
       ease: "power3.out",
     });
   }, { scope: ref });

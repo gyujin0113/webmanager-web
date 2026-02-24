@@ -37,8 +37,9 @@ This is a **static landing page** for "WebManager," a Korean web agency (webmana
 ### Key Patterns
 
 - **Scroll snap (desktop only)**: Mobile uses `scroll-snap-type: y proximity` (natural scroll), desktop (`md:` 이상) uses `mandatory`. Configured in `@layer base` in globals.css.
-- **Responsive section heights**: `min-h-dvh md:h-dvh md:snap-start` — mobile gets natural height with `py-20`, desktop gets fixed viewport height with snap.
-- **GSAP animations**: `ScrollReveal` component wraps content with GSAP ScrollTrigger (once: true, start: "top 85%"). `HeroTitle` uses GSAP timeline for char-by-char stagger. Hero has a GSAP timeline for sequential element entrance.
+- **Responsive section heights**: `min-h-dvh md:h-dvh md:snap-start` — mobile gets natural height with `py-16`, desktop gets fixed viewport height with snap.
+- **GSAP animations**: `ScrollReveal` component wraps content with GSAP ScrollTrigger (once: true, start: "top 85%"). Respects `prefers-reduced-motion`. Mobile: shortened duration (0.5s) and reduced y-offset. `HeroTitle` uses GSAP for char-by-char stagger (mobile: faster stagger, smaller y). Hero has a GSAP timeline for sequential element entrance.
+- **Mobile-first responsive**: 3-step typography scaling (`text-2xl sm:text-3xl md:text-4xl`). Grids use `sm:grid-cols-2 lg:grid-cols-3` for tablet intermediate. Touch targets min 44px. `@media(hover:hover)` for hover-only effects.
 - **Client vs Server**: Most components are server components. `ScrollReveal`, `HeroTitle`, `Hero`, `DotNav`, and `FAQ` use `"use client"`.
 - **Design tokens**: Dark cinematic palette in `:root` → `@theme inline`. Background: `#0a0a0a`, foreground: `#fafafa`, cards: semi-transparent `white/[0.04]`, borders: `white/[0.06]`.
   - **Brand colors**: `brand-accent` (blue, `#2563eb`), `cta` (blue, `#2563eb`), `surface` (dark, `#0f0f0f`).
@@ -78,6 +79,6 @@ This is a **static landing page** for "WebManager," a Korean web agency (webmana
 
 ## 작업 우선순위
 
-1. **모바일 최적화** (최우선) — 모바일 레이아웃, 터치 UX, 반응형 개선
+1. ~~**모바일 최적화** (완료)~~ — 타이포 3단계 스케일링, 그리드 중간 브레이크포인트, GSAP 모바일 최적화, 터치 타겟 44px+, prefers-reduced-motion 지원
 2. SEO 추가 작업 (OG Image, 네이버/구글 등록)
 3. 기능 개선 및 콘텐츠 업데이트

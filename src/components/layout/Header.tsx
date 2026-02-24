@@ -9,7 +9,7 @@ export default function Header() {
         </a>
         <a
           href="#contact"
-          className="text-xs font-medium px-4 py-2 rounded-lg border border-white/10 hover:border-brand-accent/50 text-brand-accent cursor-pointer transition-all duration-200"
+          className="text-xs font-medium px-4 py-2.5 rounded-lg border border-white/10 hover:border-brand-accent/50 text-brand-accent cursor-pointer transition-all duration-200"
         >
           무료 진단 받기
         </a>

@@ -23,11 +23,11 @@ const problems = [
 
 export default function Problem() {
   return (
-    <section id="problem" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0 bg-surface">
+    <section id="problem" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-16 md:py-0 bg-surface">
       <Container>
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+            <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
               이런 고민, 하고 계시지 않나요?
             </h2>
             <p className="mt-4 text-muted-foreground">
@@ -35,7 +35,7 @@ export default function Problem() {
             </p>
           </div>
         </ScrollReveal>
-        <div className="grid md:grid-cols-3 gap-6 max-w-[900px] mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-[900px] mx-auto">
           {problems.map((item, i) => (
             <ScrollReveal key={item.title} delay={i * 0.1}>
               <FeatureCard icon={item.icon} title={item.title} description={item.description} />

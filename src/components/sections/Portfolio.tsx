@@ -33,12 +33,12 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0 bg-surface"
+      className="min-h-dvh md:h-dvh md:snap-start flex items-center py-16 md:py-0 bg-surface"
     >
       <Container>
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+            <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
               Portfolio
             </h2>
             <p className="mt-4 text-muted-foreground">
@@ -46,7 +46,7 @@ export default function Portfolio() {
             </p>
           </div>
         </ScrollReveal>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {works.map((work, i) => (
             <ScrollReveal key={i} delay={i * 0.1}>
               <div
@@ -76,7 +76,7 @@ export default function Portfolio() {
                     {work.description}
                   </p>
                   {work.tech.length > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-2">
+                    <div className="mt-4 flex flex-wrap gap-1.5 sm:gap-2">
                       {work.tech.map((t) => (
                         <span
                           key={t}

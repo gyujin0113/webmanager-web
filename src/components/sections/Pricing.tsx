@@ -36,11 +36,11 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0 bg-surface">
+    <section id="pricing" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-16 md:py-0 bg-surface">
       <Container>
         <ScrollReveal>
           <div className="text-center mb-8">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+            <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
               투명한 가격 정책
             </h2>
             <p className="mt-4 text-muted-foreground">
@@ -69,7 +69,7 @@ export default function Pricing() {
                   )}
                   <h3 className="text-lg font-bold">{plan.name}</h3>
                   <div className="mt-3 flex items-baseline gap-1">
-                    <span className="text-3xl sm:text-4xl font-black">{plan.price}</span>
+                    <span className="text-[clamp(1.5rem,4vw,2.25rem)] font-black">{plan.price}</span>
                     <span className="text-muted-foreground text-sm">{plan.period}</span>
                   </div>
                   <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>

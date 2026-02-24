@@ -58,7 +58,7 @@ export default function Hero() {
         }}
       />
       {/* Accent glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-brand-accent/5 rounded-full blur-3xl pointer-events-none" />
 
       <Container className="text-center relative z-10" ref={containerRef}>
         <p className="hero-subtitle text-sm font-medium text-muted-foreground tracking-wide mb-6">

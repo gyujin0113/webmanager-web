@@ -52,7 +52,7 @@ function AccordionItem({
           {question}
         </span>
         <span
-          className={`shrink-0 text-muted-foreground transition-transform duration-200 ${
+          className={`shrink-0 w-8 h-8 flex items-center justify-center text-muted-foreground transition-transform duration-200 ${
             isOpen ? "rotate-45" : ""
           }`}
         >
@@ -61,7 +61,7 @@ function AccordionItem({
       </button>
       <div
         className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-40 pb-4" : "max-h-0"
+          isOpen ? "max-h-60 pb-4" : "max-h-0"
         }`}
       >
         <p className="text-sm text-muted-foreground leading-relaxed">
@@ -76,12 +76,12 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0 relative"
+      className="min-h-dvh md:h-dvh md:snap-start flex items-center py-16 md:py-0 relative"
     >
       <Container className="max-w-3xl">
         <ScrollReveal>
           <div className="text-center mb-8">
-            <h2 className="text-3xl sm:text-4xl font-bold">자주 묻는 질문</h2>
+            <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold">자주 묻는 질문</h2>
           </div>
         </ScrollReveal>
         <ScrollReveal delay={0.1}>

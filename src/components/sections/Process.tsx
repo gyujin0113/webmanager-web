@@ -31,11 +31,11 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-20 md:py-0">
+    <section id="process" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-16 md:py-0">
       <Container>
         <ScrollReveal>
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">진행 과정</h2>
+            <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">진행 과정</h2>
             <p className="mt-4 text-muted-foreground">
               상담부터 운영까지, 4단계로 심플하게.
             </p>
