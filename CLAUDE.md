@@ -29,7 +29,7 @@ This is a **static landing page** for "Generalist Lab," a Korean web agency. It 
 - **`src/app/page.tsx`** — Single page composing all sections. No routing.
 - **`src/components/sections/`** — 8 sections (Hero → Problem → Solution → Pricing → Process → Portfolio → FAQ → CTA+Footer).
 - **`src/components/ui/`** — Shared primitives + shadcn/ui components:
-  - `Button` (CVA-based), `Container` (forwardRef), `ScrollReveal` (GSAP + ScrollTrigger), `HeroTitle` (GSAP char stagger), `DotNav`, `ScrollDown`
+  - `Button` (CVA-based), `Container` (forwardRef, w-full), `ScrollReveal` (GSAP + ScrollTrigger), `HeroTitle` (GSAP char stagger), `FeatureCard` (shared card with glassmorphism icon + glow border), `DotNav`, `ScrollDown`
   - New shadcn components go here via CLI.
 - **`src/lib/utils.ts`** — `cn()` utility (clsx + tailwind-merge).
 - **`src/components/layout/`** — `Header` (fixed top, dark glass) and `Footer` (embedded in CTA section).
@@ -54,7 +54,9 @@ This is a **static landing page** for "Generalist Lab," a Korean web agency. It 
 
 - **Dark Cinematic, 절제된 화려함**: 어두운 배경 + 큰 타이포그래피 + 넓은 여백 + 단일 accent blue. 과시가 아닌 "이 정도는 기본"이라는 여유. 효과 하나하나가 의도적.
 - **GSAP 스크롤 애니메이션**: ScrollTrigger 기반 등장 애니메이션, Hero char-by-char stagger. 모든 애니메이션은 once: true, 0.6~0.8s duration, power3.out ease.
-- **Glass card UI**: 카드는 `bg-white/[0.04]` + `border-white/[0.06]` 반투명 스타일. Pricing 인기 플랜은 animated gradient border.
+- **FeatureCard**: Problem/Solution 섹션이 공유하는 카드 컴포넌트. `bg-white/[0.02]` + glow border(`border-brand-accent/15` + `shadow`) + glassmorphism 아이콘. hover 시 `scale-105` 확대. 그리드는 `max-w-[900px] mx-auto`로 너비 고정.
+- **Problem → Solution 1:1 대응**: 이해가지 않는 추가금→수정 무제한, 느린 개발 속도→빠른 제작, 비싼 제작 비용→합리적인 가격.
+- **Glass card UI**: Pricing 인기 플랜은 animated gradient border.
 - **이모지 금지, SVG 아이콘 사용**: 모든 아이콘은 lucide-react SVG로 통일.
 - **CTA 블루톤 통일**: brand blue(`#2563eb`) fill 버튼 + glow shadow.
 - **타겟 고객은 IT 비전문 사업자**: 기술 용어를 최소화하고, 문장은 쉽고 직관적으로.
