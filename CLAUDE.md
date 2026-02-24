@@ -60,3 +60,24 @@ This is a **static landing page** for "WebManager," a Korean web agency (webmana
 - **이모지 금지, SVG 아이콘 사용**: 모든 아이콘은 lucide-react SVG로 통일.
 - **CTA 블루톤 통일**: brand blue(`#2563eb`) fill 버튼 + glow shadow.
 - **타겟 고객은 IT 비전문 사업자**: 기술 용어를 최소화하고, 문장은 쉽고 직관적으로.
+
+## SEO
+
+- **Metadata**: `layout.tsx`에 title, description, keywords, OG, Twitter Card, canonical URL, robots 설정 완료.
+- **JSON-LD**: `page.tsx`에 WebSite + ProfessionalService 구조화 데이터 삽입.
+- **sitemap.xml / robots.txt**: `public/`에 정적 파일로 배치 (static export 제약).
+- **Favicon**: `src/app/icon.svg` — 브라우저 창 + W 레터 SVG 파비콘.
+
+### SEO TODO (추가 작업)
+
+- [ ] **OG Image 제작**: SNS 공유 시 미리보기 이미지 (1200x630). `src/app/opengraph-image.png` 또는 `public/og-image.png` + metadata에 등록.
+- [ ] **네이버 서치어드바이저 등록**: https://searchadvisor.naver.com — 사이트 소유 확인 + sitemap 제출. 한국 검색 트래픽의 핵심.
+- [ ] **Google Search Console 등록**: sitemap 제출 + 색인 요청.
+- [ ] **네이버 사이트 인증 메타태그**: `<meta name="naver-site-verification" content="..." />` 추가.
+- [ ] **블로그/콘텐츠 SEO**: 홈페이지 제작 관련 콘텐츠 페이지 확장 (장기).
+
+## 작업 우선순위
+
+1. **모바일 최적화** (최우선) — 모바일 레이아웃, 터치 UX, 반응형 개선
+2. SEO 추가 작업 (OG Image, 네이버/구글 등록)
+3. 기능 개선 및 콘텐츠 업데이트

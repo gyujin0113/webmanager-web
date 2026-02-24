@@ -9,10 +9,52 @@ const notoSansKR = Noto_Sans_KR({
   display: "swap",
 });
 
+const siteUrl = "https://webmanager.co.kr";
+const siteName = "WebManager";
+const title = "WebManager | 홈페이지 제작 · 유지보수 에이전시";
+const description =
+  "홈페이지 제작부터 유지보수까지 올인원. 수정 무제한, 빠른 제작, 합리적인 가격으로 웹사이트를 만들어드립니다. 웹 제작 에이전시 WebManager.";
+
 export const metadata: Metadata = {
-  title: "WebManager | 웹사이트 제작 에이전시",
-  description:
-    "기존 사이트를 더 빠르고, 더 저렴하게. 클론 + 성능 개선 + 유지보수까지 올인원으로 해결하는 웹 제작 에이전시.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  keywords: [
+    "홈페이지 제작",
+    "웹사이트 제작",
+    "홈페이지 제작 업체",
+    "웹사이트 제작 비용",
+    "홈페이지 유지보수",
+    "웹사이트 관리 대행",
+    "홈페이지 수정",
+    "반응형 홈페이지",
+    "랜딩페이지 제작",
+    "웹 에이전시",
+  ],
+  alternates: {
+    canonical: siteUrl,
+  },
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: siteUrl,
+    siteName,
+    title,
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 };
 
 export default function RootLayout({
