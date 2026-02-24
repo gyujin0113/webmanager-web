@@ -68,10 +68,11 @@ This is a **static landing page** for "WebManager," a Korean web agency (webmana
 - **JSON-LD**: `page.tsx`에 WebSite + ProfessionalService 구조화 데이터 삽입.
 - **sitemap.xml / robots.txt**: `public/`에 정적 파일로 배치 (static export 제약).
 - **Favicon**: `src/app/icon.svg` — 브라우저 창 + W 레터 SVG 파비콘.
+- **OG Image**: `src/app/opengraph-image.tsx` — 빌드 타임 자동 생성 (1200x630 PNG). Noto Sans KR 폰트를 Google Fonts API에서 필요 글자만 로드. `dynamic: "force-static"` 필수 (static export 호환).
 
 ### SEO TODO (추가 작업)
 
-- [ ] **OG Image 제작**: SNS 공유 시 미리보기 이미지 (1200x630). `src/app/opengraph-image.png` 또는 `public/og-image.png` + metadata에 등록.
+- [x] ~~**OG Image 제작**~~ (완료) — `opengraph-image.tsx`로 빌드 타임 자동 생성.
 - [ ] **네이버 서치어드바이저 등록**: https://searchadvisor.naver.com — 사이트 소유 확인 + sitemap 제출. 한국 검색 트래픽의 핵심.
 - [ ] **Google Search Console 등록**: sitemap 제출 + 색인 요청.
 - [ ] **네이버 사이트 인증 메타태그**: `<meta name="naver-site-verification" content="..." />` 추가.
@@ -79,6 +80,7 @@ This is a **static landing page** for "WebManager," a Korean web agency (webmana
 
 ## 작업 우선순위
 
-1. ~~**모바일 최적화** (완료)~~ — 타이포 3단계 스케일링, 그리드 중간 브레이크포인트, GSAP 모바일 최적화, 터치 타겟 44px+, prefers-reduced-motion 지원
-2. SEO 추가 작업 (OG Image, 네이버/구글 등록)
-3. 기능 개선 및 콘텐츠 업데이트
+1. ~~**모바일 최적화** (완료)~~ — clamp() 타이포, 그리드 중간 브레이크포인트, GSAP 모바일 최적화, 터치 타겟 44px+, prefers-reduced-motion 지원
+2. ~~**OG Image** (완료)~~ — 빌드 타임 자동 생성, 카카오톡/SNS 링크 미리보기 대응
+3. SEO 추가 작업 (네이버/구글 등록)
+4. 기능 개선 및 콘텐츠 업데이트
