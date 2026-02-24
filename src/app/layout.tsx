@@ -10,7 +10,7 @@ const notoSansKR = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "Generalist Lab | 웹사이트 제작 에이전시",
+  title: "WebManager | 웹사이트 제작 에이전시",
   description:
     "기존 사이트를 더 빠르고, 더 저렴하게. 클론 + 성능 개선 + 유지보수까지 올인원으로 해결하는 웹 제작 에이전시.",
 };

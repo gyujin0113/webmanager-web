@@ -5,7 +5,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/60 backdrop-blur-md">
       <Container className="flex items-center justify-between h-16">
         <a href="#" className="text-lg font-bold tracking-tight text-foreground">
-          Generalist Lab
+          WebManager
         </a>
         <a
           href="#contact"

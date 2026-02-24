@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture
 
-This is a **static landing page** for "Generalist Lab," a Korean web agency. It uses Next.js 16 App Router with `output: "export"` targeting Cloudflare Pages.
+This is a **static landing page** for "WebManager," a Korean web agency (webmanager.co.kr). It uses Next.js 16 App Router with `output: "export"` targeting Cloudflare Pages.
 
 ### Tech Stack
 

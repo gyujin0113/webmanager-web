@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const works = [
   {
-    title: "Generalist Lab",
+    title: "WebManager",
     category: "Agency Landing Page",
     description: "GSAP 스크롤 애니메이션, 다크 시네마틱 디자인, 풀 반응형",
     tech: ["Next.js", "GSAP", "Tailwind CSS"],

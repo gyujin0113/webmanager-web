@@ -1,0 +1,7 @@
+[04:52:51.395] Server  ERROR   ⨯ Error: Cannot find module 'next/dist/client/components/builtin/global-not-found'
+Require stack:
+- /Users/gyujin/Developement/Projects/generalist-lab/node_modules/next/dist/server/dev/on-demand-entry-handler.js
+- /Users/gyujin/Developement/Projects/generalist-lab/node_modules/next/dist/server/dev/hot-reloader-turbopack.js
+- /Users/gyujin/Developement/Projects/generalist-lab/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /Users/gyujin/Developement/Projects/generalist-lab/node_modules/next/dist/server/lib/router-server.js
+- /Users/gyujin/Developement/Projects/generalist-lab/node_modules/next/dist/server/lib/start-server.js

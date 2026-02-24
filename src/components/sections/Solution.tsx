@@ -28,7 +28,7 @@ export default function Solution() {
         <ScrollReveal>
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Generalist Lab이 해결합니다
+              WebManager가 해결합니다
             </h2>
             <p className="mt-4 text-muted-foreground">
               더 투명하고, 더 합리적인 가격으로 작업합니다.
