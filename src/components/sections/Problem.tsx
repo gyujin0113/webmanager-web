@@ -1,25 +1,23 @@
-import { Banknote, Clock, Gauge } from "lucide-react";
+import { Wrench, Hourglass, Banknote } from "lucide-react";
 import Container from "@/components/ui/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import FeatureCard from "@/components/ui/FeatureCard";
 
 const problems = [
   {
+    icon: Wrench,
+    title: "이해가지 않는 추가금",
+    description: <>텍스트 하나 고치는데 며칠,<br />수정할 때마다 추가되는 견적 압박?</>,
+  },
+  {
+    icon: Hourglass,
+    title: "느린 개발 속도",
+    description: <>한 달 넘게 걸리는 제작 기간,<br />오픈 시점만 기다리다 지치셨나요?</>,
+  },
+  {
     icon: Banknote,
-    title: "비싼 유지보수 비용",
-    description:
-      "매달 나가는 유지보수 비용이 부담되시나요? 작은 수정에도 추가 견적이 나오는 구조는 비효율적입니다.",
-  },
-  {
-    icon: Clock,
-    title: "수정할 때마다 추가 비용",
-    description:
-      "텍스트 하나 바꾸는 데도 비용이 발생하고, 응답까지 며칠씩 걸리는 경험을 하셨을 겁니다.",
-  },
-  {
-    icon: Gauge,
-    title: "느리고 무거운 사이트",
-    description:
-      "페이지 로딩이 3초 이상 걸리면 방문자의 53%가 이탈합니다. 속도는 곧 매출입니다.",
+    title: "비싼 제작 비용",
+    description: <>부르는 게 값인 거품 낀 견적서,<br />아직도 수백만 원씩 내시나요?</>,
   },
 ];
 
@@ -37,18 +35,10 @@ export default function Problem() {
             </p>
           </div>
         </ScrollReveal>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 max-w-[900px] mx-auto">
           {problems.map((item, i) => (
             <ScrollReveal key={item.title} delay={i * 0.1}>
-              <div className="bg-white/[0.04] rounded-2xl p-6 sm:p-8 border border-white/[0.06] hover:border-brand-accent/20 transition-colors duration-300 h-full">
-                <div className="w-10 h-10 rounded-lg bg-brand-accent/10 flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />
-                </div>
-                <h3 className="mt-5 text-lg font-bold">{item.title}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+              <FeatureCard icon={item.icon} title={item.title} description={item.description} />
             </ScrollReveal>
           ))}
         </div>

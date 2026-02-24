@@ -1,31 +1,23 @@
-import { Zap, Infinity, Target, Rocket } from "lucide-react";
+import { Infinity, Gauge, Scale } from "lucide-react";
 import Container from "@/components/ui/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import FeatureCard from "@/components/ui/FeatureCard";
 
 const solutions = [
   {
-    icon: Zap,
-    title: "클론 + 성능 개선",
-    description:
-      "기존 디자인을 그대로 옮기면서 최신 기술로 속도를 극대화합니다. Core Web Vitals 올그린 달성.",
-  },
-  {
     icon: Infinity,
     title: "수정 무제한",
-    description:
-      "월 유지비에 수정이 포함되어 있습니다. 텍스트, 이미지, 레이아웃 변경 요청에 추가 비용 없이 대응합니다.",
+    description: <>월 유지비에 수정이 포함됩니다.<br />추가 비용 없이 수정해드립니다.</>,
   },
   {
-    icon: Target,
-    title: "올인원 관리",
-    description:
-      "도메인, 호스팅, SSL, 보안 업데이트까지 한 번에 관리합니다. 신경 쓸 것 없이 사업에만 집중하세요.",
-  },
-  {
-    icon: Rocket,
+    icon: Gauge,
     title: "빠른 제작",
-    description:
-      "표준화된 워크플로우로 2주 이내 제작 완료. 빠르게 시작하고, 운영하면서 개선해 나갑니다.",
+    description: <>1달 걸릴 작업, 2주면 해결.<br />나머지는 사업에 집중하세요.</>,
+  },
+  {
+    icon: Scale,
+    title: "합리적인 가격",
+    description: <>기존 디자인 그대로 구현합니다.<br />불필요한 작업을 빼 저렴합니다.</>,
   },
 ];
 
@@ -39,22 +31,14 @@ export default function Solution() {
               Generalist Lab이 해결합니다
             </h2>
             <p className="mt-4 text-muted-foreground">
-              더 나은 방식으로, 더 합리적인 가격에.
+              더 투명하고, 더 합리적인 가격으로 작업합니다.
             </p>
           </div>
         </ScrollReveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 max-w-[900px] mx-auto">
           {solutions.map((item, i) => (
             <ScrollReveal key={item.title} delay={i * 0.08}>
-              <div className="rounded-2xl p-6 border border-white/[0.06] hover:border-brand-accent/20 transition-colors duration-300 h-full bg-white/[0.02]">
-                <div className="w-10 h-10 rounded-lg bg-brand-accent/10 flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-brand-accent" strokeWidth={1.5} />
-                </div>
-                <h3 className="mt-4 text-base font-bold">{item.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+              <FeatureCard icon={item.icon} title={item.title} description={item.description} />
             </ScrollReveal>
           ))}
         </div>

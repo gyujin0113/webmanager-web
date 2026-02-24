@@ -25,6 +25,8 @@
   --ring: oklch(0.55 0.22 264);
   --radius: 0.625rem;
 
+  --muted-foreground: #888888;
+
   /* Custom brand tokens */
   --brand-accent: #2563eb;
   --brand-accent-dark: #1d4ed8;
