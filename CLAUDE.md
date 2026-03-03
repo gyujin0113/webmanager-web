@@ -29,7 +29,7 @@ This is a **static landing page** for "WebManager," a Korean web agency (webmana
 - **`src/app/page.tsx`** — Single page composing all sections. No routing.
 - **`src/components/sections/`** — 8 sections (Hero → Problem → Solution → Pricing → Process → Portfolio → FAQ → CTA+Footer).
 - **`src/components/ui/`** — Shared primitives + shadcn/ui components:
-  - `Button` (CVA-based), `Container` (forwardRef, w-full), `ScrollReveal` (GSAP + ScrollTrigger), `HeroTitle` (GSAP char stagger), `FeatureCard` (shared card with glassmorphism icon + glow border), `DotNav`, `ScrollDown`
+  - `Button` (CVA-based), `Container` (forwardRef, w-full), `ScrollReveal` (GSAP + ScrollTrigger), `HeroTitle` (GSAP char stagger), `FeatureCard` (shared card with glassmorphism icon + glow border), `DotNav`, `ScrollDown`, `Logo` (inline SVG, rounded rect icon + wordmark), `ContactForm` (client component, Web3Forms + Telegram notification)
   - New shadcn components go here via CLI.
 - **`src/lib/utils.ts`** — `cn()` utility (clsx + tailwind-merge).
 - **`src/components/layout/`** — `Header` (fixed top, dark glass) and `Footer` (embedded in CTA section).
@@ -40,9 +40,10 @@ This is a **static landing page** for "WebManager," a Korean web agency (webmana
 - **Responsive section heights**: `min-h-dvh md:h-dvh md:snap-start` — mobile gets natural height with `py-16`, desktop gets fixed viewport height with snap.
 - **GSAP animations**: `ScrollReveal` component wraps content with GSAP ScrollTrigger (once: true, start: "top 85%"). Respects `prefers-reduced-motion`. Mobile: shortened duration (0.5s) and reduced y-offset. `HeroTitle` uses GSAP for char-by-char stagger (mobile: faster stagger, smaller y). Hero has a GSAP timeline for sequential element entrance.
 - **Mobile-first responsive**: 3-step typography scaling (`text-2xl sm:text-3xl md:text-4xl`). Grids use `sm:grid-cols-2 lg:grid-cols-3` for tablet intermediate. Touch targets min 44px. `@media(hover:hover)` for hover-only effects.
-- **Client vs Server**: Most components are server components. `ScrollReveal`, `HeroTitle`, `Hero`, `DotNav`, and `FAQ` use `"use client"`.
+- **Client vs Server**: Most components are server components. `ScrollReveal`, `HeroTitle`, `Hero`, `DotNav`, `FAQ`, and `ContactForm` use `"use client"`.
 - **Design tokens**: Dark cinematic palette in `:root` → `@theme inline`. Background: `#0a0a0a`, foreground: `#fafafa`, cards: semi-transparent `white/[0.04]`, borders: `white/[0.06]`.
   - **Brand colors**: `brand-accent` (blue, `#2563eb`), `cta` (blue, `#2563eb`), `surface` (dark, `#0f0f0f`).
+- **Contact form**: `ContactForm` in CTA section. Web3Forms API for email delivery + Telegram Bot API for real-time notification. Honeypot spam protection. Glassmorphism dark input styling.
 - **Static export**: `images.unoptimized: true` in next.config.ts. No API routes, no server features.
 
 ### Path Alias
@@ -78,9 +79,18 @@ This is a **static landing page** for "WebManager," a Korean web agency (webmana
 - [ ] **네이버 사이트 인증 메타태그**: `<meta name="naver-site-verification" content="..." />` 추가.
 - [ ] **블로그/콘텐츠 SEO**: 홈페이지 제작 관련 콘텐츠 페이지 확장 (장기).
 
+## Logo Assets
+
+- `public/logo.svg` / `logo.png` — 원형 아이콘 + 워드마크 (가로형)
+- `public/logo-icon.png` — 원형 아이콘만
+- `public/logo_rectangular.svg` / `logo_rectangular.png` — 라운드 사각형 아이콘 + 워드마크
+- `public/logo-icon_rectangular.svg` / `logo-icon_rectangular.png` — 라운드 사각형 아이콘만 (검정 배경 꽉 참)
+- `src/components/ui/Logo.tsx` — 헤더용 인라인 SVG 컴포넌트 (라운드 사각형)
+
 ## 작업 우선순위
 
 1. ~~**모바일 최적화** (완료)~~ — clamp() 타이포, 그리드 중간 브레이크포인트, GSAP 모바일 최적화, 터치 타겟 44px+, prefers-reduced-motion 지원
 2. ~~**OG Image** (완료)~~ — 빌드 타임 자동 생성, 카카오톡/SNS 링크 미리보기 대응
-3. SEO 추가 작업 (네이버/구글 등록)
-4. 기능 개선 및 콘텐츠 업데이트
+3. ~~**Contact Form** (완료)~~ — Web3Forms + Telegram 알림, CTA 센터 폼 레이아웃, 카카오톡 보조 링크
+4. SEO 추가 작업 (네이버/구글 등록)
+5. 기능 개선 및 콘텐츠 업데이트
