@@ -247,7 +247,7 @@ export default function ContactForm() {
           value={formData.phone}
           onChange={(e) => handleChange("phone", e.target.value)}
           onBlur={() => handleBlur("phone")}
-          placeholder="010-1234-5678"
+          placeholder="01012345678"
           aria-required="true"
           aria-invalid={touched.phone && !!errors.phone}
           aria-describedby={errors.phone ? "contact-phone-error" : undefined}
