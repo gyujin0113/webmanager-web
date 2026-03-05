@@ -11,7 +11,7 @@ const notoSansKR = Noto_Sans_KR({
 
 const siteUrl = "https://webmanager.co.kr";
 const siteName = "WebManager";
-const title = "WebManager | 웹사이트 클론 복원 · 무제한 관리";
+const title = "Web Manager";
 const description =
   "방치된 웹사이트를 구출합니다. 기존 디자인 그대로 복원하고, 월 구독으로 수정 무제한 관리. 연락 두절된 업체 대신 WebManager가 책임집니다.";
 
