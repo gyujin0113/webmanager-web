@@ -128,6 +128,12 @@
   animation: scroll-line 2s ease-in-out infinite;
 }
 
+@keyframes scroll-wheel {
+  0% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes gradient-x {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -136,6 +142,11 @@
 
 .animate-gradient-x {
   animation: gradient-x 3s ease infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
 }
 
 input:-webkit-autofill,

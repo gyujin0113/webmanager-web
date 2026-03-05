@@ -11,9 +11,9 @@ import ScrollDown from "@/components/ui/ScrollDown";
 gsap.registerPlugin(useGSAP);
 
 const headlineSegments = [
-  { text: "원래 디자인 그대로" },
-  { text: "수정은 ", break: true },
-  { text: "무제한", highlight: true },
+  { text: "불합리한 웹 유지보수," },
+  { text: "저희가 ", break: true },
+  { text: "끝내겠습니다.", highlight: true },
 ];
 
 export default function Hero() {
@@ -57,31 +57,33 @@ export default function Hero() {
           backgroundSize: "24px 24px",
         }}
       />
-      {/* Accent glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-brand-accent/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Accent glow — slow pulse */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-accent/5 rounded-full blur-3xl pointer-events-none animate-[glow-pulse_6s_ease-in-out_infinite]" />
 
       <Container className="text-center relative z-10" ref={containerRef}>
-        <p className="hero-subtitle text-sm font-medium text-muted-foreground tracking-wide mb-6">
-          골치 아픈 홈페이지 관리, 이제 그만 신경 쓰세요
-        </p>
+        <span className="hero-subtitle inline-flex items-center gap-2.5 text-sm font-medium tracking-wider text-foreground/80 border border-[#1E293B] rounded-full px-5 py-2 mb-10">
+          <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse shrink-0" />
+          웹사이트 마이그레이션 · 무제한 유지보수 구독
+        </span>
         <HeroTitle
           segments={headlineSegments}
-          className="font-black tracking-tight leading-[1.1]"
-          style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+          className="font-black tracking-[-0.03em] leading-[1.1]"
+          style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
         />
-        <p className="hero-desc mt-8 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-          &ldquo;텍스트 하나 바꾸는데 며칠 걸리고 돈 드나요?&rdquo;
-          <br className="hidden sm:block" />
-          새로 만들지 않고 엔진만 최신으로 교체해 드립니다.
-          <br className="hidden sm:block" />
-          <span className="text-foreground font-medium">월 구독으로 개발팀을 채용하세요.</span>
-        </p>
+        <div className="hero-desc mt-10 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg leading-[1.6] tracking-wide text-[#9CA3AF]">
+            에이전시에 끌려다니며 낭비하던 고정비와 추가금 지옥,
+            <br className="hidden sm:block" />
+            <span className="text-foreground font-medium">Web Manager가 완전히 끊어냅니다.</span>
+          </p>
+        </div>
         <div className="hero-buttons mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button href="#contact" variant="primary" className="w-full sm:w-64 bg-brand-accent text-white border-brand-accent hover:bg-brand-accent-dark shadow-lg shadow-brand-accent/20">
-            무료 진단 받기 (내 사이트 견적)
+          <Button href="#contact" variant="primary" className="w-full sm:w-64 bg-gradient-to-b from-[#3B82F6] to-brand-accent text-white border-brand-accent hover:brightness-110 shadow-lg shadow-brand-accent/20 hover:shadow-xl hover:shadow-brand-accent/40 text-[15px] font-bold gap-1.5">
+            무료 진단 받기
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6" /></svg>
           </Button>
-          <Button href="#pricing" variant="outline" className="w-full sm:w-64">
-            서비스 소개서 보기
+          <Button href="#pricing" variant="outline" className="w-full sm:w-64 border-white/10 text-muted-foreground hover:border-white/30 hover:bg-white/[0.03]">
+            가격 확인하기
           </Button>
         </div>
       </Container>

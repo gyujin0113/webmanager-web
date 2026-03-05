@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 const allSections = ["hero", "problem", "solution", "pricing", "process", "portfolio", "faq", "contact"];
 
 const dotSections = [
-  { id: "problem", label: "Problem" },
-  { id: "solution", label: "Solution" },
-  { id: "pricing", label: "Pricing" },
-  { id: "process", label: "Process" },
-  { id: "portfolio", label: "Portfolio" },
+  { id: "problem", label: "고민" },
+  { id: "solution", label: "해결" },
+  { id: "pricing", label: "가격" },
+  { id: "process", label: "과정" },
+  { id: "portfolio", label: "포트폴리오" },
   { id: "faq", label: "FAQ" },
 ];
 

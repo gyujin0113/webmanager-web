@@ -1,31 +1,31 @@
-import { MessageSquare, Code2, Globe, Settings } from "lucide-react";
+import { Search, Copy, Rocket, RefreshCw } from "lucide-react";
 import Container from "@/components/ui/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const steps = [
   {
-    icon: MessageSquare,
+    icon: Search,
     step: "01",
-    title: "상담",
-    description: "현재 사이트와 요구사항을 파악합니다. 무료로 진행됩니다.",
+    title: "현황 진단",
+    description: "현재 사이트 상태를 무료로 분석합니다. 복원 범위와 견적을 안내드립니다.",
   },
   {
-    icon: Code2,
+    icon: Copy,
     step: "02",
-    title: "제작",
-    description: "디자인 클론과 성능 최적화를 동시에 진행합니다.",
+    title: "클론 구축",
+    description: "기존 디자인을 그대로 최신 환경으로 복원합니다. 평균 2주 내 완료.",
   },
   {
-    icon: Globe,
+    icon: Rocket,
     step: "03",
-    title: "배포",
-    description: "최종 확인 후 도메인 연결과 함께 사이트를 오픈합니다.",
+    title: "관리 시작",
+    description: "도메인 연결, 배포 완료. 이제부터 모든 수정은 저희가 처리합니다.",
   },
   {
-    icon: Settings,
+    icon: RefreshCw,
     step: "04",
-    title: "운영",
-    description: "월 유지비로 수정, 관리, 모니터링을 지속합니다.",
+    title: "무제한 수정",
+    description: "텍스트, 이미지, 배너 등 운영 수정을 추가 비용 없이 무제한 처리합니다.",
   },
 ];
 
@@ -37,7 +37,7 @@ export default function Process() {
           <div className="text-center mb-12">
             <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">진행 과정</h2>
             <p className="mt-4 text-muted-foreground">
-              상담부터 운영까지, 4단계로 심플하게.
+              진단부터 관리까지, 4단계로 심플하게.
             </p>
           </div>
         </ScrollReveal>

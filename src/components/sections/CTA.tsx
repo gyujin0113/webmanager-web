@@ -14,10 +14,10 @@ export default function CTA() {
         <Container className="relative z-10 max-w-lg">
           <ScrollReveal>
             <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight text-center">
-              프로젝트를 시작해 보세요
+              지금 무료 진단 받아보세요
             </h2>
             <p className="mt-3 text-sm text-muted-foreground text-center">
-              부담 없이 문의해 주세요. 24시간 내에 회신드립니다.
+              현재 사이트 상태를 분석하고, 복원 견적을 무료로 안내드립니다.
             </p>
           </ScrollReveal>
 
