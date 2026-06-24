@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> 이 repo는 **사이트 코드 + webmanager 사업 운영 허브**다. 사업 맥락·기획·고객 수정 파이프라인(ops)은 이 문서가 아니라 아래를 참조:
+> - `docs/business-and-ops.md` — webmanager 사업 개요 + ops 도구 + 현재 상태 (세션 시작 시 필독)
+> - `ops/` — 고객 사이트 수정 엔진(레지스트리·`/apply-edit` 스킬·스크립트). 새 기기는 `bash ops/setup-machine.sh` 1회.
+> - `docs/artifacts/`, `docs/plans/` — 제품·가격 설계 및 실행 계획.
+
 ## Commands
 
 - `npm run dev` — Start development server

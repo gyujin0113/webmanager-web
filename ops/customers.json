@@ -1,0 +1,29 @@
+{
+  "grabis": {
+    "name": "(주)그래비스",
+    "owner": "진엽이형",
+    "repo": "gyujin0113/grabis-web",
+    "local": "../grabis-web",
+    "production": "https://grabis.co.kr",
+    "pagesProject": "grabis-web",
+    "previewPattern": "https://{branch}.grabis.pages.dev",
+    "contentDirs": ["content/"],
+    "defaultBranch": "main",
+    "plan": "파운딩 5만/월",
+    "status": "active",
+    "notes": "2026-06-16 모든 이미지·영상·문서 에셋을 content/로 분리·R2 이관(PR#4) → 이미지 교체는 티어① /apply-edit로 처리 가능. 단 member 페이지 CEO 약력·수상 '텍스트'는 여전히 코드 하드코딩 → 문구 수정은 티어③."
+  },
+  "goddmenz": {
+    "name": "G'ODD MENZ HAIR",
+    "owner": "미용실 원장님",
+    "repo": "gyujin0113/goddmenz-web",
+    "local": "../goddmenz-web",
+    "production": "https://goddmenz.co.kr",
+    "pagesProject": "goddmenz-web",
+    "previewPattern": null,
+    "contentDirs": [],
+    "defaultBranch": "main",
+    "plan": "파운딩 5만/월",
+    "status": "rebuild-pending"
+  }
+}
