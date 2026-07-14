@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>연간 계약 번들 카탈로그</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0F;
+    --surface: #111118;
+    --surface2: #16161F;
+    --border: #22222E;
+    --t1: #4ECDC4;
+    --t2: #45B7D1;
+    --t3: #F7B731;
+    --text: #E8E8F0;
+    --muted: #6B6B80;
+    --accent: #7C3AED;
+    --gold: #F59E0B;
+    --green: #4ADE80;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 1240px;
+    margin: 0 auto;
+    padding: 52px 64px 48px;
+    display: flex;
+    flex-direction: column;
+    min-height: 1754px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 26px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 58px;
+    letter-spacing: 2px;
+    line-height: 1;
+    color: #fff;
+  }
+
+  h1 span { color: var(--gold); }
+
+  .header-right { text-align: right; }
+  .header-right .date {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+  .header-right .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* ── 전략 배너 ── */
+  .strategy-banner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+
+  .strategy-cell {
+    background: var(--surface);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .strategy-cell.hl { background: rgba(124,58,237,0.08); }
+
+  .s-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .s-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .s-title.gold   { color: var(--gold); }
+  .s-title.accent { color: var(--accent); }
+  .s-title.green  { color: var(--green); }
+
+  .s-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── TIER SECTION ── */
+  .tier-block { margin-bottom: 16px; }
+
+  .tier-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .tier-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .t1 .tier-badge { background: rgba(78,205,196,0.15); color: var(--t1); border: 1px solid rgba(78,205,196,0.3); }
+  .t2 .tier-badge { background: rgba(69,183,209,0.15); color: var(--t2); border: 1px solid rgba(69,183,209,0.3); }
+  .t3 .tier-badge { background: rgba(247,183,49,0.15); color: var(--t3); border: 1px solid rgba(247,183,49,0.3); }
+
+  .tier-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .tier-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── BUNDLE CARD ── */
+  .cards {
+    display: grid;
+    gap: 10px;
+  }
+
+  .t1 .cards { grid-template-columns: repeat(3, 1fr); }
+  .t2 .cards { grid-template-columns: repeat(4, 1fr); }
+  .t3 .cards { grid-template-columns: repeat(3, 1fr); }
+
+  .bcard {
+    background: var(--surface);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .t1 .bcard { border: 1px solid rgba(78,205,196,0.3); }
+  .t2 .bcard { border: 1px solid rgba(69,183,209,0.3); }
+  .t3 .bcard { border: 1px solid rgba(247,183,49,0.3); }
+
+  .bcard-top { height: 3px; }
+  .t1 .bcard-top { background: var(--t1); }
+  .t2 .bcard-top { background: var(--t2); }
+  .t3 .bcard-top { background: var(--t3); }
+
+  .bcard-body { padding: 14px 16px 12px; flex: 1; display: flex; flex-direction: column; }
+
+  .bcard-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  /* 가격 블록 */
+  .price-block {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .price-row:last-child { margin-bottom: 0; }
+
+  .p-label {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .p-free {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--green);
+    letter-spacing: 1px;
+  }
+
+  .p-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+  }
+
+  .t1 .p-val { color: var(--t1); }
+  .t2 .p-val { color: var(--t2); }
+  .t3 .p-val { color: var(--t3); }
+
+  .p-unit {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: 3px;
+  }
+
+  .p-strike {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .p-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 8px 0;
+  }
+
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+  }
+
+  .t-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--muted);
+  }
+
+  .t-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--green);
+    letter-spacing: 0.5px;
+  }
+
+  .t-unit {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 11px;
+    color: var(--green);
+    margin-left: 3px;
+  }
+
+  /* ── 비교 요약 바 ── */
+  .summary-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  .summary-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  .summary-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: var(--gold);
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.25);
+  }
+
+  .summary-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table th {
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-align: left;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  table th:not(:first-child) { text-align: right; }
+
+  table td {
+    padding: 11px 20px;
+    font-size: 12px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  table tr:last-child td { border-bottom: none; }
+  table td:not(:first-child) {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .td-name  { color: var(--text); font-weight: 600; font-size: 13px; }
+  .td-orig  { color: var(--muted); }
+  .td-disc  { color: var(--accent); }
+  .td-maint { color: var(--muted); }
+  .td-total { color: var(--green); font-weight: 700; }
+  .td-gain  { color: var(--gold); font-weight: 700; }
+
+  .tier-row-header td {
+    background: var(--surface2);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tier-row-header .tier-tag-t1 { color: var(--t1); }
+  .tier-row-header .tier-tag-t2 { color: var(--t2); }
+  .tier-row-header .tier-tag-t3 { color: var(--t3); }
+
+  /* ── 주의사항 ── */
+  .notice {
+    display: flex;
+    gap: 10px;
+    padding: 14px 20px;
+    background: rgba(245,158,11,0.05);
+    border: 1px dashed rgba(245,158,11,0.2);
+    border-radius: 6px;
+    margin-top: 14px;
+    align-items: flex-start;
+  }
+
+  .notice p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .notice p strong { color: var(--gold); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="eyebrow">Web Manager · Annual Bundle</div>
+    <h1>연간 계약 <span>번들</span></h1>
+  </div>
+  <div class="header-right">
+    <div class="date">LAST UPDATED — 2026.03</div>
+    <div class="subtitle">면도기·면도날 전략 — 개발비 ↓ · 연간 유지보수로 수익 회수</div>
+  </div>
+</div>
+
+<!-- 전략 배너 -->
+<div class="strategy-banner">
+  <div class="strategy-cell">
+    <span class="s-label">Step 1 · 유인</span>
+    <span class="s-title gold">개발비 대폭 할인</span>
+    <span class="s-desc">Tier 1 무료 제공, Tier 2·3 50% 할인. 계약 심리 장벽을 제거합니다.</span>
+  </div>
+  <div class="strategy-cell hl">
+    <span class="s-label">Step 2 · 묶음</span>
+    <span class="s-title accent">연간 유지보수 1년 필수</span>
+    <span class="s-desc">번들 계약 시 1년 유지보수 약정. 중도 해지 시 할인 개발비 차액 정산.</span>
+  </div>
+  <div class="strategy-cell">
+    <span class="s-label">Step 3 · 회수</span>
+    <span class="s-title green">단독 대비 최대 2배 수익</span>
+    <span class="s-desc">연간 유지보수 수익으로 단독 계약 대비 평균 1.5~2배 총액을 회수합니다.</span>
+  </div>
+</div>
+
+<!-- ══ TIER 1 ══ -->
+<div class="tier-block t1">
+  <div class="tier-label">
+    <span class="tier-badge">Tier 1</span>
+    <span class="tier-title">소개형 사이트</span>
+    <span class="tier-desc">/ 개발비 전액 무료 제공 · 유지보수 7만원 × 12개월</span>
+  </div>
+  <div class="cards">
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">미니 소개 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">40만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span class="p-free">FREE</span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">7</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">84</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">기본 소개 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">70만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span class="p-free">FREE</span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">7</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">84</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">스탠다드 소개 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">100만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span class="p-free">FREE</span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">7</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">84</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ TIER 2 ══ -->
+<div class="tier-block t2">
+  <div class="tier-label">
+    <span class="tier-badge">Tier 2</span>
+    <span class="tier-title">기능형 사이트</span>
+    <span class="tier-desc">/ 개발비 50% 할인 · 유지보수 12만원 × 12개월</span>
+  </div>
+  <div class="cards">
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">게시판 기본 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">150만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span><span class="p-val">75</span><span class="p-unit">만원</span></span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">12</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">219</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">게시판 풀 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">220만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span><span class="p-val">110</span><span class="p-unit">만원</span></span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">12</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">254</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">예약 시스템 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">250만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span><span class="p-val">125</span><span class="p-unit">만원</span></span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">12</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">269</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">커뮤니티 풀 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">320만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span><span class="p-val">160</span><span class="p-unit">만원</span></span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">12</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">304</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ TIER 3 ══ -->
+<div class="tier-block t3">
+  <div class="tier-label">
+    <span class="tier-badge">Tier 3</span>
+    <span class="tier-title">커머스형 사이트</span>
+    <span class="tier-desc">/ 개발비 50% 할인 · 유지보수 15만원 × 12개월</span>
+  </div>
+  <div class="cards">
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">쇼핑몰 기본 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">400만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span><span class="p-val">200</span><span class="p-unit">만원</span></span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">15</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">380</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">쇼핑몰 스탠다드 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">550만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span><span class="p-val">275</span><span class="p-unit">만원</span></span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">15</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">455</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bcard">
+      <div class="bcard-top"></div>
+      <div class="bcard-body">
+        <div class="bcard-name">쇼핑몰 풀 번들</div>
+        <div class="price-block">
+          <div class="price-row">
+            <span class="p-label">개발비</span>
+            <span class="p-strike">750만원</span>
+          </div>
+          <div class="price-row">
+            <span class="p-label">번들가</span>
+            <span><span class="p-val">375</span><span class="p-unit">만원</span></span>
+          </div>
+          <div class="p-divider"></div>
+          <div class="price-row">
+            <span class="p-label">유지보수</span>
+            <span><span class="p-val">15</span><span class="p-unit">만 × 12</span></span>
+          </div>
+          <div class="total-row">
+            <span class="t-label">연간 수령</span>
+            <span><span class="t-val">555</span><span class="t-unit">만원</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ 비교 요약 테이블 ══ -->
+<div class="summary-bar">
+  <div class="summary-header">
+    <span class="summary-badge">Summary</span>
+    <span class="summary-title">단독 개발 vs 번들 연간 수령액 비교</span>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>플랜</th>
+        <th>단독 개발비</th>
+        <th>번들 개발비</th>
+        <th>유지보수 연간</th>
+        <th>번들 총 수령</th>
+        <th>단독 대비 +수익</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tier-row-header">
+        <td colspan="6"><span class="tier-tag-t1">▸ Tier 1 · 소개형 · 개발비 무료</span></td>
+      </tr>
+      <tr>
+        <td class="td-name">미니 / 기본 / 스탠다드</td>
+        <td class="td-orig">40 / 70 / 100만원</td>
+        <td class="td-disc">FREE</td>
+        <td class="td-maint">84만원</td>
+        <td class="td-total">84만원</td>
+        <td class="td-gain">+44 ~ +84만원</td>
+      </tr>
+      <tr class="tier-row-header">
+        <td colspan="6"><span class="tier-tag-t2">▸ Tier 2 · 기능형 · 개발비 50% 할인</span></td>
+      </tr>
+      <tr>
+        <td class="td-name">게시판 기본</td>
+        <td class="td-orig">150만원</td>
+        <td class="td-disc">75만원</td>
+        <td class="td-maint">144만원</td>
+        <td class="td-total">219만원</td>
+        <td class="td-gain">+69만원</td>
+      </tr>
+      <tr>
+        <td class="td-name">커뮤니티 풀</td>
+        <td class="td-orig">320만원</td>
+        <td class="td-disc">160만원</td>
+        <td class="td-maint">144만원</td>
+        <td class="td-total">304만원</td>
+        <td class="td-gain">-16만원 ⚠</td>
+      </tr>
+      <tr class="tier-row-header">
+        <td colspan="6"><span class="tier-tag-t3">▸ Tier 3 · 커머스형 · 개발비 50% 할인</span></td>
+      </tr>
+      <tr>
+        <td class="td-name">쇼핑몰 기본</td>
+        <td class="td-orig">400만원</td>
+        <td class="td-disc">200만원</td>
+        <td class="td-maint">180만원</td>
+        <td class="td-total">380만원</td>
+        <td class="td-gain">-20만원 ⚠</td>
+      </tr>
+      <tr>
+        <td class="td-name">쇼핑몰 풀</td>
+        <td class="td-orig">750만원</td>
+        <td class="td-disc">375만원</td>
+        <td class="td-maint">180만원</td>
+        <td class="td-total">555만원</td>
+        <td class="td-gain">-195만원 ⚠</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 주의사항 -->
+<div class="notice">
+  <span style="font-size:14px;flex-shrink:0">⚠️</span>
+  <p>
+    <strong>번들 계약 조건</strong> — 1년 약정이며 중도 해지 시 할인 개발비 차액을 일시 정산합니다.
+    연장 계약 시 유지보수 <strong>5% 추가 할인</strong> 제공.
+    <strong>Tier 2·3 고단가 플랜</strong>은 단독 계약이 수익상 유리할 수 있으므로 신중히 제안하세요.
+    Tier 4(플랫폼형)는 번들 제외, 별도 협의.
+  </p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-note">© 2026 Dev Management · Web Manager 서비스</div>
+  <div class="footer-note">연간 계약 번들 카탈로그 · 내부 참고용</div>
+</div>
+
+</body>
+</html>

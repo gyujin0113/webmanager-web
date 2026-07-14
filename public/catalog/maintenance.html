@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유지보수 서비스 카탈로그</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0F;
+    --surface: #111118;
+    --surface2: #16161F;
+    --border: #22222E;
+    --lite:   #4ECDC4;
+    --std:    #45B7D1;
+    --pro:    #F7B731;
+    --text: #E8E8F0;
+    --muted: #6B6B80;
+    --accent: #7C3AED;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 1240px;
+    margin: 0 auto;
+    padding: 72px 64px 64px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 52px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-left .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .header-left h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 68px;
+    letter-spacing: 2px;
+    line-height: 1;
+    color: #fff;
+  }
+
+  .header-left h1 span { color: var(--accent); }
+
+  .header-right { text-align: right; }
+
+  .header-right .date {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 2px;
+  }
+
+  .header-right .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  /* ── 자율계약 배너 ── */
+  .voluntary-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 32px;
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: 8px;
+    margin-bottom: 52px;
+  }
+
+  .voluntary-banner .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    background: rgba(124,58,237,0.15);
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 3px;
+    padding: 6px 14px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .voluntary-banner p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .voluntary-banner p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* ── 플랜 카드 3열 ── */
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .plan-card {
+    background: var(--surface);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 760px;
+  }
+
+  .plan-card.lite  { border: 1px solid rgba(78,205,196,0.35); }
+  .plan-card.std   { border: 1px solid rgba(69,183,209,0.35); }
+  .plan-card.pro   { border: 1px solid rgba(247,183,49,0.35); }
+
+  /* top accent strip */
+  .plan-top {
+    height: 4px;
+  }
+  .lite  .plan-top { background: var(--lite); }
+  .std   .plan-top { background: var(--std); }
+  .pro   .plan-top { background: var(--pro); }
+
+  .plan-body {
+    padding: 36px 36px 32px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  /* tier badge */
+  .plan-tier {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+  .lite .plan-tier  { color: var(--lite); background: rgba(78,205,196,0.12);  border: 1px solid rgba(78,205,196,0.3); }
+  .std  .plan-tier  { color: var(--std);  background: rgba(69,183,209,0.12);  border: 1px solid rgba(69,183,209,0.3); }
+  .pro  .plan-tier  { color: var(--pro);  background: rgba(247,183,49,0.12);  border: 1px solid rgba(247,183,49,0.3); }
+
+  .plan-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .plan-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .plan-price .amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 54px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .lite .amount  { color: var(--lite); }
+  .std  .amount  { color: var(--std); }
+  .pro  .amount  { color: var(--pro); }
+
+  .plan-price .unit {
+    font-size: 16px;
+    color: var(--muted);
+  }
+
+  /* 대상 badge */
+  .plan-target {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 6px 12px;
+    background: var(--surface2);
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+  }
+
+  .plan-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 22px;
+  }
+
+  /* 포함 항목 */
+  .plan-includes {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .include-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .check {
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .lite .check  { color: var(--lite); }
+  .std  .check  { color: var(--std); }
+  .pro  .check  { color: var(--pro); }
+
+  /* ── 카드 하단 인프라 수익 ── */
+  .plan-infra {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .infra-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  .infra-label {
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .infra-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+
+  .infra-val.zero  { color: var(--muted); }
+  .infra-val.green { color: #4ADE80; font-weight: 600; }
+
+  /* ── 추가 청구 기준 ── */  .extra-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+  }
+
+  .extra-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .extra-header .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #F59E0B;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 3px;
+    padding: 5px 12px;
+    text-transform: uppercase;
+  }
+
+  .extra-header .title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .extra-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .extra-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .extra-item .e-icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .extra-item .e-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .extra-item .e-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .extra-item .e-price {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: #F59E0B;
+    margin-top: 6px;
+  }
+
+  /* ── 인프라 안내 ── */
+  .infra-note {
+    display: flex;
+    gap: 14px;
+    padding: 20px 26px;
+    background: rgba(78,205,196,0.05);
+    border: 1px dashed rgba(78,205,196,0.2);
+    border-radius: 6px;
+    margin-bottom: 32px;
+    align-items: flex-start;
+  }
+
+  .infra-note .icon {
+    font-size: 16px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .infra-note p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .infra-note p strong {
+    color: var(--lite);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="eyebrow">Web Manager Services</div>
+    <h1>유지보수 <span>월정액</span></h1>
+  </div>
+  <div class="header-right">
+    <div class="date">LAST UPDATED — 2026.03</div>
+    <div class="subtitle">자율 계약 · 언제든 시작 · 언제든 종료</div>
+  </div>
+</div>
+
+<!-- 자율 계약 배너 -->
+<div class="voluntary-banner">
+  <span class="badge">Optional</span>
+  <p>
+    유지보수 계약은 <strong>선택 사항</strong>입니다. 계약 없이도 건별 작업 요청이 가능하며 (시간당 6만원),
+    월정액 플랜은 <strong>텍스트·이미지·레이아웃 수정 무제한 + 버그 대응</strong>을 정액으로 제공합니다.
+    신규 페이지 추가·기능 개발·전면 리뉴얼은 별도 청구됩니다.
+  </p>
+</div>
+
+<!-- 플랜 카드 -->
+<div class="plans">
+
+  <!-- 라이트 -->
+  <div class="plan-card lite">
+    <div class="plan-top"></div>
+    <div class="plan-body">
+      <span class="plan-tier">Tier 1 대상</span>
+      <div class="plan-name">라이트</div>
+      <div class="plan-price">
+        <span class="amount">7</span>
+        <span class="unit">만원 / 월</span>
+      </div>
+      <span class="plan-target">소개형 사이트 (Tier 1)</span>
+      <div class="plan-divider"></div>
+      <div class="plan-includes">
+        <div class="include-row"><span class="check">✓</span><span>텍스트·이미지·링크 교체 무제한</span></div>
+        <div class="include-row"><span class="check">✓</span><span>색상·폰트 등 스타일 수정</span></div>
+        <div class="include-row"><span class="check">✓</span><span>기존 섹션 내 레이아웃 조정</span></div>
+        <div class="include-row"><span class="check">✓</span><span>버그·오류 대응 포함</span></div>
+        <div class="include-row"><span class="check">✓</span><span>Cloudflare·Vercel 인프라 기본 모니터링</span></div>
+      </div>
+      <div class="plan-infra">
+        <div class="infra-row"><span class="infra-label">인프라 원가</span><span class="infra-val zero">0원 / 월</span></div>
+        <div class="infra-row"><span class="infra-label">순수익</span><span class="infra-val green">7만원 / 월</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스탠다드 -->
+  <div class="plan-card std">
+    <div class="plan-top"></div>
+    <div class="plan-body">
+      <span class="plan-tier">Tier 2 대상</span>
+      <div class="plan-name">스탠다드</div>
+      <div class="plan-price">
+        <span class="amount">12</span>
+        <span class="unit">만원 / 월</span>
+      </div>
+      <span class="plan-target">기능형 사이트 (Tier 2)</span>
+      <div class="plan-divider"></div>
+      <div class="plan-includes">
+        <div class="include-row"><span class="check">✓</span><span>라이트 플랜 전체 포함</span></div>
+        <div class="include-row"><span class="check">✓</span><span>게시판·폼·DB 콘텐츠 수정</span></div>
+        <div class="include-row"><span class="check">✓</span><span>관리자 기능 오류 대응</span></div>
+        <div class="include-row"><span class="check">✓</span><span>Supabase DB·Auth 인프라 모니터링</span></div>
+        <div class="include-row"><span class="check">✓</span><span>7일 pause 방지 헬스체크 운영</span></div>
+      </div>
+      <div class="plan-infra">
+        <div class="infra-row"><span class="infra-label">인프라 원가</span><span class="infra-val zero">0~3.5만원 / 월</span></div>
+        <div class="infra-row"><span class="infra-label">순수익</span><span class="infra-val green">8.5~12만원 / 월</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프로 -->
+  <div class="plan-card pro">
+    <div class="plan-top"></div>
+    <div class="plan-body">
+      <span class="plan-tier">Tier 3 대상</span>
+      <div class="plan-name">프로</div>
+      <div class="plan-price">
+        <span class="amount">15</span>
+        <span class="unit">만원 / 월</span>
+      </div>
+      <span class="plan-target">커머스형 사이트 (Tier 3)</span>
+      <div class="plan-divider"></div>
+      <div class="plan-includes">
+        <div class="include-row"><span class="check">✓</span><span>스탠다드 플랜 전체 포함</span></div>
+        <div class="include-row"><span class="check">✓</span><span>상품·주문·재고 데이터 수정</span></div>
+        <div class="include-row"><span class="check">✓</span><span>PG 결제 연동 오류 대응</span></div>
+        <div class="include-row"><span class="check">✓</span><span>서버·DB 성능 모니터링</span></div>
+        <div class="include-row"><span class="check">✓</span><span>Railway·AWS 인프라 실비 청구 포함</span></div>
+      </div>
+      <div class="plan-infra">
+        <div class="infra-row"><span class="infra-label">인프라 원가</span><span class="infra-val zero">3~4.5만원 / 월</span></div>
+        <div class="infra-row"><span class="infra-label">순수익</span><span class="infra-val green">10.5~12만원 / 월</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 추가 청구 기준 -->
+<div class="extra-section">
+  <div class="extra-header">
+    <span class="label">💰 추가 청구 기준</span>
+    <span class="title">아래 작업은 월정액 외 별도 청구됩니다</span>
+  </div>
+  <div class="extra-grid">
+    <div class="extra-item">
+      <div class="e-icon">📄</div>
+      <div class="e-name">신규 페이지 추가</div>
+      <div class="e-desc">기존 사이트에 없는 새로운 페이지를 제작하는 경우</div>
+      <div class="e-price">페이지당 별도 협의</div>
+    </div>
+    <div class="extra-item">
+      <div class="e-icon">🔄</div>
+      <div class="e-name">전면 리뉴얼</div>
+      <div class="e-desc">섹션 구조 자체가 바뀌는 디자인·레이아웃 전면 개편</div>
+      <div class="e-price">범위에 따라 별도 견적</div>
+    </div>
+    <div class="extra-item">
+      <div class="e-icon">⚙️</div>
+      <div class="e-name">신규 기능 추가</div>
+      <div class="e-desc">폼·예약·게시판·결제 등 새로운 기능 개발 및 연동</div>
+      <div class="e-price">시간당 6만원</div>
+    </div>
+  </div>
+</div>
+
+<!-- 인프라 안내 -->
+<div class="infra-note">
+  <span class="icon">🖥️</span>
+  <p>
+    <strong>인프라 비용 안내</strong> — Tier 1은 Cloudflare Pages 기반으로 인프라 비용 없음 (월 0원).
+    Tier 2는 Supabase Free Tier 기준 포함 (초과 시 실비 청구).
+    Tier 3은 Railway + Supabase Pro 기준 실비 약 3~4.5만원이 월정액에 포함됩니다.
+  </p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-note">© 2026 Dev Management · Web Manager 서비스</div>
+  <div class="footer-note">계약 없이도 건별 작업 가능 · 시간당 6만원</div>
+</div>
+
+</body>
+</html>
