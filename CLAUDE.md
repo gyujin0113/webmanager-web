@@ -129,7 +129,7 @@ This is a **static landing page** for "WebManager," a Korean web management/main
 | 4 | ScrollReveal delay 불일치 (0.08/0.1/0.15 혼재) | Problem, Solution, Pricing, Process, Portfolio |
 | 5 | Process 카드 `rounded-xl` → `rounded-2xl` 통일 필요 | `Process.tsx` |
 | 6 | 카드 배경 opacity 불일치 (`0.02` vs `0.04`) | FeatureCard, Process, ContactForm |
-| 7 | FAQ 서브텍스트 없음 (다른 섹션은 전부 있음) | `FAQ.tsx` |
+| ~~7~~ | ~~FAQ 서브텍스트 없음~~ (완료 — 리브랜딩에서 추가) | `FAQ.tsx` |
 | 8 | GSAP cleanup 함수 누락 (메모리 누수 가능) | ScrollReveal, HeroTitle, Hero |
 | 9 | Analytics 미설정 (GA4/네이버) | `layout.tsx` |
 
@@ -137,7 +137,7 @@ This is a **static landing page** for "WebManager," a Korean web management/main
 | # | 이슈 | 파일 |
 |---|------|------|
 | 10 | Portfolio Coming Soon 2개 → 신뢰도 약화 | `Portfolio.tsx` |
-| 11 | Hero 보조 버튼 "서비스 소개서 보기" → "가격 확인하기"가 더 직관적 | `Hero.tsx` |
+| ~~11~~ | ~~Hero 보조 버튼 "서비스 소개서 보기" → "가격 확인하기"~~ (완료 — 리브랜딩에서 변경) | `Hero.tsx` |
 | 12 | Telegram 알림 실패 시 console.error 없음 | `ContactForm.tsx` |
 | 13 | OG Image 폰트 로딩 에러 핸들링 없음 | `opengraph-image.tsx` |
 
