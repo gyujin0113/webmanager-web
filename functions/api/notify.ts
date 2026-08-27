@@ -36,6 +36,8 @@ const MAX_VALUE_LEN = 500;
 const RATE_WINDOW_MS = 60_000;
 const DEFAULT_RATE_PER_MIN = 5;
 const TELEGRAM_API = "https://api.telegram.org";
+/** Hard ceiling on counter entries — this is a public endpoint, so the map must be bounded. */
+const MAX_RL_ENTRIES = 1000;
 
 /**
  * Rate-limit counters live in the worker isolate's memory, so the cap is *soft*:
@@ -45,6 +47,27 @@ const TELEGRAM_API = "https://api.telegram.org";
  * a hard global limit is not worth a KV write per request.
  */
 const rateLimit = new Map<string, { count: number; expiresAt: number }>();
+
+/** Test-only handle — the counter map is isolate-local state tests need to inspect and reset. */
+export const rateLimitInternals = {
+  size: () => rateLimit.size,
+  reset: () => rateLimit.clear(),
+};
+
+/**
+ * Keeps the map bounded. Sweeps expired windows first; if every entry is still
+ * live afterwards the map is dropped wholesale, which *fails open* — a burst of
+ * distinct IPs gets its counters reset rather than growing memory without limit.
+ * Acceptable because this limiter is soft by construction (per-isolate, per-PoP);
+ * memory safety is the property worth guaranteeing here, not the cap.
+ */
+function evictIfNeeded(now: number): void {
+  if (rateLimit.size < MAX_RL_ENTRIES) return;
+  for (const [key, entry] of rateLimit) {
+    if (entry.expiresAt <= now) rateLimit.delete(key);
+  }
+  if (rateLimit.size >= MAX_RL_ENTRIES) rateLimit.clear();
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -61,6 +84,7 @@ function sanitize(value: string): string {
 
 function allow(ip: string, limit: number): boolean {
   const now = Date.now();
+  evictIfNeeded(now);
   const existing = rateLimit.get(ip);
   const entry =
     existing && existing.expiresAt > now
@@ -116,7 +140,7 @@ export async function handleNotify(
   }
 
   try {
-    await fetchImpl(`${TELEGRAM_API}/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    const res = await fetchImpl(`${TELEGRAM_API}/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -125,6 +149,11 @@ export async function handleNotify(
         parse_mode: "Markdown",
       }),
     });
+    if (!res.ok) {
+      // Status only. Telegram echoes the failing request back in the error body,
+      // and that payload embeds the bot token in the URL — never log it.
+      console.error("[notify] telegram responded", res.status);
+    }
   } catch (err) {
     // Never surface Telegram's failure (or its URL, which embeds the token) to the client.
     console.error("[notify] telegram sendMessage failed", err);

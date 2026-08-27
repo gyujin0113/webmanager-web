@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { handleNotify, type Env } from "../../functions/api/notify";
+import { handleNotify, rateLimitInternals, type Env } from "../../functions/api/notify";
 
 const ENV: Env = { TELEGRAM_BOT_TOKEN: "test-token", TELEGRAM_CHAT_ID: "12345" };
 
@@ -118,6 +118,49 @@ describe("handleNotify", () => {
       expect((await send()).status).toBe(204);
     } finally {
       vi.useRealTimers();
+    }
+  });
+
+  it("keeps the counter map bounded by sweeping expired entries", async () => {
+    vi.useFakeTimers();
+    try {
+      rateLimitInternals.reset();
+      const spy = fetchSpy();
+      const send = (ip: string) =>
+        handleNotify(post({ kind: "contact", fields: { name: "n" } }), ENV, ip, spy);
+
+      for (let i = 0; i < 1000; i++) await send(`10.0.${Math.floor(i / 256)}.${i % 256}`);
+      expect(rateLimitInternals.size()).toBe(1000);
+
+      // Every window has expired by now, so the next request must sweep them away
+      // instead of letting the map grow past the ceiling.
+      vi.advanceTimersByTime(61_000);
+      const res = await send("ip-after-sweep");
+
+      expect(res.status).toBe(204);
+      expect(rateLimitInternals.size()).toBeLessThanOrEqual(2);
+    } finally {
+      vi.useRealTimers();
+      rateLimitInternals.reset();
+    }
+  });
+
+  it("logs the status but still returns 204 when Telegram rejects the message", async () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      const spy = vi.fn(async () => new Response("bad request", { status: 400 })) as unknown as typeof fetch;
+      const res = await handleNotify(
+        post({ kind: "contact", fields: { name: "n" } }),
+        ENV,
+        "ip-telegram-400",
+        spy,
+      );
+
+      expect(res.status).toBe(204);
+      expect(errorSpy).toHaveBeenCalledTimes(1);
+      expect(errorSpy).toHaveBeenCalledWith("[notify] telegram responded", 400);
+    } finally {
+      errorSpy.mockRestore();
     }
   });
 
