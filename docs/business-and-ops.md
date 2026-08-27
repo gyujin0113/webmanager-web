@@ -37,15 +37,17 @@ AI는 기능이 아니라 무제한 수정을 수익성 있게 만드는 **마�
 - GraBis 전체 이미지 에셋 content/ 분리 + R2 이관 완료(2026-06-16, PR#4): 코드·CSS 하드코딩 이미지 0건, 실물 102개 R2 이관·git 바이너리 제거. 05 §2.5 충족 → 이미지 교체가 티어① /apply-edit로 자동화됨. (계획: `docs/plans/2026-06-16-grabis-content-asset-separation.md`)
 - 비즈니스·운영 모델 합의됨 → `docs/artifacts/06`. ICP 확정: **1인~소수 기술/제조 회사(회사소개 사이트)**. 방향 = "AI-운영형 회사소개 사이트 구독(Managed-Brochure WaaS + AI 마진엔진)". 제작=무료/바우처(CAC도구), 구독=본진(7~15만), 기능개발=별도 프로젝트(구독 밖).
 - GTM 합의: 채널 = 디렉토리 기반 정조준 콜드(전시회 참가사·채용중 소규모 기술회사) + 진엽 형 시드 + 프로스펙팅 자동화. 멘트 = "낡은 사이트 신호 콕 집기 + 무료 새단장" 1:1 개인화. 크몽/숨고는 보조만.
-- 다음 액션: ①공개가 7/9.9만 확정(시장천장상 9.9 권장) ②콜드 첫 사이클(30곳 발굴→발송→학습) ③실전 엔드투엔드 1건(GraBis 실제 카톡 요청 처리, plan Task 7) ④정부 중소기업홈페이지제작 지원사업 공급기업 자격 실체 검증 ⑤goddmenz 표준스택 재구축(별도 계획) ⑥before/after+후기.
+- 다음 액션: ①공개가 7/9.9만 확정(시장천장상 9.9 권장) ②콜드 첫 사이클(30곳 발굴→발송→학습) ③실전 엔드투엔드 1건(GraBis 실제 카톡 요청 처리, plan Task 7) ④정부 중소기업홈페이지제작 지원사업 공급기업 자격 실체 검증 ⑤goddmenz 표준스택 재구축(별도 계획) ⑥before/after+후기. ⑦**webmanager 랜딩(webmanager.co.kr) 전면 개편 — 가이드 위젯을 Basic 티어 셀링포인트로 반영**(카탈로그·가격·FAQ 카피 갱신, 랜딩 자체에 위젯 장착, 위젯 데모를 랜딩에서 활용할지 결정). ⑧그 개편 때 `widget.webmanager.co.kr/` 루트(현재 위젯 데모 페이지)를 랜딩으로 리다이렉트할지 결정 — `webmanager-widget/public/_redirects` 한 줄(`/ https://webmanager.co.kr 302`)이면 됨.
+- 사이트 가이드 위젯 v2 1호 적용(2026-08-27, grabis PR#6): 중앙 스크립트 `widget.webmanager.co.kr/v1/w.js`(repo `webmanager-widget`) + `content/guide.json` 28개. LLM 0. 미매칭 질문은 `/log`(KV) 적재 — 월 1회 `scripts/log-report.mjs`로 집계해 칩 추가. PR#6 프리뷰 검증 완료·머지 대기. widget.webmanager.co.kr 커스텀 도메인 연결 완료(2026-08-27). 설계: 3andD/cs-agent/…설계_v2.md
 
 ## ops 도구 (ops/)
 - `setup-machine.sh` — **새 기기 1회 셋업**: apply-edit 스킬 심링크 생성 + 형제 고객 repo·도구·인증 점검. 경로는 기기 독립(심링크 역추적·형제 상대경로)이라 이것만 돌리면 어느 맥에서도 동작. 사용: `bash ops/setup-machine.sh`.
 - `customers.json` — 고객 레지스트리(repo·로컬경로[**`local`은 이 repo 기준 형제 상대경로** 예 `../grabis-web`]·pagesProject·previewPattern·defaultBranch·status).
 - `skills/apply-edit/SKILL.md` — 수정요청→content/만 편집→빌드·가드레일→PR. `~/.claude/skills/apply-edit`에 심링크. 사용: `/apply-edit <slug> "<요청문>" [파일]`.
 - `scripts/check-content-only.sh` — diff가 content/ 안인지 검사(미커밋 포함).
+- `scripts/check-guide.sh` — `content/guide.json`이 있는 고객만 빌드 산출물(`out/`)과 대조 검증(webmanager-widget의 validator 사용), 없으면 통과. 사용: `check-guide.sh <고객repo경로>`.
 - `scripts/r2-upload.sh` — 이미지→webp→R2(`assets.webmanager.co.kr`), URL 반환.
-- `scripts/get-preview-url.sh` — Pages 실제 프리뷰 alias 조회(URL 직접 조립 금지).
+- `scripts/get-preview-url.sh` — Pages 실제 프리뷰 alias 조회(URL 직접 조립 금지). 사용: `get-preview-url.sh <pagesProject> <branch>` — **1번째 인자는 customers.json의 `pagesProject`값(예 `grabis-web`)이지 고객 slug(`grabis`)가 아니다.**
 - `LEARNINGS.md` — 운영 학습·알려진 한계·실전 처리 기록.
 
 ## 핵심 원칙

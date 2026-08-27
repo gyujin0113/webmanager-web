@@ -55,6 +55,7 @@ bash "<OPS>/scripts/r2-upload.sh" <slug> "<파일경로>"
 cd "<repo[slug]>" && npm run build   # 실패 시: 브랜치 폐기(git checkout main && git branch -D <브랜치>), 원인 보고, PR 금지
 # 가드레일 — 경로에 &가 있으므로 따옴표 필수. exit 1이면 동일하게 폐기:
 bash "<OPS>/scripts/check-content-only.sh" "<repo[slug]>" <defaultBranch>
+bash "<OPS>/scripts/check-guide.sh" "<repo[slug]>"   # guide.json 변경 시 깨진 딥링크 차단 (없으면 생략)
 ```
 `defaultBranch`는 customers.json의 해당 고객 `defaultBranch` 필드값(없으면 `main`).
 

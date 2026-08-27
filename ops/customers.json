@@ -11,6 +11,7 @@
     "defaultBranch": "main",
     "plan": "파운딩 5만/월",
     "status": "active",
+    "guide": true,
     "notes": "2026-06-16 모든 이미지·영상·문서 에셋을 content/로 분리·R2 이관(PR#4) → 이미지 교체는 티어① /apply-edit로 처리 가능. 단 member 페이지 CEO 약력·수상 '텍스트'는 여전히 코드 하드코딩 → 문구 수정은 티어③."
   },
   "goddmenz": {
@@ -24,6 +25,7 @@
     "contentDirs": [],
     "defaultBranch": "main",
     "plan": "파운딩 5만/월",
-    "status": "rebuild-pending"
+    "status": "rebuild-pending",
+    "guide": false
   }
 }
