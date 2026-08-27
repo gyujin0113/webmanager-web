@@ -9,6 +9,7 @@ AI는 기능이 아니라 무제한 수정을 수익성 있게 만드는 **마�
 홍보 페이지: webmanager.co.kr
 
 ## 세션 시작 시 먼저 읽을 것
+- **`docs/CONVERSATION-HANDOFF-2026-08-27.md`** (브랜치 `feat/landing-v2`에 있음 — `git show feat/landing-v2:docs/CONVERSATION-HANDOFF-2026-08-27.md`) — 위젯 단일 상품 피벗·랜딩 v2 진행 상태·다음 할 일. **2026-08-27 이후 세션은 이것부터.**
 - `docs/CONVERSATION-HANDOFF-2026-06-08.md` — 이 프로젝트가 어떻게 정의됐는지 전체 맥락 (필독)
 - `docs/artifacts/01_product-design.md` — 제품 설계 (MVP = A+C 하이브리드: 카톡 인입 + 사람 게이트)
 - `docs/artifacts/02_pricing-strategy.md` — 가격 전략 (정액 무제한, 친구가 5만 고정 / 신규 7~9.9만)
