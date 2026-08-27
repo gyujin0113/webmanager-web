@@ -75,6 +75,7 @@ export default function Pricing() {
             <button
               type="button"
               onClick={() => setIsAnnual(true)}
+              aria-pressed={isAnnual}
               className={`relative text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer ${
                 isAnnual
                   ? "bg-brand-accent text-white"
@@ -91,6 +92,7 @@ export default function Pricing() {
             <button
               type="button"
               onClick={() => setIsAnnual(false)}
+              aria-pressed={!isAnnual}
               className={`text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer ${
                 !isAnnual
                   ? "bg-brand-accent text-white"

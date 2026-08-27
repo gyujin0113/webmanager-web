@@ -24,7 +24,7 @@ const problems = [
     icon: DoorOpen,
     title: "문의는 하고 싶은데 폼까지 안 간다",
     description: "무엇부터 써야 할지 막막해서, 문의 버튼 앞에서 멈춥니다.",
-    answer: "못 찾은 질문은 문의 폼에 그대로 채워서",
+    answer: "못 찾은 질문은 문의 폼에 그대로 채워서 전달",
   },
 ];
 

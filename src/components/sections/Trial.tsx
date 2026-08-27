@@ -15,7 +15,7 @@ export default function Trial() {
   return (
     <section
       id="trial"
-      className="min-h-dvh md:h-dvh md:snap-start scroll-mt-24 flex items-center py-16 md:py-0 bg-surface relative overflow-hidden"
+      className="min-h-dvh md:min-h-dvh md:snap-start scroll-mt-24 flex items-center py-16 md:py-0 bg-surface relative overflow-hidden"
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-brand-accent/[0.06] rounded-full blur-3xl pointer-events-none" />
 
@@ -51,6 +51,8 @@ export default function Trial() {
               카카오톡이 편하신가요?{" "}
               <a
                 href={KAKAO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-foreground/60 underline underline-offset-2 hover:text-foreground transition-colors"
               >
                 오픈채팅으로 문의하기

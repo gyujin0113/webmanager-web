@@ -55,9 +55,6 @@ function BrowserFrame({ showcaseImageSrc }: { showcaseImageSrc?: string }) {
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
             <span className="h-10 w-10 rounded-full border border-brand-accent/30 bg-brand-accent/[0.08] shadow-[0_0_16px_rgba(37,99,235,0.25)]" />
             <p className="text-sm font-medium text-foreground/80">{CAPTION}</p>
-            <p className="text-xs text-muted-foreground">
-              고객사 동의 후 실제 화면으로 교체됩니다.
-            </p>
           </div>
         )}
       </div>

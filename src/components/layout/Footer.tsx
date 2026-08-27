@@ -19,7 +19,12 @@ export default function Footer() {
           >
             {CONTACT_EMAIL}
           </a>
-          <a href={KAKAO_URL} className="py-2 transition-colors hover:text-foreground">
+          <a
+            href={KAKAO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-2 transition-colors hover:text-foreground"
+          >
             카카오톡
           </a>
         </div>
