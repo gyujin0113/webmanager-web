@@ -9,10 +9,10 @@ export default function Header() {
           <Logo />
         </a>
         <a
-          href="#contact"
+          href="#trial"
           className="text-xs font-medium px-4 py-2.5 rounded-lg border border-white/10 hover:border-brand-accent/50 text-brand-accent cursor-pointer transition-all duration-200"
         >
-          무료 진단 받기
+          무료 체험
         </a>
       </Container>
     </header>

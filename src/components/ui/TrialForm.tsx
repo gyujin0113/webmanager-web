@@ -1,16 +1,12 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore, type ChangeEvent, type FormEvent } from "react";
+import { useState, useSyncExternalStore, type ChangeEvent, type FormEvent } from "react";
 import { AlertCircle, CheckCircle, Loader2 } from "lucide-react";
 import { useFormSubmit } from "@/hooks/useFormSubmit";
 import { useSearchParam } from "@/hooks/useSearchParam";
-import {
-  captureLead,
-  getLeadSnapshot,
-  getServerLeadSnapshot,
-  subscribeLead,
-} from "@/lib/lead";
+import { getLeadSnapshot, getServerLeadSnapshot, subscribeLead } from "@/lib/lead";
 import { inputClasses, submitButtonClasses } from "@/lib/formStyles";
+import { TRIAL_DAYS } from "@/lib/pricing";
 import {
   MESSAGE_MAX_LENGTH,
   normalizeSiteUrl,
@@ -75,12 +71,6 @@ export default function TrialForm() {
     web3formsSubject: `[위젯 체험 신청] ${formData.site.trim() || "(주소 미입력)"}`,
     kind: "trial",
   });
-
-  // Attribution has to be read off the URL before the visitor clicks an anchor
-  // and the query string scrolls out of reach.
-  useEffect(() => {
-    captureLead();
-  }, []);
 
   function handleChange(field: keyof TrialFormData, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -325,7 +315,7 @@ export default function TrialForm() {
             전송 중...
           </>
         ) : (
-          "30일 무료 체험 신청"
+          `${TRIAL_DAYS}일 무료 체험 신청`
         )}
       </button>
     </form>

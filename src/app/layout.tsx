@@ -11,25 +11,25 @@ const notoSansKR = Noto_Sans_KR({
 
 const siteUrl = "https://webmanager.co.kr";
 const siteName = "WebManager";
-const title = "Web Manager";
+const title = "Web Manager — 홈페이지 AI 안내 위젯";
 const description =
-  "방치된 웹사이트를 구출합니다. 기존 디자인 그대로 복원하고, 월 구독으로 수정 무제한 관리. 연락 두절된 업체 대신 WebManager가 책임집니다.";
+  "홈페이지에 스크립트 한 줄로 다는 AI 안내 위젯. 방문자가 묻는 질문에 바로 답하고, 원하는 페이지로 데려다줍니다. 30일 무료 체험.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
   keywords: [
-    "웹사이트 관리",
-    "홈페이지 유지보수",
-    "웹사이트 수정 대행",
-    "홈페이지 관리 업체",
-    "웹사이트 클론",
-    "홈페이지 복원",
-    "홈페이지 수정 무제한",
-    "웹사이트 유지보수 비용",
-    "홈페이지 관리 대행",
-    "웹사이트 구독 관리",
+    "홈페이지 안내 위젯",
+    "웹사이트 AI 위젯",
+    "홈페이지 챗봇 대안",
+    "사이트 가이드 위젯",
+    "워드프레스 위젯",
+    "아임웹 위젯",
+    "카페24 위젯",
+    "홈페이지 문의 전환",
+    "방문자 이탈 방지",
+    "웹사이트 안내 챗봇",
   ],
   alternates: {
     canonical: siteUrl,

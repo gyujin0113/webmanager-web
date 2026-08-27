@@ -1,11 +1,11 @@
 import { ImageResponse } from "next/og";
 
 export const dynamic = "force-static";
-export const alt = "WebManager — 홈페이지 제작 · 유지보수 에이전시";
+export const alt = "WebManager — 홈페이지 AI 안내 위젯";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const glyphs = "WebManager홈페이지제작·유지보수에이전시webmanagercokr";
+const glyphs = "WebManager홈페이지AI안내위젯한줄설치·월29만webmanagercokr";
 
 export default async function OgImage() {
   const css = await fetch(
@@ -69,7 +69,7 @@ export default async function OgImage() {
             marginTop: 16,
           }}
         >
-          홈페이지 제작 · 유지보수 에이전시
+          홈페이지 AI 안내 위젯 · 한 줄 설치
         </div>
 
         {/* URL */}
