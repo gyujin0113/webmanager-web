@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import Container from "@/components/ui/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Footer from "@/components/layout/Footer";
@@ -44,6 +44,7 @@ const faqs = [
 
 function AccordionItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const panelId = useId();
 
   return (
     <div className="border-b border-white/[0.06]">
@@ -51,6 +52,7 @@ function AccordionItem({ question, answer }: { question: string; answer: string 
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
+        aria-controls={panelId}
         className="flex w-full items-center justify-between py-4 text-left cursor-pointer"
       >
         <span className="font-medium pr-4 text-sm sm:text-base">{question}</span>
@@ -62,7 +64,14 @@ function AccordionItem({ question, answer }: { question: string; answer: string 
           +
         </span>
       </button>
+      {/*
+        max-h-0 은 시각적으로만 접는다 — aria-hidden·inert 가 없으면 스크린리더와 Tab 이
+        닫힌 답변까지 들어간다. inert 는 React 19 의 boolean prop.
+      */}
       <div
+        id={panelId}
+        aria-hidden={!isOpen}
+        inert={!isOpen}
         className={`overflow-hidden transition-all duration-300 ${
           isOpen ? "max-h-60 pb-4" : "max-h-0"
         }`}

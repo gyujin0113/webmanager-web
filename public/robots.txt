@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /catalog/
 
 Sitemap: https://webmanager.co.kr/sitemap.xml

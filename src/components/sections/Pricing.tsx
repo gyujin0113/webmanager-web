@@ -50,7 +50,11 @@ const plans = [
 ];
 
 export default function Pricing() {
-  const [isAnnual, setIsAnnual] = useState(true);
+  /**
+   * 기본값은 월 결제 — Hero가 약속한 "월 2.9만"과 방문자가 처음 보는 숫자가 같아야 한다.
+   * 연 결제 할인은 배지와 보조 문구로 알린다.
+   */
+  const [isAnnual, setIsAnnual] = useState(false);
 
   return (
     <section
@@ -83,11 +87,10 @@ export default function Pricing() {
               }`}
             >
               연 결제
-              {isAnnual && (
-                <span className="absolute -top-2 -right-2 whitespace-nowrap bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                  {ANNUAL_FREE_MONTHS}개월 무료
-                </span>
-              )}
+              {/* 선택 여부와 무관하게 항상 노출 — 기본값이 월 결제라, 선택했을 때만 보이면 할인 자체를 모르고 지나간다. */}
+              <span className="absolute -top-2 -right-2 whitespace-nowrap bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                {ANNUAL_FREE_MONTHS}개월 무료
+              </span>
             </button>
             <button
               type="button"

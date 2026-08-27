@@ -64,6 +64,8 @@ const jsonLd = {
       name: "가이드 위젯",
       url: `${siteUrl}/#pricing`,
       description: productDescription,
+      /** static export 가 내보내는 실제 경로 (확장자 없음) — `out/opengraph-image`. */
+      image: `${siteUrl}/opengraph-image`,
       category: "SoftwareApplication",
       brand: {
         "@type": "Brand",
