@@ -12,6 +12,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run dev` — Start development server
 - `npm run build` — Production build with static export (outputs to `out/`)
 - `npm run lint` — Run ESLint
+- `npm test` — Vitest (lib·scripts·functions 단위 테스트)
+- `npm run typecheck` — tsc (src + functions + tests)
 
 ## Architecture
 
@@ -103,7 +105,7 @@ This is a **static landing page** for "WebManager" (webmanager.co.kr) — a **�
 
 - **Metadata**: `layout.tsx`에 title, description, keywords, OG, Twitter Card, canonical URL, robots, 네이버 인증. title·description 의 가격/기간도 `pricing.ts` 에서 온다.
 - **JSON-LD**: `page.tsx`에 **WebSite + Product** 구조화 데이터 (`offers` 월/연 2건, `image` = OG 이미지). 가격은 `pricing.ts` 에서만.
-- **sitemap.xml / robots.txt**: `public/`에 정적 파일로 배치 (static export 제약). `robots.txt` 는 구 관리 상품 카탈로그(`/catalog/`)를 색인에서 제외한다 — 파일은 공유된 링크 때문에 남겨 두되 검색에는 노출하지 않는다.
+- **sitemap.xml / robots.txt**: `public/`에 정적 파일로 배치 (static export 제약). 구 관리 상품 카탈로그(`/catalog/*.html`)는 공유된 링크 때문에 파일을 남겨 두되, `robots.txt`로 크롤링 자체를 막으면 `noindex`가 검색엔진에 보이지 않으므로 각 파일 `<head>`에 `<meta name="robots" content="noindex,follow">`를 넣어 색인만 제외한다. 파일 삭제 여부는 아직 사용자 결정 대기 중.
 - **Favicon**: `src/app/icon.svg` — 원형 배경 + WM 지그재그 로고 SVG 파비콘.
 - **OG Image**: `src/app/opengraph-image.tsx` — 빌드 타임 자동 생성 (1200x630 PNG, `out/opengraph-image`, 확장자 없음). 카피는 "WebManager / 홈페이지 AI 안내 위젯 / 한 줄 설치 · 월 2.9만원". Noto Sans KR 을 Google Fonts API 에서 **필요 글자만** 받으므로, 글리프 목록은 실제 렌더 문자열에서 자동으로 뽑는다(빠진 글자는 두부로 찍힌다). `dynamic: "force-static"` 필수 (static export 호환).
 
