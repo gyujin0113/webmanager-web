@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import Script from "next/script";
+import { TRIAL_DAYS, WIDGET_MONTHLY, manwon } from "@/lib/pricing";
 import { WIDGET_GUIDE_PATH, WIDGET_SCRIPT_SRC, WIDGET_SITE_ID } from "@/lib/widgetConfig";
 import "./globals.css";
 
@@ -13,9 +14,11 @@ const notoSansKR = Noto_Sans_KR({
 
 const siteUrl = "https://webmanager.co.kr";
 const siteName = "WebManager";
-const title = "Web Manager — 홈페이지 AI 안내 위젯";
+/** 가격·기간은 `content/pricing.json` → `src/lib/pricing.ts` 한 곳에서만 온다. */
+const title = `홈페이지 AI 안내 위젯 — 한 줄 설치, 월 ${manwon(WIDGET_MONTHLY)} | ${siteName}`;
 const description =
-  "홈페이지에 스크립트 한 줄로 다는 AI 안내 위젯. 방문자가 묻는 질문에 바로 답하고, 원하는 페이지로 데려다줍니다. 30일 무료 체험.";
+  `홈페이지에 스크립트 한 줄로 다는 AI 안내 위젯. 방문자가 자주 묻는 질문에 바로 답하고, 답이 있는 페이지로 안내합니다. ` +
+  `워드프레스·아임웹·카페24 어디든 설치되고, ${TRIAL_DAYS}일 무료 체험 후 월 ${manwon(WIDGET_MONTHLY)}입니다.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -23,15 +26,19 @@ export const metadata: Metadata = {
   description,
   keywords: [
     "홈페이지 안내 위젯",
-    "웹사이트 AI 위젯",
-    "홈페이지 챗봇 대안",
+    "사이트 가이드",
     "사이트 가이드 위젯",
+    "웹사이트 AI 위젯",
+    "웹사이트 챗봇 대안",
+    "홈페이지 챗봇",
+    "FAQ 위젯",
+    "홈페이지 FAQ",
+    "홈페이지 문의 늘리기",
+    "홈페이지 문의 전환",
+    "방문자 이탈 방지",
     "워드프레스 위젯",
     "아임웹 위젯",
     "카페24 위젯",
-    "홈페이지 문의 전환",
-    "방문자 이탈 방지",
-    "웹사이트 안내 챗봇",
   ],
   alternates: {
     canonical: siteUrl,
