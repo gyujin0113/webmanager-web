@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "predev": "node scripts/sync-guide.mjs",
+    "build": "node scripts/sync-guide.mjs && next build",
+    "postbuild": "node scripts/check-guide-if-present.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit && tsc -p functions/tsconfig.json && tsc -p tests/tsconfig.json"
+    "typecheck": "tsc --noEmit && tsc -p functions/tsconfig.json && tsc -p tests/tsconfig.json",
+    "guide:check": "node ../webmanager-widget/dist/validate-guide.mjs public/guide.json out"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

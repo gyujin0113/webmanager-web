@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
+import Script from "next/script";
+import { WIDGET_GUIDE_PATH, WIDGET_SCRIPT_SRC, WIDGET_SITE_ID } from "@/lib/widgetConfig";
 import "./globals.css";
 
 const notoSansKR = Noto_Sans_KR({
@@ -69,7 +71,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${notoSansKR.variable} antialiased`}>{children}</body>
+      <body className={`${notoSansKR.variable} antialiased`}>
+        {children}
+        <Script
+          src={WIDGET_SCRIPT_SRC}
+          strategy="afterInteractive"
+          data-site={WIDGET_SITE_ID}
+          data-guide={WIDGET_GUIDE_PATH}
+        />
+      </body>
     </html>
   );
 }
