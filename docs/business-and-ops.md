@@ -8,6 +8,8 @@
 AI는 기능이 아니라 무제한 수정을 수익성 있게 만드는 **마진 엔진**.
 홍보 페이지: webmanager.co.kr
 
+**2026-08-27부터 공개 상품은 가이드 위젯 하나**(월 2.9만/연 29만, 무료체험 30일)다 — 위 "맞춤 제작+구독" 모델은 **관리 구독으로 이름을 바꿔 내부 가격표**로만 유지, 랜딩엔 노출하지 않고 온보딩 통화에서만 제안한다. 상세: `docs/artifacts/07_guide-widget-product-and-landing-v2.md`.
+
 ## 세션 시작 시 먼저 읽을 것
 - **`docs/CONVERSATION-HANDOFF-2026-08-27.md`** (브랜치 `feat/landing-v2`에 있음 — `git show feat/landing-v2:docs/CONVERSATION-HANDOFF-2026-08-27.md`) — 위젯 단일 상품 피벗·랜딩 v2 진행 상태·다음 할 일. **2026-08-27 이후 세션은 이것부터.**
 - `docs/CONVERSATION-HANDOFF-2026-06-08.md` — 이 프로젝트가 어떻게 정의됐는지 전체 맥락 (필독)
@@ -30,7 +32,7 @@ AI는 기능이 아니라 무제한 수정을 수익성 있게 만드는 **마�
 
 > 회사 차원 문서(견적·계약·회사정보)는 별도 repo `3&D`(gyujin0113/3andD)에 있다. webmanager 관련 용역·기획은 이 repo로 일원화됐다.
 
-## 현재 상태 (2026-06-08 기준 + 2026-06-24 이관)
+## 현재 상태 (2026-08-27 기준)
 - demand 검증 통과: 기존 2고객(미용실 원장·진엽 형 회사)이 월 5만 구독 확답(자발적 제시).
 - 랜딩(webmanager.co.kr)은 이미 완성·배포됨(Next.js+GSAP, 10섹션).
 - www DNS 해결됨(2026-06-10): www 커스텀도메인+CNAME 추가, HTTPS 200.
@@ -38,12 +40,22 @@ AI는 기능이 아니라 무제한 수정을 수익성 있게 만드는 **마�
 - GraBis 전체 이미지 에셋 content/ 분리 + R2 이관 완료(2026-06-16, PR#4): 코드·CSS 하드코딩 이미지 0건, 실물 102개 R2 이관·git 바이너리 제거. 05 §2.5 충족 → 이미지 교체가 티어① /apply-edit로 자동화됨. (계획: `docs/plans/2026-06-16-grabis-content-asset-separation.md`)
 - 비즈니스·운영 모델 합의됨 → `docs/artifacts/06`. ICP 확정: **1인~소수 기술/제조 회사(회사소개 사이트)**. 방향 = "AI-운영형 회사소개 사이트 구독(Managed-Brochure WaaS + AI 마진엔진)". 제작=무료/바우처(CAC도구), 구독=본진(7~15만), 기능개발=별도 프로젝트(구독 밖).
 - GTM 합의: 채널 = 디렉토리 기반 정조준 콜드(전시회 참가사·채용중 소규모 기술회사) + 진엽 형 시드 + 프로스펙팅 자동화. 멘트 = "낡은 사이트 신호 콕 집기 + 무료 새단장" 1:1 개인화. 크몽/숨고는 보조만.
-- 다음 액션: ①공개가 7/9.9만 확정(시장천장상 9.9 권장) ②콜드 첫 사이클(30곳 발굴→발송→학습) ③실전 엔드투엔드 1건(GraBis 실제 카톡 요청 처리, plan Task 7) ④정부 중소기업홈페이지제작 지원사업 공급기업 자격 실체 검증 ⑤goddmenz 표준스택 재구축(별도 계획) ⑥before/after+후기. ⑦**webmanager 랜딩(webmanager.co.kr) 전면 개편 — 가이드 위젯을 Basic 티어 셀링포인트로 반영**(카탈로그·가격·FAQ 카피 갱신, 랜딩 자체에 위젯 장착, 위젯 데모를 랜딩에서 활용할지 결정). ⑧그 개편 때 `widget.webmanager.co.kr/` 루트(현재 위젯 데모 페이지)를 랜딩으로 리다이렉트할지 결정 — `webmanager-widget/public/_redirects` 한 줄(`/ https://webmanager.co.kr 302`)이면 됨.
+- 다음 액션: ①공개가 7/9.9만 확정(시장천장상 9.9 권장) ②콜드 첫 사이클(30곳 발굴→발송→학습) ③실전 엔드투엔드 1건(GraBis 실제 카톡 요청 처리, plan Task 7) ④정부 중소기업홈페이지제작 지원사업 공급기업 자격 실체 검증 ⑤goddmenz 표준스택 재구축(별도 계획) ⑥before/after+후기. ~~⑦webmanager 랜딩 전면 개편~~(완료, 2026-08-27 — 랜딩 v2) ~~⑧widget.webmanager.co.kr 루트 리다이렉트~~(완료, 2026-08-27 — 위젯 v1.2) ⑨위젯 Pages 프로젝트 환경변수 `ALLOWED_SITES`에 `webmanager` 추가(수동, 랜딩 자체 위젯 `/log` 통과용) ⑩익명 스크린샷 승인(Showcase 섹션용) ⑪통신판매업 신고번호 기재 ⑫첫 체험 고객 온보딩(호스티드 카탈로그 경로 실사용 검증).
 - 사이트 가이드 위젯 v2 1호 적용(2026-08-27, grabis PR#6): 중앙 스크립트 `widget.webmanager.co.kr/v1/w.js`(repo `webmanager-widget`) + `content/guide.json` 28개. LLM 0. 미매칭 질문은 `/log`(KV) 적재 — 월 1회 `scripts/log-report.mjs`로 집계해 칩 추가. PR#6 머지 완료(2026-08-27, grabis.co.kr 프로덕션 적용). widget.webmanager.co.kr 커스텀 도메인 연결 완료(2026-08-27). 설계: 3andD/cs-agent/…설계_v2.md
+- **랜딩 v2**(2026-08-27, PR `feat/landing-v2`): 7섹션(Hero/Problem/Showcase/How/Pricing/Trial/FAQ+Footer)·위젯 단일 상품 카피·체험 신청 폼(`#trial`)·랜딩 자체 위젯(도그푸딩)·`/api/notify` Pages Function으로 Telegram 서버 프록시(토큰 클라이언트 노출 제거). 머지 시 자동 배포.
+- **위젯 v1.2**: 호스티드 카탈로그 `widget.webmanager.co.kr/guide/<site>.json` CORS 허용(`_headers`), `window.WebmanagerGuide.open()` 공개 API, `widget.webmanager.co.kr/` 루트 → 랜딩 `#trial` 302 리다이렉트, `--live` 카탈로그 검증기(`validate-guide.mjs --live`).
+- **퍼널 링크**: 고객 위젯 푸터 "이런 위젯, 우리 사이트에도 →" → `webmanager.co.kr/?ref=<slug>&utm_source=guide-widget&utm_medium=cta#trial`.
+- **알림 파이프라인 프로덕션 검증됨**(2026-08-27): Web3Forms 메일 + `/api/notify` Telegram 실수신 확인.
 
 ## ops 도구 (ops/)
 - `setup-machine.sh` — **새 기기 1회 셋업**: apply-edit 스킬 심링크 생성 + 형제 고객 repo·도구·인증 점검. 경로는 기기 독립(심링크 역추적·형제 상대경로)이라 이것만 돌리면 어느 맥에서도 동작. 사용: `bash ops/setup-machine.sh`.
-- `customers.json` — 고객 레지스트리(repo·로컬경로[**`local`은 이 repo 기준 형제 상대경로** 예 `../grabis-web`]·pagesProject·previewPattern·defaultBranch·status).
+- `customers.json` — 고객 레지스트리(repo·로컬경로[**`local`은 이 repo 기준 형제 상대경로** 예 `../grabis-web`]·pagesProject·previewPattern·defaultBranch·status). 2026-08-27 위젯 필드 확장: `guideHosting`(`"site"`=고객 repo `content/guide.json` / `"hosted"`=`webmanager-widget/public/guide/<slug>.json` / `null`=미적용)·`trialEndsAt`(체험 종료일 `"YYYY-MM-DD"`, 없으면 `null`)·`mgmtStatus`(체험 폼 "관리 현황" 답 — `"self"`/`"agency"`/`"none"`/`"unknown"`/`null`).
+- **온보딩 통화 스크립트(체험 신청 후)**:
+  1. 사이트 확인 · 카탈로그 초안 20개 작성 안내
+  2. 설치 방식 안내(한 줄 직접 설치 vs 우리가 설치)
+  3. "지금 홈페이지 관리는 어떻게 하고 계세요?" — 폼 `mgmtStatus` 답 확인: `agency`/`none`이면 관리 구독 **내부 가격표** 제안, `self`/`unknown`이면 위젯만 안내
+  4. 체험 종료일(`trialEndsAt`)·종료 시 리포트 안내
+  5. 연락 채널(카카오톡/메일) 확정
 - `skills/apply-edit/SKILL.md` — 수정요청→content/만 편집→빌드·가드레일→PR. `~/.claude/skills/apply-edit`에 심링크. 사용: `/apply-edit <slug> "<요청문>" [파일]`.
 - `scripts/check-content-only.sh` — diff가 content/ 안인지 검사(미커밋 포함).
 - `scripts/check-guide.sh` — `content/guide.json`이 있는 고객만 빌드 산출물(`out/`)과 대조 검증(webmanager-widget의 validator 사용), 없으면 통과. 사용: `check-guide.sh <고객repo경로>`.
@@ -55,3 +67,4 @@ AI는 기능이 아니라 무제한 수정을 수익성 있게 만드는 **마�
 - 정액 무제한만(건당 과금 금지 — 마찰이 status quo로 회귀). "무제한"의 경계 명문화(콘텐츠수정 ≠ 개발).
 - 라이브 사이트 자동수정은 사람 게이트/수정구역제약 없이는 auto-deploy 금지. git 1커밋=1수정 → revert.
 - 랜딩 카피 = 제품 스펙. 정직하게 쓰면 그게 개발 백로그.
+- 공개 상품은 위젯 하나. 관리 구독은 랜딩 비노출·통화에서만.

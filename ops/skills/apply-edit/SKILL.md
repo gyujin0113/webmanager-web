@@ -59,6 +59,8 @@ bash "<OPS>/scripts/check-guide.sh" "<repo[slug]>"   # guide.json 변경 시 깨
 ```
 `defaultBranch`는 customers.json의 해당 고객 `defaultBranch` 필드값(없으면 `main`).
 
+> `guideHosting: "hosted"` 고객은 카탈로그가 고객 repo 가 아니라 `../webmanager-widget/public/guide/<slug>.json` 에 있다 → 그 파일을 편집하고 `webmanager-widget` 에서 `node dist/validate-guide.mjs --live https://<고객도메인> public/guide/<slug>.json` 후 `npm run deploy`.
+
 ### 6. PR 생성
 ```bash
 git add content/ && git commit -m "edit: <한 줄 요약>"
