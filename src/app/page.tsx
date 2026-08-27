@@ -8,6 +8,7 @@ import Process from "@/components/sections/Process";
 import Portfolio from "@/components/sections/Portfolio";
 import FAQ from "@/components/sections/FAQ";
 import CTA from "@/components/sections/CTA";
+import { KAKAO_URL } from "@/lib/formConfig";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -27,7 +28,7 @@ const jsonLd = {
         "웹사이트 클론 복원 · 무제한 관리 서비스. 연락 두절된 업체 대신, 기존 디자인 그대로 복원하고 월 구독으로 관리합니다.",
       email: "contact@webmanager.co.kr",
       priceRange: "₩₩",
-      sameAs: ["https://open.kakao.com/me/webmanager"],
+      sameAs: [KAKAO_URL],
       areaServed: {
         "@type": "Country",
         name: "KR",

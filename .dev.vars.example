@@ -1,0 +1,5 @@
+# Local values for `wrangler pages dev` (functions/api/notify.ts).
+# Copy to `.dev.vars` and fill in — never commit the filled file.
+# In production these live as Cloudflare Pages secrets, not in the repo.
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=

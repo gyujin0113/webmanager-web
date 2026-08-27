@@ -2,39 +2,9 @@
 
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { CheckCircle, Loader2, AlertCircle } from "lucide-react";
+import { useFormSubmit } from "@/hooks/useFormSubmit";
+import { inputClasses } from "@/lib/formStyles";
 import { cn } from "@/lib/utils";
-
-const TELEGRAM_BOT_TOKEN = "8461798262:AAGK2dNqh0U2hB1d-hFU1Zn8FseBCzmExQk";
-const TELEGRAM_CHAT_ID = "1707030083";
-
-async function sendTelegramNotification(data: {
-  name: string;
-  phone: string;
-  message: string;
-}) {
-  const text = [
-    "📩 *새로운 상담 문의*",
-    "",
-    `*성함:* ${data.name}`,
-    `*연락처:* ${data.phone}`,
-    `*요청사항:* ${data.message || "(없음)"}`,
-  ].join("\n");
-
-  await fetch(
-    `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_CHAT_ID,
-        text,
-        parse_mode: "Markdown",
-      }),
-    }
-  );
-}
-
-type FormStatus = "idle" | "submitting" | "success" | "error";
 
 interface FormData {
   name: string;
@@ -80,9 +50,6 @@ function validateAll(data: FormData): FormErrors {
   return errors;
 }
 
-const inputClasses =
-  "w-full bg-white/[0.05] border border-white/[0.08] rounded-lg px-4 py-3 min-h-[44px] text-sm text-foreground placeholder:text-muted-foreground focus:border-brand-accent/50 focus:ring-1 focus:ring-brand-accent/20 focus:outline-none transition-colors";
-
 export default function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -95,8 +62,11 @@ export default function ContactForm() {
     phone: false,
     message: false,
   });
-  const [status, setStatus] = useState<FormStatus>("idle");
   const [honeypot, setHoneypot] = useState("");
+  const { status, error, submit, reset } = useFormSubmit({
+    web3formsSubject: "[WebManager] 새로운 상담 문의",
+    kind: "contact",
+  });
 
   function handleChange(field: keyof FormData, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -123,41 +93,18 @@ export default function ContactForm() {
 
     if (Object.keys(validationErrors).length > 0) return;
 
-    setStatus("submitting");
-
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: "ea1b02ad-1a33-49e3-9dbe-f12f5c01d1eb",
-          subject: "[WebManager] 새로운 상담 문의",
-          from_name: "WebManager Contact Form",
-          name: formData.name,
-          phone: formData.phone,
-          message: formData.message,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        // Telegram 알림 (실패해도 폼 전송은 성공 처리)
-        sendTelegramNotification(formData).catch(() => {});
-        setStatus("success");
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    }
+    await submit({
+      name: formData.name,
+      phone: formData.phone,
+      message: formData.message,
+    });
   }
 
   function handleReset() {
     setFormData({ name: "", phone: "", message: "" });
     setErrors({});
     setTouched({ name: false, phone: false, message: false });
-    setStatus("idle");
+    reset();
   }
 
   if (status === "success") {
@@ -310,7 +257,7 @@ export default function ContactForm() {
           role="alert"
         >
           <AlertCircle className="h-4 w-4 shrink-0" />
-          <p>전송에 실패했습니다. 잠시 후 다시 시도해 주세요.</p>
+          <p>{error ?? "전송에 실패했습니다. 잠시 후 다시 시도해 주세요."}</p>
         </div>
       )}
 
