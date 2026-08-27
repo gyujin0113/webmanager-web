@@ -3,7 +3,7 @@
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { CheckCircle, Loader2, AlertCircle } from "lucide-react";
 import { useFormSubmit } from "@/hooks/useFormSubmit";
-import { inputClasses } from "@/lib/formStyles";
+import { inputClasses, submitButtonClasses } from "@/lib/formStyles";
 import { cn } from "@/lib/utils";
 
 interface FormData {
@@ -264,7 +264,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full inline-flex items-center justify-center rounded-lg px-8 py-3.5 text-sm font-medium bg-brand-accent text-white hover:bg-brand-accent-dark cursor-pointer transition-all duration-200 shadow-lg shadow-brand-accent/20 disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+        className={submitButtonClasses}
       >
         {status === "submitting" ? (
           <>
