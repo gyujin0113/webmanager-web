@@ -38,7 +38,7 @@ AI는 기능이 아니라 무제한 수정을 수익성 있게 만드는 **마�
 - 비즈니스·운영 모델 합의됨 → `docs/artifacts/06`. ICP 확정: **1인~소수 기술/제조 회사(회사소개 사이트)**. 방향 = "AI-운영형 회사소개 사이트 구독(Managed-Brochure WaaS + AI 마진엔진)". 제작=무료/바우처(CAC도구), 구독=본진(7~15만), 기능개발=별도 프로젝트(구독 밖).
 - GTM 합의: 채널 = 디렉토리 기반 정조준 콜드(전시회 참가사·채용중 소규모 기술회사) + 진엽 형 시드 + 프로스펙팅 자동화. 멘트 = "낡은 사이트 신호 콕 집기 + 무료 새단장" 1:1 개인화. 크몽/숨고는 보조만.
 - 다음 액션: ①공개가 7/9.9만 확정(시장천장상 9.9 권장) ②콜드 첫 사이클(30곳 발굴→발송→학습) ③실전 엔드투엔드 1건(GraBis 실제 카톡 요청 처리, plan Task 7) ④정부 중소기업홈페이지제작 지원사업 공급기업 자격 실체 검증 ⑤goddmenz 표준스택 재구축(별도 계획) ⑥before/after+후기.
-- 사이트 가이드 위젯 v2 1호 적용(2026-08-27, grabis PR#6): 중앙 스크립트 `widget.webmanager.co.kr/v1/w.js`(repo `webmanager-widget`) + `content/guide.json` 28개. LLM 0. 미매칭 질문은 `/log`(KV) 적재 — 월 1회 `scripts/log-report.mjs`로 집계해 칩 추가. PR#6 프리뷰 검증 완료·머지 대기, widget.webmanager.co.kr 커스텀 도메인 연결 필요. 설계: 3andD/cs-agent/…설계_v2.md
+- 사이트 가이드 위젯 v2 1호 적용(2026-08-27, grabis PR#6): 중앙 스크립트 `widget.webmanager.co.kr/v1/w.js`(repo `webmanager-widget`) + `content/guide.json` 28개. LLM 0. 미매칭 질문은 `/log`(KV) 적재 — 월 1회 `scripts/log-report.mjs`로 집계해 칩 추가. PR#6 프리뷰 검증 완료·머지 대기. widget.webmanager.co.kr 커스텀 도메인 연결 완료(2026-08-27). 설계: 3andD/cs-agent/…설계_v2.md
 
 ## ops 도구 (ops/)
 - `setup-machine.sh` — **새 기기 1회 셋업**: apply-edit 스킬 심링크 생성 + 형제 고객 repo·도구·인증 점검. 경로는 기기 독립(심링크 역추적·형제 상대경로)이라 이것만 돌리면 어느 맥에서도 동작. 사용: `bash ops/setup-machine.sh`.
