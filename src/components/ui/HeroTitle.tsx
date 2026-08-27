@@ -47,14 +47,26 @@ export default function HeroTitle({ segments, className = "", style }: HeroTitle
       {segments.map((seg, i) => (
         <span key={i}>
           {seg.break && <br />}
-          {seg.text.split("").map((char, j) => (
-            <span
-              key={`${i}-${j}`}
-              className={`inline-block hero-char ${seg.highlight ? "text-brand-accent" : ""}`}
-            >
-              {char === " " ? "\u00A0" : char}
-            </span>
-          ))}
+          {seg.text.split(/(\s+)/).map((token, k) => {
+            if (token === "") return null;
+            // Whitespace between words: a normal text node, so the browser
+            // (not our per-char spans) decides where the line can break.
+            if (/^\s+$/.test(token)) return token;
+
+            // A word: keep it on one line by wrapping its char-spans together.
+            return (
+              <span key={`${i}-${k}`} className="inline-block whitespace-nowrap">
+                {token.split("").map((char, j) => (
+                  <span
+                    key={`${i}-${k}-${j}`}
+                    className={`inline-block hero-char ${seg.highlight ? "text-brand-accent" : ""}`}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
+            );
+          })}
         </span>
       ))}
     </h1>

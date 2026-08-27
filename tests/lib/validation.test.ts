@@ -26,6 +26,16 @@ describe("normalizeSiteUrl", () => {
     expect(normalizeSiteUrl("한글.한국")).toBeNull();
   });
 
+  it("rejects a hangul domain with an explicit scheme", () => {
+    expect(normalizeSiteUrl("https://한글.kr/x")).toBeNull();
+  });
+
+  it("accepts a non-ascii path on an ascii host", () => {
+    const result = normalizeSiteUrl("example.com/회사소개");
+    expect(result).not.toBeNull();
+    expect(new URL(result!).hostname).toBe("example.com");
+  });
+
   it("rejects a javascript: url", () => {
     expect(normalizeSiteUrl("javascript:alert(1)")).toBeNull();
   });

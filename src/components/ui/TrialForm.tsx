@@ -178,7 +178,6 @@ export default function TrialForm() {
           <p
             id="trial-site-error"
             role="alert"
-            aria-live="polite"
             className="mt-1.5 text-xs text-red-400"
           >
             {errors.site}
@@ -206,7 +205,6 @@ export default function TrialForm() {
           <p
             id="trial-name-error"
             role="alert"
-            aria-live="polite"
             className="mt-1.5 text-xs text-red-400"
           >
             {errors.name}
@@ -233,7 +231,6 @@ export default function TrialForm() {
           <p
             id="trial-contact-error"
             role="alert"
-            aria-live="polite"
             className="mt-1.5 text-xs text-red-400"
           >
             {errors.contact}
@@ -293,7 +290,6 @@ export default function TrialForm() {
           <p
             id="trial-message-error"
             role="alert"
-            aria-live="polite"
             className="mt-1.5 text-xs text-red-400"
           >
             {errors.message}

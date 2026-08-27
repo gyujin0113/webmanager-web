@@ -49,7 +49,7 @@ const MOBILE = /^01\d{8,9}$/;
  */
 export function normalizeSiteUrl(value: string): string | null {
   const trimmed = value.trim();
-  if (!trimmed || NON_ASCII.test(trimmed)) return null;
+  if (!trimmed) return null;
 
   let candidate = trimmed;
   if (!HTTP_SCHEME.test(candidate)) {
@@ -66,6 +66,13 @@ export function normalizeSiteUrl(value: string): string | null {
   }
 
   if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+
+  // Reject a hangul IDN *host* — but only the authority portion of what the
+  // visitor typed, not the whole input (a path like `/회사소개` is fine, and
+  // `url.hostname` here is already punycode so testing it would never fire).
+  const authorityEnd = candidate.indexOf("/", candidate.indexOf("://") + 3);
+  const authority = authorityEnd === -1 ? candidate : candidate.slice(0, authorityEnd);
+  if (NON_ASCII.test(authority)) return null;
 
   const host = url.hostname.toLowerCase();
   if (!HOSTNAME.test(host)) return null;

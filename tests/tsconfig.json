@@ -6,6 +6,6 @@
     "incremental": false,
     "noEmit": true
   },
-  "include": ["./lib/**/*.ts", "./scripts/**/*.ts"],
+  "include": ["./lib/**/*.ts", "./scripts/**/*.ts", "./functions/**/*.ts"],
   "exclude": []
 }

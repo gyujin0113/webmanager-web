@@ -21,7 +21,7 @@ const legalItems = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] py-6 text-sm text-muted-foreground">
+    <footer className="border-t border-white/[0.06] pt-6 pb-24 md:pb-6 text-sm text-muted-foreground">
       <Container className="flex flex-col gap-4">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <p className="text-center sm:text-left">
