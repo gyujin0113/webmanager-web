@@ -1,6 +1,7 @@
 import Container from "@/components/ui/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ContactForm from "@/components/ui/ContactForm";
+import { KAKAO_URL } from "@/lib/formConfig";
 
 export default function CTA() {
   return (
@@ -27,7 +28,7 @@ export default function CTA() {
               <p className="mt-4 text-xs text-muted-foreground text-right">
                 카카오톡이 편하신가요?{" "}
                 <a
-                  href="https://open.kakao.com/me/webmanager"
+                  href={KAKAO_URL}
                   className="text-foreground/60 underline underline-offset-2 hover:text-foreground transition-colors"
                 >
                   오픈채팅으로 문의하기
