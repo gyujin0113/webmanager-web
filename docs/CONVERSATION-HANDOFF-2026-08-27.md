@@ -1,6 +1,7 @@
 # 핸드오프 2026-08-28 — 랜딩 v2 + 뷰포트 맞춤 프로덕션 배포 완료
 
 > 다음 세션은 이 문서 → `CLAUDE.md`(v2 기준으로 갱신됨) → `docs/business-and-ops.md` 순으로 읽는다. SDD 레저 `.superpowers/sdd/2026-08-27-guide-widget-landing-v2/progress.md`(git 제외, 로컬)에 룰링 전부 기록.
+> **다음 작업 핸드오프:** 위젯 UI 리디자인 → `docs/CONVERSATION-HANDOFF-2026-08-28-widget-redesign.md`
 
 ## 오늘 끝난 것
 - **PR #2 머지·검증** — Telegram 토큰이 `/api/notify` Pages Function 으로 이전(`a4d82f1`). 사용자가 BotFather 토큰 재발급 + `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` 시크릿 입력 → 재배포 후 `/api/notify` **204** + 텔레그램 DM 수신 확인. (Pages 시크릿은 **다음 배포부터** 적용됨 — 대시보드 Retry deployment 필요했음.)
