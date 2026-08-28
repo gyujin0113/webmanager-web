@@ -60,7 +60,7 @@ This is a **static landing page** for "WebManager" (webmanager.co.kr) — a **�
 - **Design tokens**: Dark cinematic palette in `:root` → `@theme inline`. Background: `#0a0a0a`, foreground: `#fafafa`, cards: semi-transparent `white/[0.04]`, borders: `white/[0.06]`.
   - **Brand colors**: `brand-accent` (blue, `#2563eb`), `cta` (blue, `#2563eb`), `surface` (dark, `#0f0f0f`).
 - **체험 신청 폼 (`TrialForm`, #trial)** — 사이트에 폼은 이것 하나뿐이다. `useFormSubmit` 이 ① Web3Forms 로 메일(기록의 원본) ② `/api/notify` Pages Function 으로 Telegram 알림, 2단으로 보낸다. **Telegram 봇 토큰·chat_id 는 Pages 환경변수에만 있고 번들에는 절대 들어가지 않는다** (Web3Forms 액세스 키는 설계상 공개값이라 `formConfig.ts` 에 남는다). honeypot + 클라이언트 검증(`validation.ts`) + hidden `ref`/`utm_*`/`landing_path` 동봉.
-- **랜딩 자체 위젯 (도그푸딩 = 데모)**: `layout.tsx` 가 `<Script strategy="afterInteractive" data-site="webmanager" data-guide="/guide.json">` 로 실제 판매 중인 위젯을 이 페이지에 붙인다(상수는 `widgetConfig.ts`). 카탈로그 원본은 `content/guide.json` → `sync-guide.mjs` 가 `{{price}}` 를 치환해 `public/guide.json` 생성(**`public/guide.json` 은 빌드 산출물이라 커밋 대상이 아니다**), postbuild 가 앵커 유효성 검증. 위젯 칩이 가리키는 섹션 id 에는 헤더 높이만큼 `scroll-mt-24` 가 있어야 스냅 스크롤에서 제목이 잘리지 않는다.
+- **랜딩 자체 위젯 (도그푸딩 = 데모)**: `layout.tsx` 가 `<Script strategy="afterInteractive" data-site="webmanager" data-guide="/guide.json">` 로 실제 판매 중인 위젯을 이 페이지에 붙인다(상수는 `widgetConfig.ts`). 카탈로그 원본은 `content/guide.json` → `sync-guide.mjs` 가 `{{price}}` 를 치환해 `public/guide.json` 생성(**`public/guide.json` 은 빌드 산출물이라 커밋 대상이 아니다**), postbuild 가 앵커 유효성 검증. 위젯 칩이 가리키는 섹션은 모바일 `scroll-mt-(--header-h)`, 데스크톱은 `md:pt-(--header-h)` + `md:scroll-mt-0` 로 헤더 아래에 착지한다(위 "Responsive section heights" 참조).
 - **Static export**: `images.unoptimized: true` in next.config.ts. No Next API routes — 서버가 필요한 일은 Pages Functions (`functions/`) 로.
 
 ### Path Alias
