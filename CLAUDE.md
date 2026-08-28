@@ -53,7 +53,7 @@ This is a **static landing page** for "WebManager" (webmanager.co.kr) — a **�
 ### Key Patterns
 
 - **Scroll snap (desktop only)**: Mobile uses `scroll-snap-type: y proximity` (natural scroll), desktop (`md:` 이상) uses `mandatory`. Configured in `@layer base` in globals.css.
-- **Responsive section heights**: `min-h-dvh md:h-dvh md:snap-start` — mobile gets natural height with `py-16`, desktop gets fixed viewport height with snap.
+- **Responsive section heights (뷰포트 맞춤)**: 7개 섹션 전부 `min-h-dvh md:h-dvh md:pt-(--header-h) md:pb-0 md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex items-center py-16`. 모바일은 자연 높이(`py-16`), 데스크톱은 고정 뷰포트 높이 + 고정 헤더(`--header-h`, globals.css) 만큼 컨텐츠를 내려 `100dvh − 헤더` 안에서 가운데 정렬한다. 세로 리듬은 고정값 대신 `clamp()`-on-vh(`mb-[clamp(1rem,2.5vh,2rem)]` 등), 낮은 화면 전용 축소는 `short:` 변형(`@media (max-height:900px)`, 모바일 터치 타겟에 닿을 땐 `short:md:`). 스냅은 데스크톱도 `y proximity` — mandatory 는 넘친 컨텐츠를 볼 수 없게 만든다.
 - **GSAP animations**: `ScrollReveal` component wraps content with GSAP ScrollTrigger (once: true, start: "top 85%"). Respects `prefers-reduced-motion`. Mobile: shortened duration (0.5s) and reduced y-offset. `HeroTitle` uses GSAP for char-by-char stagger (mobile: faster stagger, smaller y). Hero has a GSAP timeline for sequential element entrance.
 - **Mobile-first responsive**: 3-step typography scaling (`text-2xl sm:text-3xl md:text-4xl`). Grids use `sm:grid-cols-2 lg:grid-cols-3` for tablet intermediate. Touch targets min 44px. `@media(hover:hover)` for hover-only effects.
 - **Client vs Server**: 기본은 서버 컴포넌트. `"use client"` 는 `Hero`, `Pricing`, `FAQ`, `LeadCapture`, `DotNav`, `HeroTitle`, `ScrollReveal`, `TrialForm`, `useFormSubmit`, `useSearchParam` 뿐.

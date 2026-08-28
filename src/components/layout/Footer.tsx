@@ -21,16 +21,16 @@ const legalItems = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] pt-6 pb-24 md:pb-6 text-sm text-muted-foreground">
-      <Container className="flex flex-col gap-4">
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+    <footer className="border-t border-white/[0.06] pt-[clamp(0.75rem,2vh,1.5rem)] pb-24 md:pb-[clamp(0.75rem,2vh,1.5rem)] text-sm text-muted-foreground">
+      <Container className="flex flex-col gap-4 short:md:gap-2.5">
+        <div className="flex flex-col items-center justify-between gap-4 short:md:gap-2.5 sm:flex-row">
           <p className="text-center sm:text-left">
             &copy; {new Date().getFullYear()} WebManager
           </p>
           <div className="flex items-center gap-5">
             <a
               href={`mailto:${company.email}`}
-              className="py-2 transition-colors hover:text-foreground"
+              className="py-2 short:md:py-1 transition-colors hover:text-foreground"
             >
               {company.email}
             </a>
@@ -38,7 +38,7 @@ export default function Footer() {
               href={KAKAO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="py-2 transition-colors hover:text-foreground"
+              className="py-2 short:md:py-1 transition-colors hover:text-foreground"
             >
               카카오톡
             </a>

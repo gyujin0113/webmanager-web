@@ -59,15 +59,15 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="min-h-dvh md:h-dvh md:snap-start scroll-mt-24 flex items-center py-16 md:py-0"
+      className="min-h-dvh md:h-dvh md:pt-(--header-h) md:pb-0 md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex items-center py-16"
     >
       <Container>
         <ScrollReveal>
-          <div className="text-center mb-8">
+          <div className="text-center mb-[clamp(1rem,2.5vh,2rem)]">
             <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
               가격은 하나입니다
             </h2>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-[clamp(0.75rem,2vh,1rem)] text-muted-foreground">
               등급도, 추가금도 없습니다. 쓰는 만큼이 아니라 정액입니다.
             </p>
           </div>
@@ -75,7 +75,7 @@ export default function Pricing() {
 
         {/* Billing period toggle */}
         <ScrollReveal>
-          <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="flex items-center justify-center gap-3 mb-[clamp(1rem,2.5vh,2rem)]">
             <button
               type="button"
               onClick={() => setIsAnnual(true)}
@@ -107,7 +107,7 @@ export default function Pricing() {
           </div>
         </ScrollReveal>
 
-        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid sm:grid-cols-2 gap-[clamp(1rem,2.5vh,1.5rem)] max-w-3xl mx-auto">
           {plans.map((plan, i) => (
             <ScrollReveal key={plan.name} delay={i * 0.1}>
               <div className="relative h-full">
@@ -115,7 +115,7 @@ export default function Pricing() {
                   <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-brand-accent via-purple-500 to-brand-accent bg-[length:200%_100%] animate-gradient-x" />
                 )}
                 <div
-                  className={`relative rounded-2xl p-6 sm:p-8 h-full flex flex-col ${
+                  className={`relative rounded-2xl p-5 sm:p-[clamp(1.25rem,2.5vh,2rem)] h-full flex flex-col ${
                     plan.popular
                       ? "bg-[#0f0f0f]"
                       : "bg-white/[0.04] border border-white/[0.06]"
@@ -129,7 +129,7 @@ export default function Pricing() {
                   <h3 className="text-lg font-bold">{plan.name}</h3>
                   <p className="mt-1 text-xs text-muted-foreground">{plan.target}</p>
 
-                  <div className="mt-5">
+                  <div className="mt-[clamp(0.75rem,2vh,1.25rem)]">
                     {plan.popular ? (
                       <>
                         <div className="flex items-baseline gap-1">
@@ -160,7 +160,7 @@ export default function Pricing() {
                     )}
                   </div>
 
-                  <ul className="mt-5 space-y-2.5 flex-1">
+                  <ul className="mt-[clamp(0.75rem,2vh,1.25rem)] space-y-[clamp(0.5rem,1.4vh,0.625rem)] flex-1">
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-start gap-2.5 text-sm">
                         <Check className="w-4 h-4 text-brand-accent mt-0.5 shrink-0" strokeWidth={2} />
@@ -171,7 +171,7 @@ export default function Pricing() {
                   <Button
                     href={TRIAL_ANCHOR}
                     variant="primary"
-                    className={`mt-6 w-full ${
+                    className={`mt-[clamp(1rem,2.5vh,1.5rem)] w-full ${
                       plan.popular
                         ? "bg-brand-accent text-white border-brand-accent hover:bg-brand-accent-dark"
                         : ""
@@ -186,7 +186,7 @@ export default function Pricing() {
         </div>
 
         <ScrollReveal>
-          <p className="mt-6 text-center text-xs text-muted-foreground">
+          <p className="mt-[clamp(0.75rem,2vh,1.5rem)] text-center text-xs text-muted-foreground">
             제작·리뉴얼은 하지 않습니다. 위젯만 정직하게. (VAT 별도)
           </p>
         </ScrollReveal>

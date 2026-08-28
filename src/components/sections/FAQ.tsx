@@ -53,11 +53,11 @@ function AccordionItem({ question, answer }: { question: string; answer: string 
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-controls={panelId}
-        className="flex w-full items-center justify-between py-4 text-left cursor-pointer"
+        className="flex w-full items-center justify-between py-4 short:py-3 text-left cursor-pointer"
       >
         <span className="font-medium pr-4 text-sm sm:text-base">{question}</span>
         <span
-          className={`shrink-0 w-8 h-8 flex items-center justify-center text-muted-foreground transition-transform duration-200 ${
+          className={`shrink-0 w-8 h-8 short:w-6 short:h-6 flex items-center justify-center text-muted-foreground transition-transform duration-200 ${
             isOpen ? "rotate-45" : ""
           }`}
         >
@@ -73,7 +73,7 @@ function AccordionItem({ question, answer }: { question: string; answer: string 
         aria-hidden={!isOpen}
         inert={!isOpen}
         className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-60 pb-4" : "max-h-0"
+          isOpen ? "max-h-60 pb-4 short:pb-3" : "max-h-0"
         }`}
       >
         <p className="text-sm text-muted-foreground leading-relaxed">{answer}</p>
@@ -86,14 +86,18 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="min-h-dvh md:snap-start scroll-mt-24 flex flex-col"
+      className="min-h-dvh md:h-dvh md:pt-(--header-h) md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex flex-col"
     >
-      <div className="flex-1 flex items-center py-16 md:py-20">
+      {/*
+        닫힌 상태의 7문항 + 푸터가 `100dvh − 헤더` 안에 들어가야 한다.
+        열린 답변은 넘칠 수 있고, 그건 허용한다(그래서 스냅도 proximity).
+      */}
+      <div className="flex-1 flex items-center py-16 md:py-[clamp(0.75rem,2vh,2rem)]">
         <Container className="max-w-3xl">
           <ScrollReveal>
-            <div className="text-center mb-8">
+            <div className="text-center mb-[clamp(1rem,2.5vh,2rem)]">
               <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold">자주 묻는 질문</h2>
-              <p className="mt-4 text-muted-foreground">
+              <p className="mt-[clamp(0.75rem,2vh,1rem)] text-muted-foreground">
                 여기에 없는 건 카카오톡으로 물어봐 주세요.
               </p>
             </div>

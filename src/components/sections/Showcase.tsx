@@ -66,26 +66,26 @@ export default function Showcase({ showcaseImageSrc, testimonial }: ShowcaseProp
   return (
     <section
       id="showcase"
-      className="min-h-dvh md:h-dvh md:snap-start scroll-mt-24 flex items-center py-16 md:py-0"
+      className="min-h-dvh md:h-dvh md:pt-(--header-h) md:pb-0 md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex items-center py-16"
     >
       <Container>
         <ScrollReveal>
-          <div className="text-center mb-12">
+          <div className="text-center mb-[clamp(1.5rem,4vh,3rem)]">
             <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
               이미 쓰고 있는 사이트
             </h2>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-[clamp(0.75rem,2vh,1rem)] text-muted-foreground">
               방문자가 질문을 누르는 순간 무슨 일이 일어나는지 보세요.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12 max-w-5xl mx-auto">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-[clamp(2rem,5vh,3rem)] max-w-5xl mx-auto">
           <ScrollReveal>
             <BrowserFrame showcaseImageSrc={showcaseImageSrc} />
           </ScrollReveal>
 
-          <div className="space-y-4">
+          <div className="space-y-[clamp(0.75rem,2vh,1rem)]">
             {steps.map((step, i) => (
               <ScrollReveal key={step.title} delay={i * 0.1}>
                 <div className="flex gap-4">
