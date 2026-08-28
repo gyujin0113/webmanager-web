@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/**
+ * 짧은 뷰포트(노트북 14"·1440x760 등)에서만 여백/타이포를 줄이기 위한 변형.
+ * 화면 "너비"가 아니라 "높이"가 부족한 상황을 겨냥한다.
+ */
+@custom-variant short (@media (max-height: 900px));
+
 :root {
   --background: #0a0a0a;
   --foreground: #fafafa;
@@ -24,6 +30,14 @@
   --input: rgba(255, 255, 255, 0.08);
   --ring: oklch(0.55 0.22 264);
   --radius: 0.625rem;
+
+  /**
+   * 고정 헤더의 실제 렌더 높이 — Container `h-16`(4rem) + `border-b`(1px).
+   * 섹션은 `md:h-dvh md:pt-(--header-h)` 로 이 높이만큼 컨텐츠를 내려서,
+   * 헤더가 덮는 영역이 아니라 "보이는 뷰포트" 안에서 가운데 정렬되게 한다.
+   * Header.tsx 의 높이를 바꾸면 이 값도 함께 바꿔야 한다.
+   */
+  --header-h: calc(4rem + 1px);
 
   --muted-foreground: #888888;
 
@@ -75,14 +89,13 @@
     @apply border-border outline-ring/50;
   }
 
+  /**
+   * 데스크톱도 proximity — mandatory 는 섹션이 뷰포트보다 조금이라도 높아지면
+   * 넘친 부분을 사용자가 볼 수 없게 강제로 되돌린다. proximity 는 스냅 감각은
+   * 유지하면서 그런 상황에서 탈출구를 남겨 준다.
+   */
   html {
     scroll-snap-type: y proximity;
-  }
-
-  @media (min-width: 768px) {
-    html {
-      scroll-snap-type: y mandatory;
-    }
   }
 
   body {

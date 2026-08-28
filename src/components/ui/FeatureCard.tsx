@@ -13,7 +13,7 @@ export default function FeatureCard({ icon: Icon, title, description, variant = 
 
   return (
     <div className={cn(
-      "rounded-2xl p-5 sm:p-8 h-full w-full border transition-all duration-300 ease-out [@media(hover:hover)]:hover:scale-105",
+      "rounded-2xl p-5 sm:p-[clamp(1.25rem,2.5vh,2rem)] h-full w-full border transition-all duration-300 ease-out [@media(hover:hover)]:hover:scale-105",
       isSolution
         ? "border-brand-accent/25 bg-brand-accent/[0.03] shadow-[0_0_30px_rgba(37,99,235,0.15)] hover:shadow-[0_0_40px_rgba(37,99,235,0.25)] hover:border-brand-accent/40"
         : "border-brand-accent/15 bg-white/[0.02] shadow-[0_0_20px_rgba(37,99,235,0.08)] hover:shadow-[0_0_30px_rgba(37,99,235,0.15)] hover:border-brand-accent/30"

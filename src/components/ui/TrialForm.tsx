@@ -116,7 +116,7 @@ export default function TrialForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 sm:p-10 text-center">
+      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 sm:p-[clamp(2rem,5vh,2.5rem)] text-center">
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10">
           <CheckCircle className="h-6 w-6 text-green-400" />
         </div>
@@ -139,7 +139,7 @@ export default function TrialForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 sm:p-8 space-y-5"
+      className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 sm:p-[clamp(1rem,2.5vh,2rem)] space-y-[clamp(0.75rem,2.2vh,1.25rem)]"
     >
       {/* Honeypot */}
       <input
@@ -157,59 +157,65 @@ export default function TrialForm() {
         <input key={field} type="hidden" name={field} value={lead[field]} readOnly />
       ))}
 
-      <div>
-        <label htmlFor="trial-site" className="block text-sm font-medium mb-1.5">
-          홈페이지 주소 <span className="text-red-400">*</span>
-        </label>
-        <input
-          id="trial-site"
-          type="text"
-          inputMode="url"
-          autoComplete="url"
-          value={formData.site}
-          onChange={(e) => handleChange("site", e.target.value)}
-          placeholder="example.co.kr"
-          aria-required="true"
-          aria-invalid={!!showError("site")}
-          aria-describedby={showError("site") ? "trial-site-error" : undefined}
-          className={cn(inputClasses, showError("site") && "border-red-400/50")}
-        />
-        {showError("site") && (
-          <p
-            id="trial-site-error"
-            role="alert"
-            className="mt-1.5 text-xs text-red-400"
-          >
-            {errors.site}
-          </p>
-        )}
-      </div>
+      {/*
+        데스크톱(lg 이상)에서는 짧은 두 필드를 한 줄로 접어 폼 높이를 줄인다.
+        필드·라벨·id·검증은 그대로고 배치만 바뀐다.
+      */}
+      <div className="grid gap-[clamp(0.875rem,2.2vh,1.25rem)] lg:grid-cols-2 lg:items-start">
+        <div>
+          <label htmlFor="trial-site" className="block text-sm font-medium mb-1.5">
+            홈페이지 주소 <span className="text-red-400">*</span>
+          </label>
+          <input
+            id="trial-site"
+            type="text"
+            inputMode="url"
+            autoComplete="url"
+            value={formData.site}
+            onChange={(e) => handleChange("site", e.target.value)}
+            placeholder="example.co.kr"
+            aria-required="true"
+            aria-invalid={!!showError("site")}
+            aria-describedby={showError("site") ? "trial-site-error" : undefined}
+            className={cn(inputClasses, showError("site") && "border-red-400/50")}
+          />
+          {showError("site") && (
+            <p
+              id="trial-site-error"
+              role="alert"
+              className="mt-1.5 text-xs text-red-400"
+            >
+              {errors.site}
+            </p>
+          )}
+        </div>
 
-      <div>
-        <label htmlFor="trial-name" className="block text-sm font-medium mb-1.5">
-          회사명 / 성함 <span className="text-red-400">*</span>
-        </label>
-        <input
-          id="trial-name"
-          type="text"
-          autoComplete="organization"
-          value={formData.name}
-          onChange={(e) => handleChange("name", e.target.value)}
-          placeholder="쓰리앤디 / 홍길동"
-          aria-required="true"
-          aria-invalid={!!showError("name")}
-          aria-describedby={showError("name") ? "trial-name-error" : undefined}
-          className={cn(inputClasses, showError("name") && "border-red-400/50")}
-        />
-        {showError("name") && (
-          <p
-            id="trial-name-error"
-            role="alert"
-            className="mt-1.5 text-xs text-red-400"
-          >
-            {errors.name}
-          </p>
-        )}
+        <div>
+          <label htmlFor="trial-name" className="block text-sm font-medium mb-1.5">
+            회사명 / 성함 <span className="text-red-400">*</span>
+          </label>
+          <input
+            id="trial-name"
+            type="text"
+            autoComplete="organization"
+            value={formData.name}
+            onChange={(e) => handleChange("name", e.target.value)}
+            placeholder="쓰리앤디 / 홍길동"
+            aria-required="true"
+            aria-invalid={!!showError("name")}
+            aria-describedby={showError("name") ? "trial-name-error" : undefined}
+            className={cn(inputClasses, showError("name") && "border-red-400/50")}
+          />
+          {showError("name") && (
+            <p
+              id="trial-name-error"
+              role="alert"
+              className="mt-1.5 text-xs text-red-400"
+            >
+              {errors.name}
+            </p>
+          )}
+        </div>
       </div>
 
       <div>
@@ -238,6 +244,10 @@ export default function TrialForm() {
         )}
       </div>
 
+      {/*
+        라디오 2×2 는 폼 전체 폭이 있어야 라벨이 한 줄로 들어간다. 반 폭 칸에 넣으면
+        "제작업체에 맡기고 있어요" 가 서너 줄로 깨지므로, 이 블록만 전체 폭으로 둔다.
+      */}
       <fieldset>
         <legend className="block text-sm font-medium mb-1.5">
           지금 홈페이지 관리는 어떻게 하고 계세요?
@@ -277,7 +287,7 @@ export default function TrialForm() {
           value={message}
           onChange={(e) => handleMessageChange(e.target.value)}
           placeholder="방문자가 자주 묻는 질문, 안내하고 싶은 페이지 등을 자유롭게 적어주세요."
-          rows={4}
+          rows={3}
           maxLength={MESSAGE_MAX_LENGTH}
           aria-invalid={!!showError("message")}
           aria-describedby={showError("message") ? "trial-message-error" : undefined}
