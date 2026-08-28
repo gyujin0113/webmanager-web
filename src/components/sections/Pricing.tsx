@@ -5,104 +5,109 @@ import { Check } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import {
+  ANNUAL_FREE_MONTHS,
+  TRIAL_CATALOG_MAX,
+  TRIAL_DAYS,
+  WIDGET_ANNUAL,
+  WIDGET_CATALOG,
+  WIDGET_MONTHLY,
+  won,
+} from "@/lib/pricing";
 
+const TRIAL_ANCHOR = "#trial";
+
+/**
+ * One paid tier, on purpose. Splitting it into named grades would make the page
+ * longer and the decision harder — simplicity is the product.
+ */
 const plans = [
   {
-    name: "베이직",
-    target: "1~5페이지 소개 사이트",
-    monthlyPrice: "5만원",
-    cloneAnnual: "무료",
-    cloneMonthly: "50만원",
+    name: `무료 체험 ${TRIAL_DAYS}일`,
+    target: "우리 사이트에 맞는지 먼저 확인",
     features: [
-      "콘텐츠 수정 무제한",
-      "호스팅 · SSL 관리",
-      "보안 업데이트",
-      "모바일 반응형",
-      "48시간 내 대응",
+      "카드 등록도, 약정도 없음",
+      `질문·답 ${TRIAL_CATALOG_MAX}개까지 — 저희가 작성`,
+      "체험 종료 시 리포트 1회",
+      `${TRIAL_DAYS}일 후 자동 종료 — 버튼만 사라지고 사이트는 그대로`,
     ],
+    cta: "체험 신청",
     popular: false,
   },
   {
-    name: "스탠다드",
-    target: "여러 페이지 + SEO 관리",
-    monthlyPrice: "15만원",
-    cloneAnnual: "무료",
-    cloneMonthly: "100만원",
+    name: "가이드 위젯",
+    target: "체험이 끝나고 계속 쓰실 때",
     features: [
-      "베이직 전체 포함",
-      "SEO 최적화 · 검색 등록",
-      "성능 모니터링 · 리포트",
-      "이미지 · 배너 디자인",
-      "24시간 내 대응",
+      `질문·답 ${WIDGET_CATALOG}개 + 매월 갱신 요청 무제한`,
+      "매월 리포트 — 답 못 한 질문 전부",
+      "기존 문의 폼·전화로 프리필 연결",
+      "워드프레스·아임웹·카페24·윅스·직접 만든 사이트 전부",
+      "월 결제는 약정 없음",
     ],
+    cta: "체험으로 시작",
     popular: true,
-  },
-  {
-    name: "프로",
-    target: "로그인 · 관리자 · DB 기능",
-    monthlyPrice: "25만원",
-    cloneAnnual: "무료~50만원",
-    cloneMonthly: "별도 견적",
-    features: [
-      "스탠다드 전체 포함",
-      "관리자 페이지 구축",
-      "데이터베이스 연동",
-      "기능 개발 · 확장",
-      "우선 대응",
-    ],
-    popular: false,
   },
 ];
 
 export default function Pricing() {
-  const [isAnnual, setIsAnnual] = useState(true);
+  /**
+   * 기본값은 월 결제 — Hero가 약속한 "월 2.9만"과 방문자가 처음 보는 숫자가 같아야 한다.
+   * 연 결제 할인은 배지와 보조 문구로 알린다.
+   */
+  const [isAnnual, setIsAnnual] = useState(false);
 
   return (
-    <section id="pricing" className="min-h-dvh md:h-dvh md:snap-start flex items-center py-16 md:py-0 bg-surface">
+    <section
+      id="pricing"
+      className="min-h-dvh md:h-dvh md:snap-start scroll-mt-24 flex items-center py-16 md:py-0"
+    >
       <Container>
         <ScrollReveal>
           <div className="text-center mb-8">
             <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
-              투명한 가격 정책
+              가격은 하나입니다
             </h2>
             <p className="mt-4 text-muted-foreground">
-              숨겨진 비용 없이, 명확한 가격으로 안내드립니다.
+              등급도, 추가금도 없습니다. 쓰는 만큼이 아니라 정액입니다.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Toggle */}
+        {/* Billing period toggle */}
         <ScrollReveal>
           <div className="flex items-center justify-center gap-3 mb-8">
             <button
+              type="button"
               onClick={() => setIsAnnual(true)}
-              className={`relative text-sm font-medium px-4 py-2 rounded-full transition-colors ${
+              aria-pressed={isAnnual}
+              className={`relative text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer ${
                 isAnnual
                   ? "bg-brand-accent text-white"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              연간 계약
-              {isAnnual && (
-                <span className="absolute -top-2 -right-2 bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                  인기
-                </span>
-              )}
+              연 결제
+              {/* 선택 여부와 무관하게 항상 노출 — 기본값이 월 결제라, 선택했을 때만 보이면 할인 자체를 모르고 지나간다. */}
+              <span className="absolute -top-2 -right-2 whitespace-nowrap bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                {ANNUAL_FREE_MONTHS}개월 무료
+              </span>
             </button>
             <button
+              type="button"
               onClick={() => setIsAnnual(false)}
-              className={`text-sm font-medium px-4 py-2 rounded-full transition-colors ${
+              aria-pressed={!isAnnual}
+              className={`text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer ${
                 !isAnnual
                   ? "bg-brand-accent text-white"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              월간 계약
+              월 결제
             </button>
           </div>
         </ScrollReveal>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {plans.map((plan, i) => (
             <ScrollReveal key={plan.name} delay={i * 0.1}>
               <div className="relative h-full">
@@ -124,17 +129,35 @@ export default function Pricing() {
                   <h3 className="text-lg font-bold">{plan.name}</h3>
                   <p className="mt-1 text-xs text-muted-foreground">{plan.target}</p>
 
-                  <div className="mt-4">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-xs text-muted-foreground">클론(복원)</span>
-                      <span className="ml-auto text-sm font-bold">
-                        {isAnnual ? plan.cloneAnnual : plan.cloneMonthly}
-                      </span>
-                    </div>
-                    <div className="flex items-baseline gap-1 mt-2">
-                      <span className="text-[clamp(1.5rem,4vw,2.25rem)] font-black">{plan.monthlyPrice}</span>
-                      <span className="text-muted-foreground text-sm">/월</span>
-                    </div>
+                  <div className="mt-5">
+                    {plan.popular ? (
+                      <>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-[clamp(1.5rem,4vw,2.25rem)] font-black">
+                            {won(isAnnual ? WIDGET_ANNUAL : WIDGET_MONTHLY)}
+                          </span>
+                          <span className="text-muted-foreground text-sm">
+                            {isAnnual ? "/년" : "/월"}
+                          </span>
+                        </div>
+                        <p className="mt-1.5 text-xs text-muted-foreground">
+                          {isAnnual
+                            ? `월 결제 시 ${won(WIDGET_MONTHLY)}/월`
+                            : `연 결제 시 ${won(WIDGET_ANNUAL)} — ${ANNUAL_FREE_MONTHS}개월 무료`}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-[clamp(1.5rem,4vw,2.25rem)] font-black">
+                            {won(0)}
+                          </span>
+                        </div>
+                        <p className="mt-1.5 text-xs text-muted-foreground">
+                          {TRIAL_DAYS}일 동안, 조건 없이
+                        </p>
+                      </>
+                    )}
                   </div>
 
                   <ul className="mt-5 space-y-2.5 flex-1">
@@ -146,7 +169,7 @@ export default function Pricing() {
                     ))}
                   </ul>
                   <Button
-                    href="#contact"
+                    href={TRIAL_ANCHOR}
                     variant="primary"
                     className={`mt-6 w-full ${
                       plan.popular
@@ -154,7 +177,7 @@ export default function Pricing() {
                         : ""
                     }`}
                   >
-                    상담 신청
+                    {plan.cta}
                   </Button>
                 </div>
               </div>
@@ -164,7 +187,7 @@ export default function Pricing() {
 
         <ScrollReveal>
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            연간 계약 시 클론(복원) 비용이 무료 또는 대폭 할인됩니다. VAT 별도.
+            제작·리뉴얼은 하지 않습니다. 위젯만 정직하게. (VAT 별도)
           </p>
         </ScrollReveal>
       </Container>

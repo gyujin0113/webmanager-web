@@ -12,10 +12,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run dev` — Start development server
 - `npm run build` — Production build with static export (outputs to `out/`)
 - `npm run lint` — Run ESLint
+- `npm test` — Vitest (lib·scripts·functions 단위 테스트)
+- `npm run typecheck` — tsc (src + functions + tests)
 
 ## Architecture
 
-This is a **static landing page** for "WebManager," a Korean web management/maintenance service (webmanager.co.kr). 저가형 제작이 아닌, **기존 웹사이트 구출 + 무제한 유지보수 구독** 블루오션 포지셔닝. Uses Next.js 16 App Router with `output: "export"` targeting Cloudflare Pages.
+This is a **static landing page** for "WebManager" (webmanager.co.kr) — a **단일 상품 랜딩**이다. 파는 것은 **홈페이지 AI 안내 위젯(가이드 위젯)** 하나뿐: 사업자 홈페이지에 스크립트 한 줄을 넣으면 방문자가 자주 묻는 질문에 미리 작성한 답으로 응답하고, 답이 있는 페이지로 데려다주는 위젯. Next.js 16 App Router + `output: "export"` → Cloudflare Pages.
 
 ### Tech Stack
 
@@ -28,16 +30,25 @@ This is a **static landing page** for "WebManager," a Korean web management/main
 - `tw-animate-css` for shadcn/ui animation primitives
 - lucide-react for SVG icons
 - Noto Sans KR (Korean font via `next/font/google`)
+- **Vitest 3** (+ happy-dom) — `tests/`, `npm test`. lib·hooks·scripts·Pages Function 단위 테스트.
+- **Cloudflare Pages Functions** — `functions/api/notify.ts` (Telegram 알림 서버 사이드). 별도 `functions/tsconfig.json` + `@cloudflare/workers-types`.
 
 ### Component Structure
 
-- **`src/app/page.tsx`** — Single page composing all sections. No routing.
-- **`src/components/sections/`** — 8 sections (Hero → Problem → Solution → Pricing → Process → Portfolio → FAQ → CTA+Footer).
-- **`src/components/ui/`** — Shared primitives + shadcn/ui components:
-  - `Button` (CVA-based), `Container` (forwardRef, w-full), `ScrollReveal` (GSAP + ScrollTrigger), `HeroTitle` (GSAP char stagger), `FeatureCard` (shared card with glassmorphism icon + glow border), `DotNav`, `ScrollDown`, `Logo` (inline SVG, rounded rect icon + wordmark), `ContactForm` (client component, Web3Forms + Telegram notification)
-  - New shadcn components go here via CLI.
-- **`src/lib/utils.ts`** — `cn()` utility (clsx + tailwind-merge).
-- **`src/components/layout/`** — `Header` (fixed top, dark glass) and `Footer` (embedded in CTA section).
+- **`src/app/page.tsx`** — Single page composing all sections + JSON-LD. No routing.
+- **`src/components/sections/`** — **7 sections**: `Hero` → `Why`(#why) → `Showcase`(#showcase) → `How`(#how) → `Pricing`(#pricing) → `Trial`(#trial) → `FAQ`(#faq, 끝에 Footer 포함).
+- **`src/components/`**
+  - `LeadCapture` — 최초 페인트에 `?ref/utm_*` 를 sessionStorage 에 저장하는 렌더 없는 클라이언트 컴포넌트.
+  - `layout/` — `Header` (fixed top, dark glass), `Footer` (FAQ 섹션 하단에 embed, 회사 법정표기 포함).
+  - `ui/` — `Button` (CVA), `Container` (forwardRef, w-full), `ScrollReveal` (GSAP + ScrollTrigger), `HeroTitle` (GSAP char stagger), `FeatureCard` (Why·How 공용 카드), `DotNav`, `ScrollDown`, `Logo`, `TrialForm` (체험 신청 폼). 새 shadcn 컴포넌트도 여기에 CLI 로 추가.
+- **`src/hooks/`** — `useFormSubmit` (Web3Forms + `/api/notify` 2단 제출), `useSearchParam`.
+- **`src/lib/`**
+  - `pricing.ts` — **가격·기간 단일 출처**. `content/pricing.json` 을 읽어 `TRIAL_DAYS`/`TRIAL_CATALOG_MAX`/`WIDGET_MONTHLY`/`WIDGET_ANNUAL`/`WIDGET_CATALOG` + `won()`/`manwon()` 포맷터 제공. **어디서도 숫자를 다시 쓰지 않는다.**
+  - `lead.ts` — ref/utm 파싱·저장·복원. `validation.ts` — 도메인·연락처 검증(`https://` 자동 보정). `widgetConfig.ts` — 랜딩 자체 위젯 로더 상수. `formConfig.ts` — Web3Forms 공개 키 + `KAKAO_URL`. `formStyles.ts` — 폼 입력 공용 클래스. `utils.ts` — `cn()`.
+- **`content/`** — 코드가 아닌 사실(fact)만 사는 곳. `pricing.json` (가격), `company.json` (상호·대표·사업자등록번호·주소 등 법정표기), `guide.json` (랜딩 자체 위젯 카탈로그 원본).
+- **`scripts/`** — `sync-guide.mjs` (`content/guide.json` → `{{price}}` 치환 → `public/guide.json`, `predev`/`build` 에서 실행), `check-guide-if-present.mjs` (postbuild 검증: 앵커가 실제 `out/` 에 있는지).
+- **`functions/api/notify.ts`** — Pages Function. `{kind, fields}` POST 를 받아 서버에서 Telegram 호출. IP 당 분당 5회 제한.
+- **`tests/`** — Vitest. `lib/`·`scripts/`·`functions/` 단위 테스트 (65개).
 
 ### Key Patterns
 
@@ -45,11 +56,12 @@ This is a **static landing page** for "WebManager," a Korean web management/main
 - **Responsive section heights**: `min-h-dvh md:h-dvh md:snap-start` — mobile gets natural height with `py-16`, desktop gets fixed viewport height with snap.
 - **GSAP animations**: `ScrollReveal` component wraps content with GSAP ScrollTrigger (once: true, start: "top 85%"). Respects `prefers-reduced-motion`. Mobile: shortened duration (0.5s) and reduced y-offset. `HeroTitle` uses GSAP for char-by-char stagger (mobile: faster stagger, smaller y). Hero has a GSAP timeline for sequential element entrance.
 - **Mobile-first responsive**: 3-step typography scaling (`text-2xl sm:text-3xl md:text-4xl`). Grids use `sm:grid-cols-2 lg:grid-cols-3` for tablet intermediate. Touch targets min 44px. `@media(hover:hover)` for hover-only effects.
-- **Client vs Server**: Most components are server components. `ScrollReveal`, `HeroTitle`, `Hero`, `DotNav`, `FAQ`, `Pricing`, and `ContactForm` use `"use client"`.
+- **Client vs Server**: 기본은 서버 컴포넌트. `"use client"` 는 `Hero`, `Pricing`, `FAQ`, `LeadCapture`, `DotNav`, `HeroTitle`, `ScrollReveal`, `TrialForm`, `useFormSubmit`, `useSearchParam` 뿐.
 - **Design tokens**: Dark cinematic palette in `:root` → `@theme inline`. Background: `#0a0a0a`, foreground: `#fafafa`, cards: semi-transparent `white/[0.04]`, borders: `white/[0.06]`.
   - **Brand colors**: `brand-accent` (blue, `#2563eb`), `cta` (blue, `#2563eb`), `surface` (dark, `#0f0f0f`).
-- **Contact form**: `ContactForm` in CTA section. Web3Forms API for email delivery + Telegram Bot API for real-time notification. Honeypot spam protection. Glassmorphism dark input styling.
-- **Static export**: `images.unoptimized: true` in next.config.ts. No API routes, no server features.
+- **체험 신청 폼 (`TrialForm`, #trial)** — 사이트에 폼은 이것 하나뿐이다. `useFormSubmit` 이 ① Web3Forms 로 메일(기록의 원본) ② `/api/notify` Pages Function 으로 Telegram 알림, 2단으로 보낸다. **Telegram 봇 토큰·chat_id 는 Pages 환경변수에만 있고 번들에는 절대 들어가지 않는다** (Web3Forms 액세스 키는 설계상 공개값이라 `formConfig.ts` 에 남는다). honeypot + 클라이언트 검증(`validation.ts`) + hidden `ref`/`utm_*`/`landing_path` 동봉.
+- **랜딩 자체 위젯 (도그푸딩 = 데모)**: `layout.tsx` 가 `<Script strategy="afterInteractive" data-site="webmanager" data-guide="/guide.json">` 로 실제 판매 중인 위젯을 이 페이지에 붙인다(상수는 `widgetConfig.ts`). 카탈로그 원본은 `content/guide.json` → `sync-guide.mjs` 가 `{{price}}` 를 치환해 `public/guide.json` 생성(**`public/guide.json` 은 빌드 산출물이라 커밋 대상이 아니다**), postbuild 가 앵커 유효성 검증. 위젯 칩이 가리키는 섹션 id 에는 헤더 높이만큼 `scroll-mt-24` 가 있어야 스냅 스크롤에서 제목이 잘리지 않는다.
+- **Static export**: `images.unoptimized: true` in next.config.ts. No Next API routes — 서버가 필요한 일은 Pages Functions (`functions/`) 로.
 
 ### Path Alias
 
@@ -57,52 +69,45 @@ This is a **static landing page** for "WebManager," a Korean web management/main
 
 ## Design Direction
 
-### 비즈니스 모델
-- **시장 포지셔닝**: 저가형 템플릿 제작(레드오션)이 아닌, **'기존 웹사이트 구출 및 무제한 유지보수 구독'** 블루오션.
-- **핵심 모델**: 소스코드 없는 기존 사이트를 100% 클론(복원) → 합리적인 월 구독료로 무제한 관리.
-- **슬로건**: "불합리한 웹 유지보수, 저희가 끝내겠습니다."
+> 상세 설계는 `docs/artifacts/07_guide-widget-product-and-landing-v2.md` (§1~§4, §7).
 
-### 타겟 고객 (4유형)
-기존 웹 에이전시 생태계의 불합리한 관행으로 고통받는 사업자:
-1. **연락 두절형** — 프리랜서/에이전시 폐업·잠적으로 수정 불가, 사이트 방치
-2. **인질형** — 소스코드·호스팅 권한 미인수, 불만족해도 끌려다니는 상태
-3. **추가금 스트레스형** — 텍스트 하나에 며칠 대기 + 매번 추가 청구서
-4. **고정비 누수형** — 업데이트 거의 없는데 비싼 유지보수 고정비 매달 지출
+### 비즈니스 모델 — 위젯 단일 상품
+- **공개 메시지는 하나**: "홈페이지에 AI 안내 위젯을 달아드립니다. 한 줄 설치, 월 2.9만."
+- **상품 실체**: 미리 작성해 둔 질문·답 카탈로그로만 동작해 방문자를 답이 있는 페이지로 **안내**하는 위젯. **챗봇이 아니다 — 런타임 LLM 호출 0, 그래서 없는 말을 지어낼 가능성 자체가 없다.** 스크립트 1줄(11KB, 페이지 로드 후 실행, 사이트 코드와 격리)이라 워드프레스·아임웹·카페24·윅스·직접 만든 사이트 어디든 붙는다.
+- **가격**: **월 29,000원 / 연 290,000원(2개월 무료)**. 정액, **티어 없음**, 월 결제는 **약정 없음**. (VAT 별도) 숫자는 전부 `content/pricing.json` → `src/lib/pricing.ts`.
+- **무료 체험**: **30일**, 카드 등록·약정 없음. 카탈로그 최대 **20개**(우리가 직접 작성). 종료 시 리포트 1회. **30일 후 버튼만 자동으로 사라지고 사이트에는 아무 영향이 없다** (종료 7일 전 안내). 유료 전환 시 카탈로그 30개 + 매월 갱신 요청 무제한 + 매월 리포트.
+- **하지 않는 것**: 홈페이지 제작·리뉴얼·기능 개발. FAQ 에 명시("아니요, 위젯만 합니다").
+- **관리 구독은 내부 가격표로만 존재하고 랜딩에는 노출하지 않는다** — 체험 신청 폼의 "지금 홈페이지 관리는 어떻게 하고 계세요?" 답을 보고 **온보딩 통화에서만** 제안한다. (사업이 다각화돼 보이면 신뢰가 아니라 혼란을 산다.)
 
-### 핵심 솔루션 (Problem → Solution 1:1 대응)
-| Problem | Solution |
-|---------|----------|
-| 연락두절 → | 100% 클론 구축 (기존 디자인·기능 그대로 복원) |
-| 인질 → | 완전한 소유권 양도 (소스코드 + 관리자 권한 100% 이전) |
-| 추가금 → | 무제한 수정 지원 (추가 비용·횟수 제한 없이 전담 처리) |
-| 고정비 → | 합리적인 구독 요금 (거품 뺀 월 구독으로 고정비 대폭 절감) |
+### 타겟 고객
+홈페이지는 있는데 그 홈페이지가 문의로 이어지지 않는 **IT 비전문 사업자**. 설득 대상은 "사이트를 고치고 싶은 사람"이 아니라 "방문자가 그냥 나가는 게 아까운 사람"이다.
+
+### 핵심 문제 → 위젯이 하는 일 (Why 섹션 3카드)
+| 방문자에게 벌어지는 일 | 위젯이 하는 일 |
+|---|---|
+| 전화번호를 찾다가 그냥 나간다 | 물어보면 바로 답하고 연락처를 띄운다 |
+| 가격 페이지가 어디 있는지 모른다 | 답이 있는 페이지로 데려다준다 |
+| 문의는 하고 싶은데 폼까지 가지 않는다 | 기존 문의 폼·전화로 프리필해서 연결한다 |
+
+### 유입 퍼널
+고객 사이트 위젯 푸터("이런 안내 위젯, 우리 사이트에도 →") → `webmanager.co.kr/?ref=grabis&utm_source=guide-widget&utm_medium=cta#trial` → `LeadCapture` 가 sessionStorage 에 저장 → `#trial` 폼 제출 시 hidden 으로 동봉 → 메일·Telegram 에 유입 출처가 그대로 찍힌다. (분석툴 없음, YAGNI.)
 
 ### 디자인 원칙
 - **Dark Cinematic, 절제된 화려함**: 어두운 배경 + 큰 타이포그래피 + 넓은 여백 + 단일 accent blue. 과시가 아닌 "이 정도는 기본"이라는 여유. 효과 하나하나가 의도적.
 - **GSAP 스크롤 애니메이션**: ScrollTrigger 기반 등장 애니메이션, Hero char-by-char stagger. 모든 애니메이션은 once: true, 0.6~0.8s duration, power3.out ease.
-- **FeatureCard**: Problem/Solution 섹션이 공유하는 카드 컴포넌트. `bg-white/[0.02]` + glow border + glassmorphism 아이콘. hover 시 `scale-105`. 4칼럼 그리드 `max-w-5xl mx-auto`.
-- **Glass card UI**: Pricing 인기 플랜은 animated gradient border. 3티어 + 연간/월간 토글.
+- **FeatureCard**: Why/How 섹션이 공유하는 카드 컴포넌트. `bg-white/[0.02]` + glow border + glassmorphism 아이콘. hover 시 `scale-105`. 3칼럼 그리드 `sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto`.
+- **Glass card UI**: Pricing 은 2장(무료 체험 / 가이드 위젯)뿐. 유료 카드에만 animated gradient border. 연/월 토글의 **기본값은 월 결제** — Hero 가 약속한 "월 2.9만"과 처음 보이는 숫자가 같아야 한다. "2개월 무료" 배지는 선택 여부와 무관하게 항상 노출.
 - **이모지 금지, SVG 아이콘 사용**: 모든 아이콘은 lucide-react SVG로 통일.
 - **CTA 블루톤 통일**: brand blue(`#2563eb`) fill 버튼 + glow shadow.
 - **타겟 고객은 IT 비전문 사업자**: 기술 용어를 최소화하고, 문장은 쉽고 직관적으로.
 
 ## SEO
 
-- **Metadata**: `layout.tsx`에 title, description, keywords, OG, Twitter Card, canonical URL, robots 설정 완료.
-- **JSON-LD**: `page.tsx`에 WebSite + ProfessionalService 구조화 데이터 삽입.
-- **sitemap.xml / robots.txt**: `public/`에 정적 파일로 배치 (static export 제약).
+- **Metadata**: `layout.tsx`에 title, description, keywords, OG, Twitter Card, canonical URL, robots, 네이버 인증. title·description 의 가격/기간도 `pricing.ts` 에서 온다.
+- **JSON-LD**: `page.tsx`에 **WebSite + Product** 구조화 데이터 (`offers` 월/연 2건, `image` = OG 이미지). 가격은 `pricing.ts` 에서만.
+- **sitemap.xml / robots.txt**: `public/`에 정적 파일로 배치 (static export 제약). 구 관리 상품 카탈로그(`/catalog/*.html`)는 공유된 링크 때문에 파일을 남겨 두되, `robots.txt`로 크롤링 자체를 막으면 `noindex`가 검색엔진에 보이지 않으므로 각 파일 `<head>`에 `<meta name="robots" content="noindex,follow">`를 넣어 색인만 제외한다. 파일 삭제 여부는 아직 사용자 결정 대기 중.
 - **Favicon**: `src/app/icon.svg` — 원형 배경 + WM 지그재그 로고 SVG 파비콘.
-- **OG Image**: `src/app/opengraph-image.tsx` — 빌드 타임 자동 생성 (1200x630 PNG). Noto Sans KR 폰트를 Google Fonts API에서 필요 글자만 로드. `dynamic: "force-static"` 필수 (static export 호환).
-
-### SEO 현황
-
-- [x] ~~**OG Image 제작**~~ (완료) — `opengraph-image.tsx`로 빌드 타임 자동 생성.
-- [x] ~~**네이버 서치어드바이저 등록**~~ (완료, 2026-03-03) — 소유 확인 + sitemap 제출.
-- [x] ~~**네이버 사이트 인증 메타태그**~~ (완료) — `layout.tsx`에 `naver-site-verification` 추가.
-- [ ] **Google Search Console 등록**: HTML 태그 방식 소유 확인 → sitemap 제출. 인증 코드 받으면 `layout.tsx`의 `verification.google`에 추가.
-- [ ] **Google Analytics 4 설정**: 전환 추적 (폼 제출, 버튼 클릭).
-- [ ] **블로그/콘텐츠 SEO**: 홈페이지 제작 관련 콘텐츠 페이지 확장 (장기).
-- [ ] **Notion에 SEO 체크리스트 페이지 생성**: 클라이언트 사이트 적용용 가이드. claude.ai 서버 복구 후 작업.
+- **OG Image**: `src/app/opengraph-image.tsx` — 빌드 타임 자동 생성 (1200x630 PNG, `out/opengraph-image`, 확장자 없음). 카피는 "WebManager / 홈페이지 AI 안내 위젯 / 한 줄 설치 · 월 2.9만원". Noto Sans KR 을 Google Fonts API 에서 **필요 글자만** 받으므로, 글리프 목록은 실제 렌더 문자열에서 자동으로 뽑는다(빠진 글자는 두부로 찍힌다). `dynamic: "force-static"` 필수 (static export 호환).
 
 ## Logo Assets
 
@@ -112,42 +117,18 @@ This is a **static landing page** for "WebManager," a Korean web management/main
 - `public/logo-icon_rectangular.svg` / `logo-icon_rectangular.png` — 라운드 사각형 아이콘만 (검정 배경 꽉 참)
 - `src/components/ui/Logo.tsx` — 헤더용 인라인 SVG 컴포넌트 (라운드 사각형)
 
-## 사이트 점검 결과 (2026-03-03)
+## 백로그
 
-### HIGH — 수정 완료
-| # | 이슈 | Before | After | 파일 |
-|---|------|--------|-------|------|
-| 1 | Footer 연도 하드코딩 | `© 2025` | `© {new Date().getFullYear()}` (빌드 시 평가) | `CTA.tsx`, `Footer.tsx` |
-| 2 | sitemap.xml `<lastmod>` 누락 | `<loc>` + `<changefreq>` 만 | `<lastmod>2026-03-03</lastmod>` 추가 | `public/sitemap.xml` |
-| 3 | JSON-LD 연락처/서비스 정보 부족 | name, url, description만 | email, priceRange, sameAs(카카오톡) 추가 | `page.tsx` |
+랜딩 v2 (2026-08-27) 이후 **아직 열려 있는** 항목만. 삭제된 컴포넌트(Problem/Solution/Process/Portfolio/CTA/ContactForm)에 걸려 있던 옛 점검 항목은 함께 정리했다.
 
-> **NOTE**: JSON-LD의 `priceRange: "₩₩"`는 임시값. 실제 판매 아이템 가격이 확정되면 재조정 필요. `page.tsx`의 ProfessionalService 스키마에서 수정.
-
-### MEDIUM — 미수정 (다음 작업)
-| # | 이슈 | 파일 |
-|---|------|------|
-| 4 | ScrollReveal delay 불일치 (0.08/0.1/0.15 혼재) | Problem, Solution, Pricing, Process, Portfolio |
-| 5 | Process 카드 `rounded-xl` → `rounded-2xl` 통일 필요 | `Process.tsx` |
-| 6 | 카드 배경 opacity 불일치 (`0.02` vs `0.04`) | FeatureCard, Process, ContactForm |
-| ~~7~~ | ~~FAQ 서브텍스트 없음~~ (완료 — 리브랜딩에서 추가) | `FAQ.tsx` |
-| 8 | GSAP cleanup 함수 누락 (메모리 누수 가능) | ScrollReveal, HeroTitle, Hero |
-| 9 | Analytics 미설정 (GA4/네이버) | `layout.tsx` |
-
-### LOW — 백로그
-| # | 이슈 | 파일 |
-|---|------|------|
-| 10 | Portfolio Coming Soon 2개 → 신뢰도 약화 | `Portfolio.tsx` |
-| ~~11~~ | ~~Hero 보조 버튼 "서비스 소개서 보기" → "가격 확인하기"~~ (완료 — 리브랜딩에서 변경) | `Hero.tsx` |
-| 12 | Telegram 알림 실패 시 console.error 없음 | `ContactForm.tsx` |
-| 13 | OG Image 폰트 로딩 에러 핸들링 없음 | `opengraph-image.tsx` |
-
-### SEO TODO (추가 작업)
-- [x] ~~**OG Image 제작**~~ (완료)
-- [x] ~~**네이버 서치어드바이저 등록**~~ (완료) — 소유 확인 + sitemap 제출 완료 (2026-03-03)
-- [x] ~~**네이버 사이트 인증 메타태그**~~ (완료) — `layout.tsx`에 `naver-site-verification` 추가
-- [ ] **Google Search Console 등록**: sitemap 제출 + 색인 요청
-- [ ] **Google Analytics 4 설정**: 전환 추적 (폼 제출, 버튼 클릭)
-- [ ] **블로그/콘텐츠 SEO**: 홈페이지 제작 관련 콘텐츠 페이지 확장 (장기)
+- [ ] **Google Search Console 등록** — HTML 태그 방식 소유 확인 → 인증 코드를 `layout.tsx` 의 `verification.google` 에 추가 → sitemap 제출.
+- [ ] **Google Analytics 4** — 전환 추적(체험 폼 제출, CTA 클릭). 지금은 분석툴이 없다.
+- [ ] **통신판매업 신고번호 기재** — 신고 후 `content/company.json` 의 `ecommerceRegNo` 만 채우면 푸터에 자동 노출된다.
+- [ ] **Showcase 익명 스크린샷** — 적용 사이트 실제 화면(로고·상호 블러) 확보 후 교체.
+- [ ] **ScrollReveal delay 통일** — 섹션마다 0.08/0.1/0.15 가 섞여 있다.
+- [ ] **GSAP cleanup** — `ScrollReveal`·`HeroTitle`·`Hero` 에 revert/kill 없음 (메모리 누수 가능).
+- [ ] **OG Image 폰트 로딩 에러 핸들링** — Google Fonts fetch 실패 시 빈 ArrayBuffer 로 조용히 넘어간다.
+- [ ] **블로그/콘텐츠 SEO** — 위젯·홈페이지 문의 전환 주제 콘텐츠 확장 (장기).
 
 ## 배포 인프라
 
@@ -167,12 +148,12 @@ This is a **static landing page** for "WebManager," a Korean web management/main
 5. ~~**사이트 점검 HIGH 항목** (완료, 2026-03-03)~~ — Footer 연도 동적화, sitemap lastmod, JSON-LD 보강, 네이버 인증 메타태그
 6. ~~**네이버 서치어드바이저 등록** (완료, 2026-03-03)~~ — 소유 확인 + sitemap 제출
 7. ~~**랜딩페이지 리브랜딩** (완료, 2026-03-05)~~ — 제작사→관리자 피벗. Hero/Problem/Solution/Process/FAQ/CTA 카피 교체, Pricing 3티어+연간/월간 토글, DotNav 한글화, JSON-LD/메타데이터 업데이트
+8. ~~**랜딩 v2 — 위젯 단일 상품 7섹션** (완료, 2026-08-27)~~ — Telegram 토큰을 `/api/notify` Pages Function 으로 이전, `pricing.ts` 가격 단일 출처, 7섹션(Hero/Why/Showcase/How/Pricing/Trial/FAQ) 교체, `TrialForm` + 리드 캡처, 랜딩 자체 위젯 장착(도그푸딩), 푸터 법정표기, 메타·OG·JSON-LD(Product) 위젯 기준으로 교체
 
 ## 다음 작업
 
-1. **Google Search Console 등록** — 인증 코드 받아서 `layout.tsx`에 추가 + sitemap 제출
-2. **Notion SEO 체크리스트 생성** — 클라이언트 사이트 적용용 가이드 (Notion MCP 복구 후)
-3. **사이트 점검 MEDIUM 항목** — 디자인 일관성 (delay/radius/opacity 통일), GSAP cleanup, Analytics 설정
-4. **사이트 점검 LOW 항목** — Portfolio 보강, 에러 핸들링
-5. **OG Image 카피 업데이트** — opengraph-image.tsx의 텍스트를 관리자 피벗에 맞게 변경
-6. **기능 개선 및 콘텐츠 업데이트**
+1. **랜딩 v2 PR·QA** — 실기기 모바일 확인, 위젯 앵커 착지(스냅), 폼 실제 수신 1회, Lighthouse 전후
+2. **Google Search Console 등록** — 인증 코드 받아서 `layout.tsx`에 추가 + sitemap 제출
+3. **Google Analytics 4 설정** — 체험 폼 제출·CTA 클릭 전환 추적
+4. **Showcase 익명 스크린샷 교체** — 적용 사이트 실제 화면(로고·상호 블러)
+5. **통신판매업 신고번호 기재** — 신고 후 `content/company.json` 의 `ecommerceRegNo` 채우기

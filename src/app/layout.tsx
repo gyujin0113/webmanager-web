@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
+import Script from "next/script";
+import { TRIAL_DAYS, WIDGET_MONTHLY, manwon } from "@/lib/pricing";
+import { WIDGET_GUIDE_PATH, WIDGET_SCRIPT_SRC, WIDGET_SITE_ID } from "@/lib/widgetConfig";
 import "./globals.css";
 
 const notoSansKR = Noto_Sans_KR({
@@ -11,25 +14,31 @@ const notoSansKR = Noto_Sans_KR({
 
 const siteUrl = "https://webmanager.co.kr";
 const siteName = "WebManager";
-const title = "Web Manager";
+/** 가격·기간은 `content/pricing.json` → `src/lib/pricing.ts` 한 곳에서만 온다. */
+const title = `홈페이지 AI 안내 위젯 — 한 줄 설치, 월 ${manwon(WIDGET_MONTHLY)} | ${siteName}`;
 const description =
-  "방치된 웹사이트를 구출합니다. 기존 디자인 그대로 복원하고, 월 구독으로 수정 무제한 관리. 연락 두절된 업체 대신 WebManager가 책임집니다.";
+  `홈페이지에 스크립트 한 줄로 다는 AI 안내 위젯. 방문자가 자주 묻는 질문에 바로 답하고, 답이 있는 페이지로 안내합니다. ` +
+  `워드프레스·아임웹·카페24 어디든 설치되고, ${TRIAL_DAYS}일 무료 체험 후 월 ${manwon(WIDGET_MONTHLY)}입니다.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
   keywords: [
-    "웹사이트 관리",
-    "홈페이지 유지보수",
-    "웹사이트 수정 대행",
-    "홈페이지 관리 업체",
-    "웹사이트 클론",
-    "홈페이지 복원",
-    "홈페이지 수정 무제한",
-    "웹사이트 유지보수 비용",
-    "홈페이지 관리 대행",
-    "웹사이트 구독 관리",
+    "홈페이지 안내 위젯",
+    "사이트 가이드",
+    "사이트 가이드 위젯",
+    "웹사이트 AI 위젯",
+    "웹사이트 챗봇 대안",
+    "홈페이지 챗봇",
+    "FAQ 위젯",
+    "홈페이지 FAQ",
+    "홈페이지 문의 늘리기",
+    "홈페이지 문의 전환",
+    "방문자 이탈 방지",
+    "워드프레스 위젯",
+    "아임웹 위젯",
+    "카페24 위젯",
   ],
   alternates: {
     canonical: siteUrl,
@@ -69,7 +78,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${notoSansKR.variable} antialiased`}>{children}</body>
+      <body className={`${notoSansKR.variable} antialiased`}>
+        {children}
+        <Script
+          src={WIDGET_SCRIPT_SRC}
+          strategy="afterInteractive"
+          data-site={WIDGET_SITE_ID}
+          data-guide={WIDGET_GUIDE_PATH}
+        />
+      </body>
     </html>
   );
 }

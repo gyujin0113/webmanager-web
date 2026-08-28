@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "site": "webmanager",
+  "brand": {
+    "color": "#2563eb",
+    "label": "무엇을 도와드릴까요?"
+  },
+  "categories": [
+    { "id": "widget", "label": "위젯" },
+    { "id": "price", "label": "가격·체험" },
+    { "id": "setup", "label": "도입" },
+    { "id": "company", "label": "회사" }
+  ],
+  "items": [
+    { "id": "widget-what", "category": "widget", "q": "이 위젯이 뭔가요?", "keywords": ["위젯", "widget", "이게 뭐", "버튼", "안내"], "type": "card", "text": "지금 보고 계신 이 버튼이에요. 방문자 질문에 답하고 페이지로 안내합니다.", "href": "#how" },
+    { "id": "widget-not-chatgpt", "category": "widget", "q": "챗GPT 같은 건가요?", "keywords": ["챗gpt", "chatgpt", "ai", "인공지능", "지어내는 답"], "type": "card", "text": "아니요. 미리 써둔 질문·답으로만 동작해 지어내는 답이 없습니다.", "href": "#how" },
+    { "id": "widget-speed", "category": "widget", "q": "사이트가 느려지나요?", "keywords": ["속도", "느려짐", "성능", "로딩", "11kb"], "type": "card", "text": "11KB, 페이지 로드 후 실행돼 속도에 영향 없습니다.", "href": "#how" },
+    { "id": "widget-showcase", "category": "widget", "q": "적용 사례 있나요?", "keywords": ["적용 사례", "사례", "예시", "포트폴리오", "showcase"], "type": "link", "href": "#showcase" },
+
+    { "id": "price-monthly", "category": "price", "q": "가격이 얼마예요?", "keywords": ["가격", "요금", "얼마", "월 구독료", "가격표"], "type": "card", "text": "월 {{price}} (연 {{annual}}, {{freeMonths}}개월 무료). 약정 없음.", "href": "#pricing" },
+    { "id": "price-trial", "category": "price", "q": "무료 체험은?", "keywords": ["무료 체험", "체험", "trial", "테스트"], "type": "card", "text": "{{trialDays}}일, 질문 {{trialMax}}개까지. 끝나면 버튼만 사라집니다.", "href": "#pricing" },
+    { "id": "price-trial-apply", "category": "price", "q": "체험 신청은 어떻게?", "keywords": ["체험 신청", "신청", "apply", "trial"], "type": "link", "href": "#trial" },
+    { "id": "price-cancel", "category": "price", "q": "해지는?", "keywords": ["해지", "취소", "환불", "cancel"], "type": "card", "text": "월 결제는 언제든, 연 결제는 잔여분 환불 상담.", "href": "#faq" },
+
+    { "id": "setup-platform", "category": "setup", "q": "우리 사이트도 되나요?", "keywords": ["워드프레스", "아임웹", "카페24", "윅스", "플랫폼"], "type": "card", "text": "워드프레스·아임웹·카페24·윅스·직접 제작 전부 됩니다.", "href": "#faq" },
+    { "id": "setup-install", "category": "setup", "q": "설치는 어떻게?", "keywords": ["설치", "스크립트", "적용 방법", "install"], "type": "card", "text": "스크립트 한 줄을 넣거나, 저희가 대신 넣어드립니다.", "href": "#faq" },
+    { "id": "setup-content", "category": "setup", "q": "질문은 누가 쓰나요?", "keywords": ["질문 작성", "콘텐츠", "수정 요청", "작성자"], "type": "card", "text": "저희가 사이트를 보고 작성합니다. 원하시면 수정 요청 무제한.", "href": "#faq" },
+    { "id": "setup-no-website", "category": "setup", "q": "홈페이지 제작도 하나요?", "keywords": ["홈페이지 제작", "웹사이트 제작", "제작 서비스"], "type": "card", "text": "아니요, 위젯만 합니다.", "href": "#faq" },
+
+    { "id": "company-contact", "category": "company", "q": "연락처", "keywords": ["연락처", "이메일", "메일", "contact"], "type": "card", "text": "contact@webmanager.co.kr", "href": "mailto:contact@webmanager.co.kr" },
+    { "id": "company-kakao", "category": "company", "q": "카카오톡 상담", "keywords": ["카카오톡", "카톡", "상담", "kakao"], "type": "link", "href": "https://open.kakao.com/me/webmanager" },
+    { "id": "company-info", "category": "company", "q": "회사 정보", "keywords": ["회사 정보", "회사 소개", "about"], "type": "link", "href": "#faq" }
+  ],
+  "fallback": {
+    "mode": "human",
+    "text": "못 찾으셨나요? 체험 신청 메모에 남겨주시면 답해드립니다.",
+    "href": "/#trial",
+    "prefillParam": "message"
+  }
+}

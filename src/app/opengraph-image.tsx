@@ -1,11 +1,22 @@
 import { ImageResponse } from "next/og";
+import { WIDGET_MONTHLY, manwon } from "@/lib/pricing";
 
 export const dynamic = "force-static";
-export const alt = "WebManager — 홈페이지 제작 · 유지보수 에이전시";
+export const alt = "WebManager — 홈페이지 AI 안내 위젯";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const glyphs = "WebManager홈페이지제작·유지보수에이전시webmanagercokr";
+const BRAND = "WebManager";
+const HEADLINE = "홈페이지 AI 안내 위젯";
+/** 가격은 `src/lib/pricing.ts` 단일 출처에서. */
+const SUB = `한 줄 설치 · 월 ${manwon(WIDGET_MONTHLY)}`;
+const SITE = "webmanager.co.kr";
+
+/**
+ * Google Fonts 는 `text=` 에 적은 글자만 서브셋으로 내려준다 — 빠진 글자는 두부(tofu)로 찍힌다.
+ * 그래서 목록을 손으로 관리하지 않고 실제 렌더되는 문자열에서 뽑는다: 카피를 고쳐도 자동으로 따라온다.
+ */
+const glyphs = Array.from(new Set([BRAND, HEADLINE, SUB, SITE].join(""))).join("");
 
 export default async function OgImage() {
   const css = await fetch(
@@ -51,25 +62,38 @@ export default async function OgImage() {
         {/* Brand name */}
         <div
           style={{
-            fontSize: 80,
-            fontWeight: 700,
-            color: "#fafafa",
-            letterSpacing: "-0.025em",
-          }}
-        >
-          WebManager
-        </div>
-
-        {/* Tagline */}
-        <div
-          style={{
             fontSize: 28,
             fontWeight: 700,
             color: "#888888",
-            marginTop: 16,
+            letterSpacing: "0.08em",
           }}
         >
-          홈페이지 제작 · 유지보수 에이전시
+          {BRAND}
+        </div>
+
+        {/* Product headline */}
+        <div
+          style={{
+            fontSize: 72,
+            fontWeight: 700,
+            color: "#fafafa",
+            letterSpacing: "-0.025em",
+            marginTop: 20,
+          }}
+        >
+          {HEADLINE}
+        </div>
+
+        {/* Price / install */}
+        <div
+          style={{
+            fontSize: 32,
+            fontWeight: 700,
+            color: "#2563eb",
+            marginTop: 20,
+          }}
+        >
+          {SUB}
         </div>
 
         {/* URL */}
@@ -79,11 +103,11 @@ export default async function OgImage() {
             bottom: 48,
             fontSize: 18,
             fontWeight: 700,
-            color: "#2563eb",
+            color: "#666666",
             letterSpacing: "0.05em",
           }}
         >
-          webmanager.co.kr
+          {SITE}
         </div>
       </div>
     ),

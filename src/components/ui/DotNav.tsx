@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-const allSections = ["hero", "problem", "solution", "pricing", "process", "portfolio", "faq", "contact"];
+const allSections = ["hero", "why", "showcase", "how", "pricing", "trial", "faq"];
 
 const dotSections = [
-  { id: "problem", label: "고민" },
-  { id: "solution", label: "해결" },
+  { id: "why", label: "왜" },
+  { id: "showcase", label: "사례" },
+  { id: "how", label: "원리" },
   { id: "pricing", label: "가격" },
-  { id: "process", label: "과정" },
-  { id: "portfolio", label: "포트폴리오" },
+  { id: "trial", label: "체험" },
   { id: "faq", label: "FAQ" },
 ];
 
@@ -37,7 +37,7 @@ export default function DotNav() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  const hidden = active === "hero" || active === "contact";
+  const hidden = active === "hero";
 
   return (
     <nav className={`fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-3 transition-opacity duration-300 ${hidden ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
