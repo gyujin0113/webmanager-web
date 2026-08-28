@@ -15,12 +15,12 @@ export default function Trial() {
   return (
     <section
       id="trial"
-      className="min-h-dvh md:snap-start scroll-mt-24 flex items-center py-16 md:py-0 bg-surface relative overflow-hidden"
+      className="min-h-dvh md:h-dvh md:pt-(--header-h) md:pb-0 md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex items-center py-16 bg-surface relative overflow-hidden"
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[500px] md:h-[500px] bg-brand-accent/[0.06] rounded-full blur-3xl pointer-events-none" />
 
       <Container className="relative z-10">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14 max-w-5xl mx-auto">
+        <div className="grid items-center gap-[clamp(1.5rem,4vh,2.5rem)] lg:grid-cols-2 lg:gap-[clamp(2rem,5vh,3.5rem)] max-w-5xl mx-auto">
           <div>
             <ScrollReveal>
               <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
@@ -28,13 +28,13 @@ export default function Trial() {
                 <br />
                 바로 그 위젯입니다
               </h2>
-              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              <p className="mt-[clamp(0.75rem,2vh,1rem)] text-sm text-muted-foreground leading-relaxed">
                 눌러보시고 마음에 드시면, 같은 걸 사장님 홈페이지에 달아드립니다.
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.1}>
-              <ul className="mt-8 space-y-3">
+              <ul className="mt-[clamp(1.25rem,3vh,2rem)] space-y-[clamp(0.5rem,1.6vh,0.75rem)]">
                 {included.map((line) => (
                   <li key={line} className="flex items-start gap-2.5 text-sm">
                     <Check className="w-4 h-4 text-brand-accent mt-0.5 shrink-0" strokeWidth={2} />
@@ -47,7 +47,7 @@ export default function Trial() {
 
           <ScrollReveal delay={0.15}>
             <TrialForm />
-            <p className="mt-4 text-xs text-muted-foreground text-right">
+            <p className="mt-[clamp(0.5rem,2vh,1rem)] text-xs text-muted-foreground text-right">
               카카오톡이 편하신가요?{" "}
               <a
                 href={KAKAO_URL}

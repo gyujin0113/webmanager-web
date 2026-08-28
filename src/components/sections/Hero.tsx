@@ -72,7 +72,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-dvh md:h-dvh md:snap-start scroll-mt-24 flex items-center relative overflow-hidden"
+      className="min-h-dvh md:h-dvh md:pt-(--header-h) md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex items-center relative overflow-hidden"
     >
       {/* Dot grid pattern */}
       <div
@@ -86,7 +86,7 @@ export default function Hero() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brand-accent/5 rounded-full blur-3xl pointer-events-none animate-[glow-pulse_6s_ease-in-out_infinite]" />
 
       <Container className="text-center relative z-10" ref={containerRef}>
-        <span className="hero-subtitle inline-flex items-center gap-2.5 text-sm font-medium tracking-wider text-foreground/80 border border-[#1E293B] rounded-full px-5 py-2 mb-10">
+        <span className="hero-subtitle inline-flex items-center gap-2.5 text-sm font-medium tracking-wider text-foreground/80 border border-[#1E293B] rounded-full px-5 py-2 mb-[clamp(1.5rem,4vh,2.5rem)]">
           <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse shrink-0" />
           홈페이지 AI 안내 위젯 · 한 줄 설치
         </span>
@@ -95,7 +95,7 @@ export default function Hero() {
           className="font-black tracking-[-0.03em] leading-[1.1]"
           style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
         />
-        <div className="hero-desc mt-10 max-w-2xl mx-auto">
+        <div className="hero-desc mt-[clamp(1.5rem,4vh,2.5rem)] max-w-2xl mx-auto">
           <p className="text-base sm:text-lg leading-[1.6] tracking-wide text-[#9CA3AF]">
             방문자가 묻는 질문에 바로 답하고, 원하는 페이지로 데려다줍니다.
             <br className="hidden sm:block" />
@@ -104,7 +104,7 @@ export default function Hero() {
             </span>
           </p>
         </div>
-        <div className="hero-buttons mt-10">
+        <div className="hero-buttons mt-[clamp(1.5rem,4vh,2.5rem)]">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               href={TRIAL_ANCHOR}

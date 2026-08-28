@@ -43,20 +43,20 @@ export default function Why() {
   return (
     <section
       id="why"
-      className="min-h-dvh md:h-dvh md:snap-start scroll-mt-24 flex items-center py-16 md:py-0 bg-surface"
+      className="min-h-dvh md:h-dvh md:pt-(--header-h) md:pb-0 md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex items-center py-16 bg-surface"
     >
       <Container>
         <ScrollReveal>
-          <div className="text-center mb-12">
+          <div className="text-center mb-[clamp(1.5rem,4vh,3rem)]">
             <h2 className="text-[clamp(1.5rem,4vw,2.25rem)] font-bold tracking-tight">
               방문자는 3초 안에 못 찾으면 나갑니다
             </h2>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-[clamp(0.75rem,2vh,1rem)] text-muted-foreground">
               사이트에 정보가 없어서가 아니라, 어디 있는지 몰라서 나갑니다.
             </p>
           </div>
         </ScrollReveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-[clamp(1rem,2.5vh,1.5rem)] max-w-5xl mx-auto">
           {problems.map((item, i) => (
             <ScrollReveal key={item.title} delay={i * 0.1}>
               <FeatureCard
