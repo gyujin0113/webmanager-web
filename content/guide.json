@@ -2,8 +2,9 @@
   "schemaVersion": 1,
   "site": "webmanager",
   "brand": {
-    "color": "#2563eb",
-    "label": "무엇을 도와드릴까요?"
+    "color": "#1e40af",
+    "label": "무엇을 도와드릴까요?",
+    "greeting": "궁금한 걸 골라주세요. 답이 있는 곳으로 바로 데려다드릴게요."
   },
   "categories": [
     { "id": "widget", "label": "위젯" },

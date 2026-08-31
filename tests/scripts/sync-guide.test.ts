@@ -47,7 +47,8 @@ describe("content/guide.json after substitution", () => {
     const guide = JSON.parse(substituted);
 
     expect(guide.site).toBe("webmanager");
-    expect(guide.brand.color).toBe("#2563eb");
+    expect(guide.brand.color).toBe("#1e40af");
+    expect(guide.brand.greeting).toBe("궁금한 걸 골라주세요. 답이 있는 곳으로 바로 데려다드릴게요.");
     expect(guide.items).toHaveLength(15);
     expect(guide.categories).toHaveLength(4);
     expect(substituted).not.toContain("{{");
