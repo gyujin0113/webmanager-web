@@ -5,10 +5,21 @@ import TrialForm from "@/components/ui/TrialForm";
 import { KAKAO_URL } from "@/lib/formConfig";
 import { TRIAL_CATALOG_MAX, TRIAL_DAYS } from "@/lib/pricing";
 
+/**
+ * Risk-reversal bullets: the bold lead-in names the risk we removed, the rest
+ * says how. Every fact comes from pricing.ts — no invented promises.
+ */
 const included = [
-  `${TRIAL_DAYS}일 무료 — 카드 등록도, 약정도 없습니다`,
-  `질문 ${TRIAL_CATALOG_MAX}개를 저희가 사이트를 보고 직접 작성합니다`,
-  "설치는 스크립트 한 줄. 원하시면 저희가 대신 넣어드립니다",
+  { lead: "카드 등록 없음.", rest: "결제 정보를 아예 받지 않습니다" },
+  { lead: "손 갈 일 없음.", rest: `질문 ${TRIAL_CATALOG_MAX}개 작성부터 설치까지 저희가 합니다` },
+  { lead: `${TRIAL_DAYS}일 후 버튼만 사라짐.`, rest: "사이트에는 아무 영향이 없습니다" },
+];
+
+/** 폼 이탈의 주원인인 "얼마나 걸리지? 그 다음은?"을 신청 전에 답해 둔다. */
+const timeline = [
+  { title: "신청서 제출", note: "1분이면 끝" },
+  { title: "24시간 내 연락", note: "질문 초안 확인" },
+  { title: "설치까지 저희가", note: "체험 시작" },
 ];
 
 export default function Trial() {
@@ -36,12 +47,31 @@ export default function Trial() {
             <ScrollReveal delay={0.1}>
               <ul className="mt-[clamp(1.25rem,3vh,2rem)] space-y-[clamp(0.5rem,1.6vh,0.75rem)]">
                 {included.map((line) => (
-                  <li key={line} className="flex items-start gap-2.5 text-sm">
+                  <li key={line.lead} className="flex items-start gap-2.5 text-sm">
                     <Check className="w-4 h-4 text-brand-accent mt-0.5 shrink-0" strokeWidth={2} />
-                    {line}
+                    <span>
+                      <span className="font-bold text-foreground">{line.lead}</span> {line.rest}
+                    </span>
                   </li>
                 ))}
               </ul>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.15}>
+              <div className="mt-[clamp(1.5rem,3.5vh,2rem)] flex items-center">
+                {timeline.map((step, i) => (
+                  <div key={step.title} className="contents">
+                    {i > 0 && <span className="mb-[34px] h-px flex-1 bg-brand-accent/30" />}
+                    <div className="flex w-24 flex-col items-center gap-1.5 sm:w-[118px]">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full border border-brand-accent/40 bg-brand-accent/15 text-xs font-bold text-brand-accent">
+                        {i + 1}
+                      </span>
+                      <span className="text-center text-xs font-medium">{step.title}</span>
+                      <span className="text-center text-[11px] text-muted-foreground">{step.note}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </ScrollReveal>
           </div>
 

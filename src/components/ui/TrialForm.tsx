@@ -141,6 +141,11 @@ export default function TrialForm() {
       noValidate
       className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 sm:p-[clamp(1rem,2.5vh,2rem)] space-y-[clamp(0.75rem,2.2vh,1.25rem)]"
     >
+      {/* 폼 이탈 방지 마이크로카피 — 시작 전에 총량을 알려준다. */}
+      <p className="text-xs font-semibold text-brand-accent">
+        필수 입력은 3칸 — 1분이면 끝납니다
+      </p>
+
       {/* Honeypot */}
       <input
         type="text"
@@ -321,9 +326,12 @@ export default function TrialForm() {
             전송 중...
           </>
         ) : (
-          `${TRIAL_DAYS}일 무료 체험 신청`
+          `${TRIAL_DAYS}일 무료로 달아보기`
         )}
       </button>
+      <p className="!mt-2.5 text-center text-[11px] text-muted-foreground">
+        24시간 안에 연락드립니다
+      </p>
     </form>
   );
 }
