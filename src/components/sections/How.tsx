@@ -1,4 +1,4 @@
-import { Code2, Inbox, ShieldCheck } from "lucide-react";
+import { Check, Code2, Inbox, ShieldCheck } from "lucide-react";
 import Container from "@/components/ui/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FeatureCard from "@/components/ui/FeatureCard";
@@ -13,7 +13,7 @@ const facts = [
   {
     icon: Code2,
     title: "코드를 건드리지 않습니다",
-    description: "스크립트 한 줄이 전부입니다. 사이트와 완전히 격리돼 돌아가고, 용량은 11KB입니다.",
+    description: "스크립트 한 줄이 전부입니다. 사이트와 완전히 격리돼 돌아가고, 용량은 16KB입니다.",
   },
   {
     icon: Inbox,
@@ -51,6 +51,37 @@ export default function How() {
             </ScrollReveal>
           ))}
         </div>
+
+        {/* "챗봇이 아닙니다"를 말이 아니라 표로 증명 — IT 비전문 사장님에게 가장 빠른 이해 형식. */}
+        <ScrollReveal delay={0.2}>
+          <div className="mx-auto mt-[clamp(1rem,2.5vh,1.75rem)] grid max-w-5xl grid-cols-1 overflow-hidden rounded-2xl border border-white/[0.08] sm:grid-cols-2">
+            <div className="bg-white/[0.02] px-6 py-5">
+              <p className="mb-3 text-xs font-bold tracking-wider text-muted-foreground">일반 AI 챗봇</p>
+              <ul className="flex flex-col gap-2 text-sm leading-relaxed text-muted-foreground">
+                <li>그럴듯한 답을 지어낼 수 있음</li>
+                <li>학습·튜닝을 계속 관리해야 함</li>
+                <li>무겁고, 사이트 코드에 관여</li>
+              </ul>
+            </div>
+            <div className="border-t border-brand-accent/25 bg-brand-accent/[0.05] px-6 py-5 sm:border-l sm:border-t-0">
+              <p className="mb-3 text-xs font-bold tracking-wider text-brand-accent">가이드 위젯</p>
+              <ul className="flex flex-col gap-2 text-sm leading-relaxed">
+                <li className="flex gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-accent" strokeWidth={2} />
+                  미리 확인받은 답만 내보냄
+                </li>
+                <li className="flex gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-accent" strokeWidth={2} />
+                  질문·답은 저희가 작성·관리
+                </li>
+                <li className="flex gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-accent" strokeWidth={2} />
+                  16KB, 페이지 로드 후 실행
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ScrollReveal>
       </Container>
     </section>
   );

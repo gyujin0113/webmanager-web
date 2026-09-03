@@ -1,4 +1,4 @@
-import { DoorOpen, Map, PhoneOff } from "lucide-react";
+import { ArrowRight, DoorOpen, Map, PhoneOff } from "lucide-react";
 import Container from "@/components/ui/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FeatureCard from "@/components/ui/FeatureCard";
@@ -32,8 +32,10 @@ function CardBody({ description, answer }: { description: string; answer: string
   return (
     <>
       {description}
-      <span className="mt-3 block border-t border-white/[0.06] pt-3 text-xs font-medium text-brand-accent">
-        &rarr; 위젯: {answer}
+      {/* 해결책 줄은 문제 서술보다 묻히면 안 된다 — 화살표 아이콘 + 본문색 세미볼드로 위계를 올린다. */}
+      <span className="mt-3.5 flex items-start gap-2 border-t border-white/[0.06] pt-3">
+        <ArrowRight className="mt-0.5 h-[15px] w-[15px] shrink-0 text-brand-accent" strokeWidth={2} />
+        <span className="text-[13px] font-semibold leading-normal text-foreground">위젯: {answer}</span>
       </span>
     </>
   );

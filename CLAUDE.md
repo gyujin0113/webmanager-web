@@ -40,7 +40,7 @@ This is a **static landing page** for "WebManager" (webmanager.co.kr) — a **�
 - **`src/components/`**
   - `LeadCapture` — 최초 페인트에 `?ref/utm_*` 를 sessionStorage 에 저장하는 렌더 없는 클라이언트 컴포넌트.
   - `layout/` — `Header` (fixed top, dark glass), `Footer` (FAQ 섹션 하단에 embed, 회사 법정표기 포함).
-  - `ui/` — `Button` (CVA), `Container` (forwardRef, w-full), `ScrollReveal` (GSAP + ScrollTrigger), `HeroTitle` (GSAP char stagger), `FeatureCard` (Why·How 공용 카드), `DotNav`, `ScrollDown`, `Logo`, `TrialForm` (체험 신청 폼). 새 shadcn 컴포넌트도 여기에 CLI 로 추가.
+  - `ui/` — `Button` (CVA), `Container` (forwardRef, w-full), `ScrollReveal` (GSAP + ScrollTrigger), `HeroTitle` (GSAP char stagger), `FeatureCard` (Why·How 공용 카드), `DotNav`, `ScrollDown`, `Logo`, `TrialForm` (체험 신청 폼), `WidgetPreview` (Hero 우측 위젯 첫 화면 정적 복제 — lg 이상에서만). 새 shadcn 컴포넌트도 여기에 CLI 로 추가.
 - **`src/hooks/`** — `useFormSubmit` (Web3Forms + `/api/notify` 2단 제출), `useSearchParam`.
 - **`src/lib/`**
   - `pricing.ts` — **가격·기간 단일 출처**. `content/pricing.json` 을 읽어 `TRIAL_DAYS`/`TRIAL_CATALOG_MAX`/`WIDGET_MONTHLY`/`WIDGET_ANNUAL`/`WIDGET_CATALOG` + `won()`/`manwon()` 포맷터 제공. **어디서도 숫자를 다시 쓰지 않는다.**
@@ -53,7 +53,7 @@ This is a **static landing page** for "WebManager" (webmanager.co.kr) — a **�
 ### Key Patterns
 
 - **Scroll snap (desktop only)**: Mobile uses `scroll-snap-type: y proximity` (natural scroll), desktop (`md:` 이상) uses `mandatory`. Configured in `@layer base` in globals.css.
-- **Responsive section heights (뷰포트 맞춤)**: 7개 섹션 전부 `min-h-dvh md:h-dvh md:pt-(--header-h) md:pb-0 md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex items-center py-16`. 모바일은 자연 높이(`py-16`), 데스크톱은 고정 뷰포트 높이 + 고정 헤더(`--header-h`, globals.css) 만큼 컨텐츠를 내려 `100dvh − 헤더` 안에서 가운데 정렬한다. 세로 리듬은 고정값 대신 `clamp()`-on-vh(`mb-[clamp(1rem,2.5vh,2rem)]` 등), 낮은 화면 전용 축소는 `short:` 변형(`@media (max-height:900px)`, 모바일 터치 타겟에 닿을 땐 `short:md:`). 스냅은 데스크톱도 `y proximity` — mandatory 는 넘친 컨텐츠를 볼 수 없게 만든다.
+- **Responsive section heights (뷰포트 맞춤)**: FAQ 를 뺀 6개 섹션은 `min-h-dvh md:h-dvh md:pt-(--header-h) md:pb-0 md:snap-start scroll-mt-(--header-h) md:scroll-mt-0 flex items-center py-16`. FAQ 는 마지막 섹션이라 md 도 `min-h-dvh`(첫 문항 기본 열림 + CTA 밴드만큼 자람). 모바일은 자연 높이(`py-16`), 데스크톱은 고정 뷰포트 높이 + 고정 헤더(`--header-h`, globals.css) 만큼 컨텐츠를 내려 `100dvh − 헤더` 안에서 가운데 정렬한다. 세로 리듬은 고정값 대신 `clamp()`-on-vh(`mb-[clamp(1rem,2.5vh,2rem)]` 등), 낮은 화면 전용 축소는 `short:` 변형(`@media (max-height:900px)`, 모바일 터치 타겟에 닿을 땐 `short:md:`). 스냅은 데스크톱도 `y proximity` — mandatory 는 넘친 컨텐츠를 볼 수 없게 만든다.
 - **GSAP animations**: `ScrollReveal` component wraps content with GSAP ScrollTrigger (once: true, start: "top 85%"). Respects `prefers-reduced-motion`. Mobile: shortened duration (0.5s) and reduced y-offset. `HeroTitle` uses GSAP for char-by-char stagger (mobile: faster stagger, smaller y). Hero has a GSAP timeline for sequential element entrance.
 - **Mobile-first responsive**: 3-step typography scaling (`text-2xl sm:text-3xl md:text-4xl`). Grids use `sm:grid-cols-2 lg:grid-cols-3` for tablet intermediate. Touch targets min 44px. `@media(hover:hover)` for hover-only effects.
 - **Client vs Server**: 기본은 서버 컴포넌트. `"use client"` 는 `Hero`, `Pricing`, `FAQ`, `LeadCapture`, `DotNav`, `HeroTitle`, `ScrollReveal`, `TrialForm`, `useFormSubmit`, `useSearchParam` 뿐.
@@ -73,7 +73,7 @@ This is a **static landing page** for "WebManager" (webmanager.co.kr) — a **�
 
 ### 비즈니스 모델 — 위젯 단일 상품
 - **공개 메시지는 하나**: "홈페이지에 AI 안내 위젯을 달아드립니다. 한 줄 설치, 월 2.9만."
-- **상품 실체**: 미리 작성해 둔 질문·답 카탈로그로만 동작해 방문자를 답이 있는 페이지로 **안내**하는 위젯. **챗봇이 아니다 — 런타임 LLM 호출 0, 그래서 없는 말을 지어낼 가능성 자체가 없다.** 스크립트 1줄(11KB, 페이지 로드 후 실행, 사이트 코드와 격리)이라 워드프레스·아임웹·카페24·윅스·직접 만든 사이트 어디든 붙는다.
+- **상품 실체**: 미리 작성해 둔 질문·답 카탈로그로만 동작해 방문자를 답이 있는 페이지로 **안내**하는 위젯. **챗봇이 아니다 — 런타임 LLM 호출 0, 그래서 없는 말을 지어낼 가능성 자체가 없다.** 스크립트 1줄(16KB, 페이지 로드 후 실행, 사이트 코드와 격리)이라 워드프레스·아임웹·카페24·윅스·직접 만든 사이트 어디든 붙는다.
 - **가격**: **월 29,000원 / 연 290,000원(2개월 무료)**. 정액, **티어 없음**, 월 결제는 **약정 없음**. (VAT 별도) 숫자는 전부 `content/pricing.json` → `src/lib/pricing.ts`.
 - **무료 체험**: **30일**, 카드 등록·약정 없음. 카탈로그 최대 **20개**(우리가 직접 작성). 종료 시 리포트 1회. **30일 후 버튼만 자동으로 사라지고 사이트에는 아무 영향이 없다** (종료 7일 전 안내). 유료 전환 시 카탈로그 30개 + 매월 갱신 요청 무제한 + 매월 리포트.
 - **하지 않는 것**: 홈페이지 제작·리뉴얼·기능 개발. FAQ 에 명시("아니요, 위젯만 합니다").

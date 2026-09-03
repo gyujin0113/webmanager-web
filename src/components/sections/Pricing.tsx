@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -73,37 +73,39 @@ export default function Pricing() {
           </div>
         </ScrollReveal>
 
-        {/* Billing period toggle */}
+        {/* Billing period toggle — 세그먼트 컨트롤: 어느 쪽이 선택 상태인지 컨테이너가 말해준다. */}
         <ScrollReveal>
-          <div className="flex items-center justify-center gap-3 mb-[clamp(1rem,2.5vh,2rem)]">
-            <button
-              type="button"
-              onClick={() => setIsAnnual(true)}
-              aria-pressed={isAnnual}
-              className={`relative text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer ${
-                isAnnual
-                  ? "bg-brand-accent text-white"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              연 결제
-              {/* 선택 여부와 무관하게 항상 노출 — 기본값이 월 결제라, 선택했을 때만 보이면 할인 자체를 모르고 지나간다. */}
-              <span className="absolute -top-2 -right-2 whitespace-nowrap bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                {ANNUAL_FREE_MONTHS}개월 무료
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsAnnual(false)}
-              aria-pressed={!isAnnual}
-              className={`text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer ${
-                !isAnnual
-                  ? "bg-brand-accent text-white"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              월 결제
-            </button>
+          <div className="flex justify-center mb-[clamp(1rem,2.5vh,2rem)]">
+            <div className="inline-flex gap-0.5 rounded-full border border-white/[0.08] bg-white/[0.04] p-1">
+              <button
+                type="button"
+                onClick={() => setIsAnnual(false)}
+                aria-pressed={!isAnnual}
+                className={`text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer ${
+                  !isAnnual
+                    ? "bg-brand-accent text-white"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                월 결제
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsAnnual(true)}
+                aria-pressed={isAnnual}
+                className={`relative text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer ${
+                  isAnnual
+                    ? "bg-brand-accent text-white"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                연 결제
+                {/* 선택 여부와 무관하게 항상 노출 — 기본값이 월 결제라, 선택했을 때만 보이면 할인 자체를 모르고 지나간다. */}
+                <span className="absolute -top-2 -right-2 whitespace-nowrap bg-green-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                  {ANNUAL_FREE_MONTHS}개월 무료
+                </span>
+              </button>
+            </div>
           </div>
         </ScrollReveal>
 
@@ -128,6 +130,13 @@ export default function Pricing() {
                   )}
                   <h3 className="text-lg font-bold">{plan.name}</h3>
                   <p className="mt-1 text-xs text-muted-foreground">{plan.target}</p>
+                  {plan.popular && (
+                    /* 체험 → 유료가 같은 카탈로그로 이어지는 한 줄 — 두 카드가 별개 상품처럼 보이지 않게. */
+                    <span className="mt-2 inline-flex items-center gap-1.5 self-start rounded-full border border-brand-accent/30 bg-brand-accent/10 px-2.5 py-0.5 text-[11px] font-semibold text-brand-accent">
+                      <ArrowRight className="h-3 w-3" strokeWidth={2.5} />
+                      체험에서 그대로 이어집니다
+                    </span>
+                  )}
 
                   <div className="mt-[clamp(0.75rem,2vh,1.25rem)]">
                     {plan.popular ? (
